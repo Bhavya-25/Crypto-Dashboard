@@ -1,17 +1,12 @@
 
-import { BrowserRouter,Routes,Route } from "react-router-dom";
-import Dashboard from "./dashboard";
+import Routing from "./routing";
+import MuiTheme from "./theme";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Dashboard/>}/>
-
-        
-
-      </Routes>
-    </BrowserRouter>
+    <MuiTheme>
+      <Routing/>
+    </MuiTheme>
   );
 }
 
