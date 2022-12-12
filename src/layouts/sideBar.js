@@ -14,7 +14,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import Logo from './images/logo/Icon.svg'
 import Text from './images/logo/Text.png'
 import AbstractionImage from './images/logo/Abstraction.svg'
-import Button from '@mui/material/Button'
+
 const drawerWidth = 240;
 
 
@@ -23,6 +23,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
         '& .MuiDrawer-paper': {
             position: 'relative',
             whiteSpace: 'nowrap',
+            backgroundColor:'black',
             width: drawerWidth,
             transition: theme.transitions.create('width', {
                 easing: theme.transitions.easing.sharp,
@@ -52,10 +53,15 @@ export default function SideBar() {
         setOpen(!open);
     };
 
+    // const Header = styled('header')(({ theme }) => ({
+    //    background:(theme)=> theme.palette.primary.darker ,
+    // }));
+
+    // const BoxStyle = styled(CardActionArea)(({ theme }) => ({
+
     return (
         <ThemeProvider theme={mdTheme}>
-            <Box sx={{ display: 'flex', backgroundColor: '#ffffff'}}>
-
+            <Box >
                 <Drawer variant="permanent" open={open}>
                     <Toolbar
                         sx={{
@@ -68,21 +74,22 @@ export default function SideBar() {
                         <img src={Logo} alt =''></img>
                         <img src={Text} alt =''></img>
                         <IconButton onClick={toggleDrawer}>
-                            <ChevronLeftIcon />
+                            <ChevronLeftIcon style={{color:'blue'}}/>
                         </IconButton>
                     </Toolbar>
                     <Divider />
-                    <List component="nav">
+                    <List component="nav" style={{ color: "white" }}>
                         {mainListItems}
                     </List>
                     <Divider/>
                     <Card sx={{
                         width: '190px',
                         height: '180px',
-                        backgroundColor: 'grey',
+                        background: '#90CAF9',
                         borderRadius: '10px',
-                        opacity: '0.6',
+                        opacity: '0.08',
                         marginTop:'53px',
+                        marginLeft:'10px'
                         
                     }}>
                         
@@ -97,7 +104,7 @@ export default function SideBar() {
                       marginTop:'-223px',
                       opactity:'0,5',
                       zIndex:'1',
-                      backgroundColor:'grey'
+                    //   backgroundColor:'grey'
                     }}
                     alt=''
                     src={AbstractionImage}>

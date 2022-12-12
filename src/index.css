@@ -4,3 +4,8 @@
     box-sizing: border-box;
     font-family: 'Public Sans', sans-serif;
 }
+
+.css-cvumne-MuiDrawer-docked .MuiDrawer-paper{
+    background-color: transparent;
+   
+}

@@ -8,12 +8,12 @@ export default function DashboardLayout({pageContent}){
     return (
         <>
             <Stack direction="row">
-                    <Box sx={{bgcolor: 'primary.dark'}}>
+                    <Box sx={{background: (theme)=> theme.palette.bgGray.dark }}>
                         <SideBar/>
                     </Box>
 
                     <Box >
-                        <Box sx={{bgcolor: (theme)=> theme.palette.primary.darker }}>
+                        <Box sx={{bgcolor: (theme)=> theme.palette.gradients.primary }}>
                             <Header />
                         </Box>
                         <Box sx={{bgcolor: 'primary.main'}}>

@@ -15,55 +15,55 @@ import BuildIcon from '@mui/icons-material/Build';
 export const mainListItems = (
   <React.Fragment>
     <ListItemButton>
-      <ListItemIcon>
+      <ListItemIcon style={{ color: "white" }}>
         <AnalyticsIcon />
       </ListItemIcon>
       <ListItemText primary="Analysis" />
     </ListItemButton>
     <ListItemButton>
-      <ListItemIcon>
+      <ListItemIcon style={{ color: "white" }}>
         <Inventory2Icon />
       </ListItemIcon>
       <ListItemText primary="Sub Admin" />
     </ListItemButton>
     <ListItemButton>
-      <ListItemIcon>
+      <ListItemIcon style={{ color: "white" }}>
         <GroupIcon />
       </ListItemIcon>
       <ListItemText primary="Users" />
     </ListItemButton>
     <ListItemButton>
-      <ListItemIcon>
+      <ListItemIcon style={{ color: "white" }}>
         <CurrencyExchangeIcon />
       </ListItemIcon>
       <ListItemText primary="Token" />
     </ListItemButton>
     <ListItemButton>
-      <ListItemIcon>
+      <ListItemIcon style={{ color: "white" }}>
         <BuildIcon />
       </ListItemIcon>
       <ListItemText primary="KYC" />
     </ListItemButton>
     <ListItemButton>
-      <ListItemIcon>
+      <ListItemIcon style={{ color: "white" }}>
         <AccountBalanceWalletIcon />
       </ListItemIcon>
       <ListItemText primary="Wallet" />
     </ListItemButton>
     <ListItemButton>
-      <ListItemIcon>
+      <ListItemIcon style={{ color: "white" }}>
         <WithdrawalIcon />
       </ListItemIcon>
       <ListItemText primary="Withdrawals" />
     </ListItemButton>
     <ListItemButton>
-      <ListItemIcon>
+      <ListItemIcon style={{ color: "white" }}>
         <TextSnippetIcon />
       </ListItemIcon>
       <ListItemText primary="Reports" />
     </ListItemButton>
     <ListItemButton>
-      <ListItemIcon>
+      <ListItemIcon style={{ color: "white" }}>
         <HelpCenterIcon />
       </ListItemIcon>
       <ListItemText primary="Support" />
