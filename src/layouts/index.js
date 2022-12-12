@@ -1,5 +1,5 @@
 import DashboardLayout from "./dashboardLayout"
-const Layouts = (Component,layoutName) => (props)=>{
+const Layouts = (Component) => (props)=>{
     return (<DashboardLayout pageContent={<Component {...props}/>}/> )
 }
 export default Layouts;
