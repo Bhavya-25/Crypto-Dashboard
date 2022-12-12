@@ -1,3 +1,4 @@
+import { CssBaseline } from '@mui/material';
 import { createTheme , ThemeProvider } from '@mui/material/styles';
 import palette from './palette';
 
@@ -9,6 +10,7 @@ export default function MuiTheme({ children }) {
   });
   return (
     <ThemeProvider theme={theme}>
+      <CssBaseline/>
         {children}
     </ThemeProvider>
   );
