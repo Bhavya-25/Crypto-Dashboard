@@ -2,6 +2,8 @@
 import { Box,Stack } from "@mui/material";
 import SideBar from  './sideBar'
 // import  from '@mui/material/Stack';
+import Header from "../components/header";
+
 export default function DashboardLayout({pageContent}){
     return (
         <>
@@ -11,8 +13,8 @@ export default function DashboardLayout({pageContent}){
                     </Box>
 
                     <Box >
-                        <Box sx={{bgcolor: 'primary.light'}}>
-                            header
+                        <Box sx={{bgcolor: (theme)=> theme.palette.primary.darker }}>
+                            <Header />
                         </Box>
                         <Box sx={{bgcolor: 'primary.main'}}>
                             {pageContent}

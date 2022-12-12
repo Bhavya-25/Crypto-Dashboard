@@ -53,7 +53,7 @@ export default function SideBar() {
     };
 
     return (
-        <ThemeProvider >
+        <ThemeProvider theme={mdTheme}>
             <Box sx={{ display: 'flex', backgroundColor: '#ffffff'}}>
 
                 <Drawer variant="permanent" open={open}>
