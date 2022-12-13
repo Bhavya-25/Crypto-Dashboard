@@ -8,7 +8,7 @@ import logo from '../assets/images/Logo.png'
 import svg from '../assets/images/Svg.png'
 import { loginRequest } from "../Actions/authActions";
 
-export default function LoginLayout({ pageContent }) {
+export default function Login() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
