@@ -5,9 +5,11 @@ import palette from './palette';
 
 
 export default function MuiTheme({ children }) {
+
   const theme = createTheme({
-    palette: palette.light,
+    palette: palette.dark
   });
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline/>

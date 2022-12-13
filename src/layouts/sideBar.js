@@ -1,40 +1,32 @@
-import * as React from 'react';
-import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
-import MuiDrawer from '@mui/material/Drawer';
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-
-import CardMedia from '@mui/material/CardMedia';
-import { mainListItems } from './listItems';
-import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
+import { Box, List, Toolbar, Divider, IconButton, Card, Button } from '@mui/material';
+import MuiDrawer from '@mui/material/Drawer'
+import { styled } from '@mui/material/styles';
+import { useState } from 'react';
+import MainListItems from './listItems';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import Logo from './images/logo/Icon.svg'
 import Text from './images/logo/Text.png'
 import AbstractionImage from './images/logo/Abstraction.svg'
 
-const drawerWidth = 240;
-
+const drawerWidth=241
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
     ({ theme, open }) => ({
         '& .MuiDrawer-paper': {
             position: 'relative',
             whiteSpace: 'nowrap',
-            backgroundColor:'black',
-            width: drawerWidth,
+            width:drawerWidth,
             transition: theme.transitions.create('width', {
-                easing: theme.transitions.easing.sharp,
-                duration: theme.transitions.duration.enteringScreen,
+                easing: theme.transitions.easing.easeOut,
+                duration: '0.5s',
             }),
             boxSizing: 'border-box',
             ...(!open && {
                 overflowX: 'hidden',
+                height:'100vh',
                 transition: theme.transitions.create('width', {
-                    easing: theme.transitions.easing.sharp,
-                    duration: theme.transitions.duration.leavingScreen,
+                    easing: theme.transitions.easing.easeOut,
+                     duration: '0.5s',     
                 }),
                 width: theme.spacing(7),
                 [theme.breakpoints.up('sm')]: {
@@ -45,81 +37,100 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     }),
 );
 
-const mdTheme = createTheme();
+
 
 export default function SideBar() {
-    const [open, setOpen] = React.useState(true);
+    const [open, setOpen] = useState(true)
     const toggleDrawer = () => {
         setOpen(!open);
     };
-
-    // const Header = styled('header')(({ theme }) => ({
-    //    background:(theme)=> theme.palette.primary.darker ,
-    // }));
-
-    // const BoxStyle = styled(CardActionArea)(({ theme }) => ({
-
     return (
-        <ThemeProvider theme={mdTheme}>
-            <Box >
-                <Drawer variant="permanent" open={open}>
+
+        <Box sx={{ width: '100%', maxWidth: 241, height:'100%', maxHeight:1024}}>
+            <Drawer variant="permanent" open={open}>
+                <List sx={{
+                    ml: 2,
+                    mt: 3,
+                }}>
                     <Toolbar
                         sx={{
                             display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'flex-end',
-                            px: [1],
+                            justifyContent: 'space-between'
                         }}
                     >
-                        <img src={Logo} alt =''></img>
-                        <img src={Text} alt =''></img>
+                        <Box 
+                            sx={{
+                                mr:5,
+                                ...(!open && {
+                                    visibility:'hidden',
+                           opacity:0,
+                           position:'absolute',
+                           width:'0',
+                           transition: '1s'
+                                })
+                            }}>
+                            <img src={Logo} alt=''></img>
+                       
+                            <img src={Text} alt=''></img>
+                        </Box>
+
+
                         <IconButton onClick={toggleDrawer}>
-                            <ChevronLeftIcon style={{color:'blue'}}/>
+                            <ChevronLeftIcon />
                         </IconButton>
+                        <Divider />
                     </Toolbar>
-                    <Divider />
-                    <List component="nav" style={{ color: "white" }}>
-                        {mainListItems}
-                    </List>
-                    <Divider/>
-                    <Card sx={{
-                        width: '190px',
-                        height: '180px',
-                        background: '#90CAF9',
-                        borderRadius: '10px',
-                        opacity: '0.08',
-                        marginTop:'53px',
-                        marginLeft:'10px'
-                        
-                    }}>
-                        
-                        {/* <Button variant="contained">Upgrade Now</Button> */}
-
-                    </Card>
+                    <MainListItems />
+                </List>
+                <Card sx={{
+                    width: '187px',
+                    minHeight: '221px',
+                    background: '#90caf914',
+                    borderRadius: '10px',
+                    margin: '98px 25px',
+                    overflow: 'initial',
+                    ...(!open &&{
+                           visibility:'hidden',
+                           opacity:0,
+                        //    position:'absolute',
+                           width:'0',
+                           height:'0',
+                           transition: '1s',
+                           transitionDelay:'300ms',
+                    })
+                }}>
                     <Box
-                    component="img"
-                    sx={{
-                      height: 190,
-                      width: 211,
-                      marginTop:'-223px',
-                      opactity:'0,5',
-                      zIndex:'1',
-                    //   backgroundColor:'grey'
-                    }}
-                    alt=''
-                    src={AbstractionImage}>
-
+                        component="img"
+                        sx={{
+                            margin: '37px 29px',
+                            marginTop: '-37px',
+                        }}
+                        alt=''
+                        src={AbstractionImage}>
                     </Box>
-                 
-                </Drawer>
+                    <Box>
+                        <Button sx={{
+                            // padding: '6px 20px',
+                            backgroundColor: '#90CAF9',
+                            color: 'black',
+                            margin: '24px 27px',
+                            marginTop: '0',
+                            fontfamily: 'Inter',
+                            fontStyle: 'normal',
+                            fontWeight: '500',
+                            fontSize: '14px',
+                            lineHeight: '24px',
+                            maxWidth: '136px',
+                            width: '100%',
+                            '&:hover': {
+                                backgroundColor: '#42A5F5',
 
-
-
-
-
-            </Box>
-        </ThemeProvider>
+                            }
+                        }} varient='contained'
+                        >Upgrade Now</Button>
+                    </Box>
+                </Card>
+            </Drawer>
+        </Box>
     );
 }
-
-

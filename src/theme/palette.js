@@ -47,14 +47,14 @@ const palette = {
     error
   },
   dark: { 
+    mode: 'dark',
     primary,
     secondry,
-    mode: 'dark',
+    bgGray,
     gradients,
     activeColor,
     textG,
     error
-
   },
 };
 
