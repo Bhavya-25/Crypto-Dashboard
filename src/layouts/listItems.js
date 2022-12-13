@@ -1,4 +1,3 @@
-import * as React from 'react';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
@@ -12,10 +11,11 @@ import HelpCenterIcon from '@mui/icons-material/HelpCenter';
 import  AnalyticsIcon  from '@mui/icons-material/Analytics';
 import BuildIcon from '@mui/icons-material/Build';
 
-export const mainListItems = (
-  <React.Fragment>
-    <ListItemButton>
-      <ListItemIcon style={{ color: "white" }}>
+export  default function MainListItems(){  
+  return (
+  <>
+    <ListItemButton >
+      <ListItemIcon  style={{ color: "white" }}>
         <AnalyticsIcon />
       </ListItemIcon>
       <ListItemText primary="Analysis" />
@@ -68,8 +68,9 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Support" />
     </ListItemButton>
-  </React.Fragment>
-);
+  </>
+  )
+};
 
 // export const secondaryListItems = (
 //   <React.Fragment>
