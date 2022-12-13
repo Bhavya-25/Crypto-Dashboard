@@ -1,14 +1,14 @@
-import { BrowserRouter,Routes,Route } from "react-router-dom";
+import { Routes,Route,Navigate } from "react-router-dom";
 import Dashboard from "./dashboard";
 import LoginLayout from "./layouts/loginLayout";
 export default function Routing() {
-  return (
-    <BrowserRouter>
-      <Routes>
 
-        <Route path="/" element={<LoginLayout />}/>
-        <Route path="/dashboard" element={<Dashboard/>}/>
+  let session =  sessionStorage.getItem('token')
+  
+  return (
+      <Routes>
+        <Route exact path="/" element={ session === null ?<LoginLayout /> : <Navigate to="/dashboard" />}/>
+        <Route exact path="/dashboard" element={ <Dashboard/> }/>
       </Routes>
-    </BrowserRouter>
   );
 }

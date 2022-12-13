@@ -1,18 +1,29 @@
 
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { Box, Stack, Button, CssBaseline, TextField, FormControlLabel, Checkbox, Link, Paper, Grid, Typography, IconButton } from "@mui/material";
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import LoginIcon from '@mui/icons-material/Login';
 import logo from '../assets/images/Logo.png'
 import svg from '../assets/images/Svg.png'
+import { loginRequest } from "../Actions/authActions";
 
 export default function LoginLayout({ pageContent }) {
-  const handleSubmit = (event) => {
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handleSubmit = async(event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
+    let formData = {
+      username: data.get('email'),
       password: data.get('password'),
-    });
+      requestType : 'email'
+    }
+    let result = await dispatch(loginRequest(formData))
+    if(result.status === 200){
+      navigate('/dashboard');
+    }
   };
   return (
     <>

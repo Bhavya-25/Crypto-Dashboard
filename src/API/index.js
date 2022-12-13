@@ -9,10 +9,12 @@ const API = axios.create(
     })
 
 const auth = `${sessionStorage.getItem('token')}`;
-console.log(auth)
 API.defaults.headers.common['Authorization'] = auth;
 
 export const apiBaseUrl = baseurl;
 /** user Auth */
 
 export const loginRequestApi = (formData) => API.post('/user/login', formData)
+
+
+export const userListRequestApi = () => API.get('/admin/user/all')

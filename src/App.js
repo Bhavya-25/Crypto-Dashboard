@@ -5,7 +5,7 @@ import MuiTheme from "./theme";
 function App() {
   return (
     <MuiTheme>
-      <Routing/>
+      <Routing />
     </MuiTheme>
   );
 }
