@@ -2,8 +2,10 @@ import React, {useEffect, useState} from "react";
 import HighchartsReact from "highcharts-react-official";
 
 import {Card} from '@mui/material'
-import Highcharts from 'highcharts';
-// require('highcharts/modules/exporting')(Highcharts); 
+import Highcharts from 'highcharts/highstock';
+import variablePie from "highcharts/modules/variable-pie.js";
+
+variablePie(Highcharts);
 
 
 
@@ -15,11 +17,6 @@ const Revenue = () => {
             },
             title: {
                 text: 'Monthly Average Temperature'
-            },
-            subtitle: {
-                text: 'Source: ' +
-                    '<a href="https://en.wikipedia.org/wiki/List_of_cities_by_average_temperature" ' +
-                    'target="_blank">Wikipedia.com</a>'
             },
             xAxis: {
                 categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
@@ -58,9 +55,6 @@ const Revenue = () => {
                 },
                 data: [5.2, 5.7, 8.7, 13.9, 18.2, 21.4, 25.0, {
                     y: 26.4,
-                    marker: {
-                        symbol: 'url(https://www.highcharts.com/samples/graphics/sun.png)'
-                    },
                     accessibility: {
                         description: 'Sunny symbol, this is the warmest point in the chart.'
                     }
@@ -73,9 +67,6 @@ const Revenue = () => {
                 },
                 data: [{
                     y: 1.5,
-                    marker: {
-                        symbol: 'url(https://www.highcharts.com/samples/graphics/snow.png)'
-                    },
                     accessibility: {
                         description: 'Snowy symbol, this is the coldest point in the chart.'
                     }

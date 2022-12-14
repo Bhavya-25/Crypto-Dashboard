@@ -10,7 +10,7 @@ const Dashboard = () => {
     return (
           <>
           <MDBCard />
-          {/* <Revenue /> */}
+          <Revenue />
           </>
 
     );
