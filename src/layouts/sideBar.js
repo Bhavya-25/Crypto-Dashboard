@@ -4,9 +4,9 @@ import { styled } from '@mui/material/styles';
 import { useState } from 'react';
 import MainListItems from './listItems';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import Logo from './images/logo/Icon.svg'
-import Text from './images/logo/Text.png'
-import AbstractionImage from './images/logo/Abstraction.svg'
+import Logo from '../assets/images/Icon.svg'
+import Text from '../assets/images/Text.png'
+import AbstractionImage from '../assets/images/Abstraction.svg'
 
 const drawerWidth=241
 
@@ -23,6 +23,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
             boxSizing: 'border-box',
             ...(!open && {
                 overflowX: 'hidden',
+                marginLeft:0,
                 height:'100vh',
                 transition: theme.transitions.create('width', {
                     easing: theme.transitions.easing.easeOut,
@@ -90,13 +91,14 @@ export default function SideBar() {
                     margin: '98px 25px',
                     overflow: 'initial',
                     ...(!open &&{
-                           visibility:'hidden',
-                           opacity:0,
+                        //    visibility:'hidden',
+                        //    opacity:0,
                         //    position:'absolute',
-                           width:'0',
-                           height:'0',
-                           transition: '1s',
-                           transitionDelay:'300ms',
+                           display:'none',
+                        //    width:'0',
+                        //    height:'0',
+                        //    transition: '0.05s',
+                        //    transitionDelay:'300ms',
                     })
                 }}>
                     <Box

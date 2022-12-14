@@ -11,11 +11,11 @@ export default function DashboardLayout({pageContent}){
                         <SideBar/>
                     </Box>
 
-                    <Box >
+                    <Box sx={{ flexGrow: 1 }}>
                         <Box sx={{bgcolor: (theme)=> theme.palette.gradients.primary }}>
                             <Header />
                         </Box>
-                        <Box sx={{bgcolor: 'primary.main'}}>
+                        <Box sx={{background: (theme)=> theme.palette.bgGray.dark,p:3,maxWidth: "1140px" }}>
                             {pageContent}
                         </Box>
                     </Box>
