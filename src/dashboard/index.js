@@ -8,19 +8,23 @@ import { Box, Stack, Card, IconButton, CardHeader, CardActions, Typography, Grid
 
 const styles = {
     card: {
-        background: 'transparent'
+        background: 'transparent',
+        width: "25%"
+        
     },
     stack: {
         border: '1px solid',
         borderRadius: '10px',
+       
     },
 
 };
 
 const Dashboard = () => {
     return (
-
-        <div>
+        <div style={{
+            padding:'48px 30px'
+        }}>
 
             <Stack sx={{ flexGrow: 1 }} container
                 direction="row"
@@ -29,13 +33,14 @@ const Dashboard = () => {
                         height: "90px",
                         position: 'relative',
                         alignSelf: "center"
+                        
                     }}
                 />}
                 spacing={1}
                 style={styles.stack}
             >
                 {[0, 1, 2, 3].map((value) => (
-                    <Stack item after style={styles.sideLine} xs={3} sx={{ width: "25%" }} >
+                    // <Stack item after style={styles.sideLine} xs={3} sx={{ width: "25%" }} >
                         <Card key={value} item style={styles.card}  >
 
                             <CardHeader
@@ -87,7 +92,7 @@ const Dashboard = () => {
 
                         </Card>
 
-                    </Stack>
+                    // </Stack>
 
                 ))}
 

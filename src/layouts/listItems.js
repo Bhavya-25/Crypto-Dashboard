@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
@@ -14,56 +15,56 @@ import BuildIcon from '@mui/icons-material/Build';
 export  default function MainListItems(){  
   return (
   <>
-    <ListItemButton selected>
-      <ListItemIcon  style={{ color: "white" }}>
+    <ListItemButton component={Link} to='/dashboard'>
+      <ListItemIcon  sx={{ color: "white" }}>
         <AnalyticsIcon />
       </ListItemIcon>
       <ListItemText primary="Analysis" />
     </ListItemButton>
     <ListItemButton>
-      <ListItemIcon style={{ color: "white" }}>
+      <ListItemIcon sx={{ color: "white" }}>
         <Inventory2Icon />
       </ListItemIcon>
       <ListItemText primary="Sub Admin" />
     </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon style={{ color: "white" }}>
+    <ListItemButton component={Link} to='/user'>
+      <ListItemIcon sx={{ color: "white" }}>
         <GroupIcon />
       </ListItemIcon>
       <ListItemText primary="Users" />
     </ListItemButton>
     <ListItemButton>
-      <ListItemIcon style={{ color: "white" }}>
+      <ListItemIcon sx={{ color: "white" }}>
         <CurrencyExchangeIcon />
       </ListItemIcon>
       <ListItemText primary="Token" />
     </ListItemButton>
     <ListItemButton>
-      <ListItemIcon style={{ color: "white" }}>
+      <ListItemIcon sx={{ color: "white" }}>
         <BuildIcon />
       </ListItemIcon>
       <ListItemText primary="KYC" />
     </ListItemButton>
     <ListItemButton>
-      <ListItemIcon style={{ color: "white" }}>
+      <ListItemIcon sx={{ color: "white" }}>
         <AccountBalanceWalletIcon />
       </ListItemIcon>
       <ListItemText primary="Wallet" />
     </ListItemButton>
     <ListItemButton>
-      <ListItemIcon style={{ color: "white" }}>
+      <ListItemIcon sx={{ color: "white" }}>
         <WithdrawalIcon />
       </ListItemIcon>
       <ListItemText primary="Withdrawals" />
     </ListItemButton>
     <ListItemButton>
-      <ListItemIcon style={{ color: "white" }}>
+      <ListItemIcon sx={{ color: "white" }}>
         <TextSnippetIcon />
       </ListItemIcon>
       <ListItemText primary="Reports" />
     </ListItemButton>
     <ListItemButton>
-      <ListItemIcon style={{ color: "white" }}>
+      <ListItemIcon sx={{ color: "white" }}>
         <HelpCenterIcon />
       </ListItemIcon>
       <ListItemText primary="Support" />
