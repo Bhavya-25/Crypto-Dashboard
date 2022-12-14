@@ -12,7 +12,8 @@ import { alpha } from '@mui/material/styles';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { visuallyHidden } from '@mui/utils';
 import Layouts from "../layouts";
-import Donut from "react-donut";
+import DougnutChart from "../components/dougnutChart";
+import LineChart from "../components/lineChart";
 
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
@@ -204,6 +205,8 @@ EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
 };
 
+
+
 const Users = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -276,6 +279,7 @@ const Users = () => {
     }
 
     getUserList();
+
   }, [dispatch, navigate]);
 
   const bull = (
@@ -545,42 +549,13 @@ const Users = () => {
       <Stack direction="row" sx={{ justifyContent: 'space-between', padding: '0px 24px' }}>
         <Card sx={{ minWidth: '30%', textAlign: 'center' }}>
           <CardContent>
-            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-              Word of the Day
-            </Typography>
-            <Typography variant="h5" component="div">
-              be{bull}nev{bull}o{bull}lent
-            </Typography>
-            <Typography sx={{ mb: 1.5 }} color="text.secondary">
-              adjective
-            </Typography>
-            <Typography variant="body2">
-              well meaning and kindly.
-              <br />
-              {'"a benevolent smile"'}
-            </Typography>
+            <LineChart />
           </CardContent>
 
         </Card>
         <Card sx={{ minWidth: '30%', textAlign: 'center' }}>
           <CardContent>
-            <Donut
-              chartData={[
-                { name: "Black Panther", data: 30 },
-                { name: "Avengers", data: 50 },
-                { name: "Antman", data: 20 }
-              ]}
-              showChartLabel={false}
-              chartWidth={600}
-              chartHeight={400}
-              title="Visitor Distribution"
-              chartThemeConfig={{
-                series: {
-                  colors: ["#ffe0bd", "#670303", "#6cbfce"]
-                }
-              }}
-              legendAlignment="right"
-            />
+              <DougnutChart />
           </CardContent>
 
         </Card>
