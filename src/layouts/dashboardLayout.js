@@ -7,19 +7,18 @@ export default function DashboardLayout({pageContent}){
     return (
         <>
             <Stack direction="row">
-                    <Box sx={{background: (theme)=> theme.palette.bgGray.dark }}>
-                        <SideBar/>
-                    </Box>
+                <Box sx={{background: (theme)=> theme.palette.bgGray.dark , width: '241px'  }}>
+                    <SideBar/>
+                </Box>
 
-                    <Box >
-                        <Box sx={{bgcolor: (theme)=> theme.palette.gradients.primary }}>
-                            <Header />
-                        </Box>
-                        <Box sx={{bgcolor: 'primary.main'}}>
-                            {pageContent}
-                        </Box>
+                <Box sx={{width: 'calc(100% - 241px)'}}>
+                    <Box sx={{bgcolor: (theme)=> theme.palette.gradients.primary  }}>
+                        <Header />
                     </Box>
-                    
+                    <Box sx={{bgcolor: 'primary.main'}}>
+                        {pageContent}
+                    </Box>
+                </Box>
             </Stack>
         </>
     )

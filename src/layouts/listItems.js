@@ -15,7 +15,7 @@ export  default function MainListItems(){
   return (
   <>
     <ListItemButton >
-      <ListItemIcon  style={{ color: "white" }}>
+      <ListItemIcon  >
         <AnalyticsIcon />
       </ListItemIcon>
       <ListItemText primary="Analysis" />
