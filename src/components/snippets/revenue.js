@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
-import HighchartsReact from "highcharts-react-official";
+// import HighchartsReact from "highcharts-react-official";
 
 import {Card} from '@mui/material'
-import Highcharts from 'highcharts/highstock';
+import Highcharts from 'highcharts';
 import variablePie from "highcharts/modules/variable-pie.js";
 
 variablePie(Highcharts);

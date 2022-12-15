@@ -16,8 +16,8 @@ const DougnutChart=()=>{
         text: 'Vistor Distribution'
       },
       legend: {
-        align: "right",
-        verticalAlign: "top",
+        align: "top",
+        verticalAlign: "right",
         layout: "vertical",
         x: 5,
         y: 100,
