@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Card, Box, Grid } from '@mui/material'
+import Highcharts from 'highcharts/highstock';
+import variablePie from "highcharts/modules/variable-pie.js";
 import LineChart from "../lineChart";
 import DougnutChart from '../dougnutChart'
+import TableChart from './tableChart'
 
-const Revenue = () => {
+variablePie(Highcharts);
+
+const MarketOverview = () => {
     return (
         <div
         style={{
@@ -18,12 +23,12 @@ const Revenue = () => {
                 }}>
                 <Card
                 >
-                     <LineChart/>
+                     <TableChart/>
                    </Card>
             </Grid>
             <Grid item xs={4}>
                 <Card>
-                <DougnutChart id="container"/>
+                <TableChart/>
                 </Card>
             </Grid>
         </Grid>
@@ -33,4 +38,4 @@ const Revenue = () => {
 
 };
 
-export default Revenue;
+export default MarketOverview;
