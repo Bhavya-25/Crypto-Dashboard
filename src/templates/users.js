@@ -4,16 +4,21 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { userListRequest } from "../Actions/userActions";
 import {
-  Box, Stack, Typography, Table, TableBody, TableCell, TablePagination,
-  TableContainer, TableHead, TableRow, Paper, Checkbox
-  , IconButton, Tooltip, Toolbar, TableSortLabel, Card, CardContent
+  Box, Stack, Typography, Table, TableBody, TableCell, TablePagination, Button,
+  TableContainer, TableHead, TableRow, Paper, Checkbox,
+  IconButton, Tooltip, Toolbar, TableSortLabel, Card, CardContent, Slider, Grid, Divider,
+  ListItem, ListItemText
 } from "@mui/material";
 import { alpha } from '@mui/material/styles';
 import DeleteIcon from '@mui/icons-material/Delete';
+import GroupIcon from '@mui/icons-material/Group';
+import PersonIcon from '@mui/icons-material/Person';
+import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 import { visuallyHidden } from '@mui/utils';
 import Layouts from "../layouts";
 import DougnutChart from "../components/dougnutChart";
-import LineChart from "../components/lineChart";
+import MapChart from "../components/mapChart";
+
 
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
@@ -282,19 +287,75 @@ const Users = () => {
 
   }, [dispatch, navigate]);
 
-  const bull = (
-    <Box
-      component="span"
-      sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
-    >
-      •
-    </Box>
-  );
-
   return (
     <>
-      <Stack direction="row" sx={{ justifyContent: 'space-between', padding: '0px 24px' }}>
-        <Box sx={{ width: '49%' }}>
+      <Grid container spacing={2} sx={{ padding: '24px 24px' }}>
+        <Grid item xs={12} sm={6} md={4}>
+          <Card sx={{ minWidth: '30%', textAlign: 'center', background: '#90CAF9' }}>
+            <CardContent>
+              <Box sx={{ marginBottom: '18px' }}>
+                <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
+                  <Button sx={{ background: '#42A5F5', borderRadius: 0 }}><IconButton>
+                    <GroupIcon />
+                  </IconButton></Button>
+                  <Typography>All Users</Typography>
+                </Stack>
+              </Box>
+              <Box>
+                <Typography sx={{ textAlign: 'start' }}>2,19,51200</Typography>
+              </Box>
+              <Box>
+                <Typography sx={{ textAlign: 'start', fontSize: '14px' }}>Compared to 1,20,15500 last month</Typography>
+              </Box>
+            </CardContent>
+          </Card>
+        </Grid>
+        <Grid item xs={12} sm={6} md={4}>
+          <Card sx={{ minWidth: '30%', textAlign: 'center', background: '#E57373' }}>
+            <CardContent>
+              <Box sx={{ marginBottom: '18px' }}>
+                <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
+                  <Button sx={{ background: '#42A5F5', borderRadius: 0 }}><IconButton>
+                    <PersonIcon />
+                  </IconButton></Button>
+
+                  <Typography>Active Users</Typography>
+                </Stack>
+              </Box>
+              <Box>
+                <Typography sx={{ textAlign: 'start' }}>2,19,51200</Typography>
+              </Box>
+              <Box>
+                <Typography sx={{ textAlign: 'start', fontSize: '14px' }}>Compared to 1,20,15500 last month</Typography>
+              </Box>
+            </CardContent>
+          </Card>
+        </Grid>
+        <Grid item xs={12} sm={6} md={4}>
+          <Card sx={{ minWidth: '30%', textAlign: 'center', background: '#080F1D' }}>
+            <CardContent>
+              <Box sx={{ marginBottom: '18px' }}>
+                <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
+                  <Button sx={{ background: '#42A5F5', borderRadius: 0 }}><IconButton>
+                    <CurrencyExchangeIcon />
+                  </IconButton></Button>
+
+                  <Typography>Top Holders</Typography>
+                </Stack>
+              </Box>
+              <Box>
+                <Typography sx={{ textAlign: 'start' }}>2,19,51200</Typography>
+              </Box>
+              <Box>
+                <Typography sx={{ textAlign: 'start', fontSize: '14px' }}>Compared to 1,20,15500 last month</Typography>
+              </Box>
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
+
+      <Grid container spacing={2} sx={{ padding: '0px 24px' }}>
+        <Grid item xs={12} sm={6}>
           <Paper sx={{ width: '100%', mb: 2 }}>
             <EnhancedTableToolbar numSelected={selected.length} />
             <TableContainer>
@@ -376,8 +437,8 @@ const Users = () => {
               onRowsPerPageChange={handleChangeRowsPerPage}
             />
           </Paper>
-        </Box>
-        <Box sx={{ width: '49%' }}>
+        </Grid>
+        <Grid item xs={12} sm={6}>
           <Paper sx={{ width: '100%', mb: 2 }}>
             <EnhancedTableToolbar numSelected={selected.length} />
             <TableContainer>
@@ -459,10 +520,10 @@ const Users = () => {
               onRowsPerPageChange={handleChangeRowsPerPage}
             />
           </Paper>
-        </Box>
-      </Stack>
-      <Stack sx={{ padding: '0px 24px' }}>
-        <Box>
+        </Grid>
+      </Grid>
+      <Grid container spacing={2} sx={{ padding: '0px 24px' }}>
+        <Grid item xs={12}>
           <Paper sx={{ width: '100%', mb: 2 }}>
             <EnhancedTableToolbar numSelected={selected.length} />
             <TableContainer>
@@ -544,41 +605,87 @@ const Users = () => {
               onRowsPerPageChange={handleChangeRowsPerPage}
             />
           </Paper>
-        </Box>
-      </Stack>
-      <Stack direction="row" sx={{ justifyContent: 'space-between', padding: '0px 24px' }}>
-        <Card sx={{ minWidth: '30%', textAlign: 'center' }}>
-          <CardContent>
-            <LineChart />
-          </CardContent>
+        </Grid>
+      </Grid>
 
-        </Card>
-        <Card sx={{ minWidth: '30%', textAlign: 'center' }}>
-          <CardContent>
+      <Grid container spacing={2} sx={{ padding: '0px 24px' }}>
+        <Grid item xs={12} sm={6} md={4}>
+          <Card sx={{ minWidth: '30%', textAlign: 'center' }}>
+            <CardContent>
+              <MapChart />
+            </CardContent>
+          </Card>
+        </Grid>
+        <Grid item xs={12} sm={6} md={4}>
+          <Card sx={{ minWidth: '30%', textAlign: 'center' }}>
+            <CardContent>
               <DougnutChart />
-          </CardContent>
+            </CardContent>
 
-        </Card>
-        <Card sx={{ minWidth: '30%', textAlign: 'center' }}>
-          <CardContent>
-            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-              Word of the Day
-            </Typography>
-            <Typography variant="h5" component="div">
-              be{bull}nev{bull}o{bull}lent
-            </Typography>
-            <Typography sx={{ mb: 1.5 }} color="text.secondary">
-              adjective
-            </Typography>
-            <Typography variant="body2">
-              well meaning and kindly.
-              <br />
-              {'"a benevolent smile"'}
-            </Typography>
-          </CardContent>
+          </Card>
+        </Grid>
+        <Grid item xs={12} sm={6} md={4}>
+          <Card sx={{ minWidth: '30%', textAlign: 'center' }}>
+            <CardContent>
+              <Stack direction="column">
+                <Box>
+                  <Typography>Traffice Resources</Typography>
+                </Box>
+                <Box>
+                  <Grid container>
+                    <Grid item xs>
+                      <ListItem>
+                        <ListItemText primary="Total Users" secondary="5,000" />
+                      </ListItem>
+                    </Grid>
+                    <Divider orientation="vertical" flexItem>
+                    </Divider>
+                    <Grid item xs>
+                      <ListItem>
+                        <ListItemText primary="New Users" secondary="10" />
+                      </ListItem>
+                    </Grid>
+                  </Grid>
+                </Box>
+                <Box>
+                  <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
+                    <Typography sx={{ textAlign: 'start' }}> From Direct</Typography>
+                    <Typography sx={{ textAlign: 'end' }}> 50%</Typography>
+                  </Stack>
 
-        </Card>
-      </Stack>
+                  <Slider defaultValue={50} aria-label="Default" valueLabelDisplay="auto" />
+                </Box>
+                <Box>
+
+                  <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
+                    <Typography sx={{ textAlign: 'start' }}>Affiliate</Typography>
+                    <Typography sx={{ textAlign: 'end' }}> 50%</Typography>
+                  </Stack>
+                  <Slider defaultValue={50} aria-label="Default" valueLabelDisplay="auto" />
+                </Box>
+                <Box>
+
+                  <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
+                    <Typography sx={{ textAlign: 'start' }}>Referral</Typography>
+                    <Typography sx={{ textAlign: 'end' }}> 50%</Typography>
+                  </Stack>
+                  <Slider defaultValue={50} aria-label="Default" valueLabelDisplay="auto" />
+                </Box>
+                <Box>
+
+                  <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
+                    <Typography sx={{ textAlign: 'start' }}>Marketing</Typography>
+                    <Typography sx={{ textAlign: 'end' }}> 50%</Typography>
+                  </Stack>
+                  <Slider defaultValue={50} aria-label="Default" valueLabelDisplay="auto" />
+                </Box>
+              </Stack>
+
+            </CardContent>
+
+          </Card>
+        </Grid>
+      </Grid>
     </>
   )
 }
