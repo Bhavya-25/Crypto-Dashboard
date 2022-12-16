@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Card, Box, Grid } from '@mui/material'
+import React from "react";
+import { Card, Grid } from '@mui/material'
 import LineChart from "../lineChart";
 import DougnutChart from '../dougnutChart'
 

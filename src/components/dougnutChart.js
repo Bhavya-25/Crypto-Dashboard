@@ -54,7 +54,6 @@ const DougnutChart=(props)=>{
         borderWidth: 20,
         borderColor: null,
         slicedOffset: 2,
-        // center: [205, 115],
         dataLabels: {
           connectorWidth: 0
       },

@@ -1,29 +1,13 @@
 import * as React from 'react';
 import Paper from '@mui/material/Paper';
-import { Table} from '@mui/material';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-// import TablePagination from '@mui/material/TablePagination';
-import TableRow from '@mui/material/TableRow';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import MarketData from './marketData';
-
+import svgimg from '../../assets/images/graph.svg'
+const GraphImg= 'graph.svg';
 
 export default function TableChart() {
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
-
+console.log(`../../assets/images/${MarketData[1].rows[0].graph}`)
   return (
     <Paper sx={{ width: '100%' }}>
       <TableContainer sx={{ maxHeight: 440 }}>
@@ -52,7 +36,6 @@ export default function TableChart() {
           </TableHead>
           <TableBody>
             {MarketData[1].rows
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
                 return (
                   <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
@@ -61,8 +44,7 @@ export default function TableChart() {
                       console.log('====value', value)
                       return (
                         <TableCell key={column.id} align={column.align}>
-                          {value}
-
+                          {value !== 'image' ? value : <img src={svgimg} alt='' />  }
                         </TableCell>
                       );
                     })}
@@ -72,15 +54,6 @@ export default function TableChart() {
           </TableBody>
         </Table>
       </TableContainer>
-      {/* <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
-        component="div"
-        count={MarketData.rows.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      /> */}
     </Paper>
   );
 }

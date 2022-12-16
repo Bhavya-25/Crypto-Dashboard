@@ -1,12 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { Card, Box, Grid, CardContent } from '@mui/material'
-import Highcharts from 'highcharts/highstock';
-import variablePie from "highcharts/modules/variable-pie.js";
-
+import React from "react";
+import { Card, Grid } from '@mui/material'
 import DougnutChart from '../dougnutChart'
 import TableChart from './tableChart'
 
-variablePie(Highcharts);
 
 const RevenueToken = () => {
     return (
@@ -30,20 +26,20 @@ const RevenueToken = () => {
 
 
                     <Grid container spacing={1} >
-                        
+
                         <Grid item xs={4}>
                             <DougnutChart id="container5" />
                         </Grid>
 
                         <Grid item xs={4}>
-                             <DougnutChart id="container6" />
+                            <DougnutChart id="container6" />
                         </Grid>
                         <Grid item xs={4}>
                             <DougnutChart id="container7" />
                         </Grid>
 
                     </Grid>
-                    
+
                 </Grid>
             </Grid>
         </div>

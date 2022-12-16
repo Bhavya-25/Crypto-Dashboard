@@ -1,21 +1,20 @@
 import { useEffect } from 'react';
 import Highcharts from 'highcharts/highstock'
 import variablePie from "highcharts/modules/variable-pie.js";
-import { TurnedIn } from '@mui/icons-material';
 
 variablePie(Highcharts);
 
-const styles = {
-  card: {
-      background: 'transparent',
-      width: "25%",      
-  },
-  stack: {
-      border: '1px solid',
-      borderRadius: '10px ',   
-  },
+// const styles = {
+//   card: {
+//       background: 'transparent',
+//       width: "25%",      
+//   },
+//   stack: {
+//       border: '1px solid',
+//       borderRadius: '10px ',   
+//   },
 
-};
+// };
 const LineChart=()=>{
 
   useEffect(()=>{
