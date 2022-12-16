@@ -86,7 +86,7 @@ const DougnutChart=(props)=>{
         }]
       }]
     });
-  },[])
+  },[props.id])
   
   return(
     <div id={props.id}></div>
