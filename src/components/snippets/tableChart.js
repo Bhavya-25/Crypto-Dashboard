@@ -4,10 +4,8 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from 
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import MarketData from './marketData';
 import svgimg from '../../assets/images/graph.svg'
-const GraphImg= 'graph.svg';
 
 export default function TableChart() {
-console.log(`../../assets/images/${MarketData[1].rows[0].graph}`)
   return (
     <Paper sx={{ width: '100%' }}>
       <TableContainer sx={{ maxHeight: 440 }}>
@@ -23,7 +21,7 @@ console.log(`../../assets/images/${MarketData[1].rows[0].graph}`)
               </TableCell>
             </TableRow>
             <TableRow>
-              {MarketData[0].columns.map((column) => (
+              {MarketData.columns.map((column) => (
                 <TableCell
                   key={column.id}
                   align={column.align}
@@ -35,11 +33,11 @@ console.log(`../../assets/images/${MarketData[1].rows[0].graph}`)
             </TableRow>
           </TableHead>
           <TableBody>
-            {MarketData[1].rows
+            {MarketData.rows
               .map((row) => {
                 return (
                   <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
-                    {MarketData[0].columns.map((column) => {
+                    {MarketData.columns.map((column) => {
                       const value = row[column.id];
                       console.log('====value', value)
                       return (

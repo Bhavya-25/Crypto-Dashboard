@@ -1,7 +1,7 @@
 function createData(token, price, volume,twentyFourh,graph) {
   return { token, price,volume, twentyFourh,graph };
 }
-const MarketData=[{
+const MarketData={
   columns:[
     { id: 'token', label: 'Token' },
     { id: 'price', label: 'Price'},
@@ -19,8 +19,8 @@ const MarketData=[{
       align: 'right',
     }, 
   ],
-},
-{
+
+
   rows:[
     createData('BTC', '$475.22M','$779.58M', '+5.3', 'image'),
     createData('BTC', '$475.22M', '$779.58M', '+5.3','image'),
@@ -38,7 +38,7 @@ const MarketData=[{
   ]
 
 }   
-]
+
 export default MarketData
 
 
