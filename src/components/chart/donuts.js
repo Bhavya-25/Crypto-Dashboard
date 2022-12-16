@@ -12,7 +12,7 @@ const RevenueToken = () => {
 
         <Grid container spacing={6} columns={12}
       >
-            <Grid item xs={6} sx={{
+            <Grid item  xs={6} sx={{
                     border:'1px solid transparent',
                     borderRadius:'10px'
                 }}>

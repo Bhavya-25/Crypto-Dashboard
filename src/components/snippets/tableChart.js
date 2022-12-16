@@ -8,12 +8,14 @@ import svgimg from '../../assets/images/graph.svg'
 export default function TableChart() {
   return (
     <Paper sx={{ width: '100%' }}>
-      <TableContainer sx={{ maxHeight: 440 }}>
+      <TableContainer sx={{ maxHeight: 430, overflowX:'hidden', justifyContent:'space-between', fontSize:'20px'  }}>
         
         <Table stickyHeader aria-label="sticky table">
-          <TableHead>
+          <TableHead >
           <TableRow>
-              <TableCell align="left" colSpan={4}>
+              <TableCell align="left" colSpan={4} sx={{
+            fontSize:'20px'
+          }}>
               Market Overview
               </TableCell>
               <TableCell align="right" colSpan={4}>
@@ -25,7 +27,8 @@ export default function TableChart() {
                 <TableCell
                   key={column.id}
                   align={column.align}
-                  style={{ top: 53 }}
+                  style={{ top: 50, fontSize:'12px'
+                   }}
                 >
                   {column.label}
                 </TableCell>
@@ -39,9 +42,8 @@ export default function TableChart() {
                   <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
                     {MarketData.columns.map((column) => {
                       const value = row[column.id];
-                      console.log('====value', value)
                       return (
-                        <TableCell key={column.id} align={column.align}>
+                        <TableCell key={column.id} align={column.align} sx={{fontSize:'14px'}}>
                           {value !== 'image' ? value : <img src={svgimg} alt='' />  }
                         </TableCell>
                       );
