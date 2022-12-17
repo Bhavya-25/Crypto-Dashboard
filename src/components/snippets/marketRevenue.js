@@ -22,8 +22,8 @@ const MarketOverview = () => {
                    </Card>
             </Grid>
             <Grid item xs={4}>
-                <Card>
-                <TableChart/>
+                <Card >
+                <TableChart />
                 </Card>
             </Grid>
         </Grid>

@@ -11,18 +11,24 @@ const DougnutChart=(props)=>{
     Highcharts.chart(props.id, {
       chart: {
         type: 'variablepie',
-        
+        margin: 0,
+        spacingTop: 0,
+        spacingBottom: 0,
+        spacingLeft: 0,
+        spacingRight: 0,      
       },
       title: {
-        text: 'Revenue Resources'
+        text: 'Revenue Resources',
+        x:20,
+       y:40,
+       margin: 0
       },
       legend: {
         align: "middle",
-        // verticalAlign: "bottom",
         layout: "vertical",
         useHTML: true,
-         x:50,
-         y:-20,
+         x:70,
+         y:-10,
         labelFormatter: function() {
             return '<div style="text-align: left">' + this.name +' ' + this.y + '</div>';
         },
@@ -45,7 +51,7 @@ const DougnutChart=(props)=>{
             enabled: false
           },
           showInLegend: true,
-          size: 85
+          size: 155,
         }
       },
       series: [{
@@ -58,7 +64,7 @@ const DougnutChart=(props)=>{
           connectorWidth: 0
       },
         zMin: 1,
-        y:-100,
+        y:-150,
         name: 'countries',
         data: [{
           name: 'Spain',

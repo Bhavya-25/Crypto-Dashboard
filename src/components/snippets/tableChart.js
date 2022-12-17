@@ -213,22 +213,34 @@ const TableChart = (props) => {
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - (props !== undefined && props.data !== undefined && props.data.length)) : 0;
 
   return (
-    <Paper sx={{ width: '100%', mb: 2, padding: '0px 20px' }}>
-      <EnhancedTableToolbar numSelected={selected.length} />
-      <TableContainer>
-        <Table
-          sx={{ minWidth: 750 }}
-          aria-labelledby="tableTitle"
-          size={'medium'}
-        >
-          <EnhancedTableHead
-            numSelected={selected.length}
-            order={order}
-            orderBy={orderBy}
-            onSelectAllClick={handleSelectAllClick}
-            onRequestSort={handleRequestSort}
-            rowCount={props !== undefined && props.data !== undefined && props.data.length}
-          />
+    <Paper sx={{ width: '100%' }}>
+      <TableContainer sx={{ maxHeight: 430, overflowX:'hidden', justifyContent:'space-between', fontSize:'20px'  }}>
+        
+        <Table stickyHeader aria-label="sticky table">
+          <TableHead >
+          <TableRow>
+              <TableCell align="left" colSpan={4} sx={{
+            fontSize:'20px'
+          }}>
+              Market Overview
+              </TableCell>
+              <TableCell align="right" colSpan={4}>
+              <MoreVertIcon />
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              {MarketData.columns.map((column) => (
+                <TableCell
+                  key={column.id}
+                  align={column.align}
+                  style={{ top: 50, fontSize:'12px'
+                   }}
+                >
+                  {column.label}
+                </TableCell>
+              ))}
+            </TableRow>
+          </TableHead>
           <TableBody>
             {/* if you don't need to support IE11, you can replace the `stableSort` call with:
                  rows.sort(getComparator(order, orderBy)).slice() */}
@@ -239,44 +251,15 @@ const TableChart = (props) => {
                 const labelId = `enhanced-table-checkbox-${index}`;
 
                 return (
-                  <TableRow
-                    hover
-                    role="checkbox"
-                    aria-checked={isItemSelected}
-                    tabIndex={-1}
-                    key={row.userid}
-                    selected={isItemSelected}
-                  >
-                    {props.checkbox === true &&
-                      <TableCell padding="checkbox">
-                      <Checkbox
-                        color="primary"
-                        checked={isItemSelected}
-                        inputProps={{
-                          'aria-labelledby': labelId,
-                        }}
-                      />
-                    </TableCell>
-                    }
-                    
-                    {props !== undefined && props.columns !== undefined && props.columns.map((headCell) => (
-                      
-                      <TableCell key={headCell.id} 
-                        align={headCell.numeric ? 'right' : 'left'} 
-                        padding={headCell.disablePadding ? 'none' : 'normal'}>
-                          { headCell.id === 'created' ? row[headCell.id] : headCell.id === 'isAction' ? 
-                            <Button
-                              variant="contained"
-                              color={row.status === 'Active' ? "primary" : "primary"}
-                            >
-                              {row.status === 'Active' ? "hold" : "unhold"}
-                            </Button> : row[headCell.id]
-                          } 
-                          
-                      </TableCell>
-                      
-                    ))}
-
+                  <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                    {MarketData.columns.map((column) => {
+                      const value = row[column.id];
+                      return (
+                        <TableCell key={column.id} align={column.align} sx={{fontSize:'14px'}}>
+                          {value !== 'image' ? value : <img src={svgimg} alt='' />  }
+                        </TableCell>
+                      );
+                    })}
                   </TableRow>
                 );
               })}
