@@ -5,7 +5,6 @@ import variablePie from "highcharts/modules/variable-pie.js";
 variablePie(Highcharts);
 
 const MultilpleDougnutChart=()=>{
-let icon=' '
   useEffect(()=>{
     Highcharts.chart("container5", {
     chart: {

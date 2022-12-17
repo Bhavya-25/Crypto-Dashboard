@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Paper from '@mui/material/Paper';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import MarketData from './marketData';
@@ -7,7 +6,7 @@ import svgimg from '../../assets/images/graph.svg'
 
 export default function TableChart() {
   return (
-    <Paper sx={{ width: '100%' }}>
+    
       <TableContainer sx={{ maxHeight: 430, overflowX:'hidden', justifyContent:'space-between', fontSize:'20px'  }}>
         
         <Table stickyHeader aria-label="sticky table">
@@ -54,6 +53,5 @@ export default function TableChart() {
           </TableBody>
         </Table>
       </TableContainer>
-    </Paper>
   );
 }
