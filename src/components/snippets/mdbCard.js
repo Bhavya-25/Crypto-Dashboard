@@ -27,11 +27,11 @@ const styles = {
 const mdbCard = () => {
     return (
         <div style={{
-            margin:'48px 30px',
+            padding:'48px 30px',
             // margin:{sm:'40px 20px', md:'48px 30px'}
         }}>
 
- <Grid container spacing={3} columns={{ xs: 3, sm: 4, md: 8 }}>
+ <Grid container spacing={3} columns={{ xs: 3, sm: 4, md: 8 }} sx={{background:"#000"}}>
                 {Items.map((value,index) => (
                     <Grid item xs={3} sm={2} md={2} key={value} sx={{
                      gap:'10px'
