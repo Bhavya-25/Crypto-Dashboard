@@ -10,7 +10,7 @@ function createGradient(color1, color2) {
 const primary = {
   light:"#fff",
   lighter:"rgba(255, 255, 255, 0.7)",
-  main:"#90CAF9",
+  main:"#ffa",
   dark:"#8381F0",
   darker:"#723F65"
 };
@@ -39,6 +39,7 @@ const textG = {
 const palette = {
   light: {
     mode: 'light',
+    primary,
     secondry,
     bgGray,
     gradients,

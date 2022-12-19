@@ -10,7 +10,6 @@ const styles = {
     card: {
         background: 'transparent',
         width: "25%"
-        
     },
     stack: {
         border: '1px solid',
