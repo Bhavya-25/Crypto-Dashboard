@@ -1,19 +1,27 @@
 import * as React from "react";
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
-import { Box, Grid, Card, IconButton, CardHeader, CardActions, Typography, Divider } from "@mui/material";
+import { Box, Grid, Card, IconButton,Paper, CardHeader, CardActions, Typography } from "@mui/material";
 import Items from "./items";
 
 
 const styles = {
     card: {
         background: 'transparent',
-        // width: '25%',      
+        width: '100%',      
     },
     stack: {
         border: '1px solid',
         borderRadius: '10px ',   
     },
+    divider:{
+        width:1,
+        height:'100px',
+        backgroundColor:'#ffffff8f',
+        // marginRight:'10px'
+     
+        
+    }
 
 };
 const mdbCard = () => {
@@ -24,8 +32,16 @@ const mdbCard = () => {
         }}>
 
  <Grid container spacing={3} columns={{ xs: 3, sm: 4, md: 8 }}>
-                {Items.map((value) => (
-                    <Grid item xs={3} sm={2} md={2} key={value}>
+                {Items.map((value,index) => (
+                    <Grid item xs={3} sm={2} md={2} key={value} sx={{
+                     gap:'10px'
+                    }}>
+                        <div style={{
+                            display:'flex',
+                            xs:{flexDirection:'column'},
+                            alignItems:'center',
+                            gap:'24px'
+                        }}>
                         <Card key={value} item style={styles.card}  >
                             <CardHeader
                                 sx={{
@@ -65,7 +81,6 @@ const mdbCard = () => {
                                
                                 <Box
                                     sx={{
-                                        // height: '24px',
                                         padding: '2px 4px',
                                         display: 'flex',
                                         justifyContent: 'space-evenly'
@@ -74,9 +89,12 @@ const mdbCard = () => {
                                     {value.progressIcon } 
                                 </Box>
                             </CardActions>
-                            <Divider orientation="vertical" />
                         </Card>
-                       
+                         {index<3 &&
+                                 <div className="divide" style={styles.divider}></div>
+                         }
+               
+                       </div>
                         </Grid>
                 ))}
                 

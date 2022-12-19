@@ -8,7 +8,8 @@ const MultilpleDougnutChart=()=>{
   useEffect(()=>{
     Highcharts.chart("container5", {
     chart: {
-      height:414,
+      height:'464px',
+      // height:'100%',
         type: 'pie'
     },
     legend: {
@@ -38,6 +39,7 @@ const MultilpleDougnutChart=()=>{
     plotOptions: {
     	series: {
             dataLabels: {
+
                 connectorColor: 'transparent',
                 connectorPadding: 10,
                 distance: 0,
@@ -53,9 +55,7 @@ const MultilpleDougnutChart=()=>{
         enableMouseTracking: false,
         showInLegend: true,
         marker:{enabled:false},
-        dataLabels: {
-          connectorWidth: 0
-      },
+        
     	size: '30%',
         center: ['15%', '50%'],
         data: [  
@@ -69,7 +69,17 @@ const MultilpleDougnutChart=()=>{
                 name:'USD',
             y: 60,
             color:'#3699FF'
-          }]
+          }],
+          dataLabels: {
+            enabled: true,
+              align:'center',
+              distance:-50,
+              format: '60%',
+              style: {
+                  fontSize: '12x'
+              },
+            connectorWidth: 0
+        },
     }, {
         
         innerSize: '99%',
@@ -124,9 +134,7 @@ caption: {
 }
 },
 
-);
-    
-  
+); 
   },[])
   
   return(

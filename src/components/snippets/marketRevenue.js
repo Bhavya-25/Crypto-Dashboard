@@ -2,8 +2,6 @@ import React from "react";
 import { Card, Grid } from '@mui/material'
 import TableChart from './tableChart'
 
-
-
 const MarketOverview = () => {
     return (
         <div

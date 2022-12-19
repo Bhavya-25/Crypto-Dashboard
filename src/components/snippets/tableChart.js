@@ -8,7 +8,9 @@ import {
 import { visuallyHidden } from '@mui/utils';
 import { alpha } from '@mui/material/styles';
 import DeleteIcon from '@mui/icons-material/Delete';
-
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import MarketData from './marketData';
+import svgimg from '../../assets/images/graph.svg'
 
 
 const TableChart = (props) => {
@@ -34,17 +36,17 @@ const TableChart = (props) => {
       : (a, b) => -descendingComparator(a, b, orderBy);
   }
 
-  function stableSort(array, comparator) {
-    const stabilizedThis = array.map((el, index) => [el, index]);
-    stabilizedThis.sort((a, b) => {
-      const order = comparator(a[0], b[0]);
-      if (order !== 0) {
-        return order;
-      }
-      return a[1] - b[1];
-    });
-    return stabilizedThis.map((el) => el[0]);
-  }
+  // function stableSort(array, comparator) {
+  //   const stabilizedThis = array.map((el, index) => [el, index]);
+  //   stabilizedThis.sort((a, b) => {
+  //     const order = comparator(a[0], b[0]);
+  //     if (order !== 0) {
+  //       return order;
+  //     }
+  //     return a[1] - b[1];
+  //   });
+  //   return stabilizedThis.map((el) => el[0]);
+  // }
 
   function EnhancedTableHead(param) {
     const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } =
@@ -216,14 +218,15 @@ const TableChart = (props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {stableSort(props !== undefined && props.data !== undefined && props.data, getComparator(order, orderBy))
+            {MarketData.rows
+            // stableSort(props !== undefined && props.data !== undefined && props.data, getComparator(order, orderBy))
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row, index) => {
-                const isItemSelected = isSelected(row.name);
-                const labelId = `enhanced-table-checkbox-${index}`;
+              .map((row) => {
+                // const isItemSelected = isSelected(row.name);
+                // const labelId = `enhanced-table-checkbox-${index}`;
 
                 return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                  <TableRow hover role="checkbox" tabIndex={-1}>
                     {MarketData.columns.map((column) => {
                       const value = row[column.id];
                       return (
@@ -234,7 +237,7 @@ const TableChart = (props) => {
                     })}
                   </TableRow>
                 );
-              })}
+             })} 
             {emptyRows > 0 && (
               <TableRow
                 style={{
