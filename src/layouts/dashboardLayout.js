@@ -1,6 +1,6 @@
 import { Box, Stack } from "@mui/material";
 import SideBar from './sideBar'
-import Header from "../components/header";
+import Header from "../components/global/header";
 
 export default function DashboardLayout({ pageContent }) {
     return (
