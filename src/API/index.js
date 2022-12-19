@@ -16,5 +16,9 @@ export const apiBaseUrl = baseurl;
 
 export const loginRequestApi = (formData) => API.post('/user/login', formData)
 
-
+/**
+ * User Request
+ * @returns 
+ */
 export const userListRequestApi = () => API.get('/admin/user/all')
+export const userStatusUpdate =(data) => API.post('/admin/user/update', data)
