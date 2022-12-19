@@ -3,6 +3,7 @@ import Dashboard from "./dashboard";
 import Kyc from "./templates/kyc";
 import Login from "./templates/login";
 import Users from "./templates/users";
+import Report from "./templates/report";
 export default function Routing() {
 
   let session =  sessionStorage.getItem('token')
@@ -13,6 +14,7 @@ export default function Routing() {
         <Route exact path="/dashboard" element={ <Dashboard/> }/>
         <Route exact path="/user" element={ <Users /> }></Route>
         <Route exact path="/kyc" element={ <Kyc /> }></Route>
+        <Route exact path="/report" element={ <Report /> }></Route>
       </Routes>
   );
 }

@@ -5,20 +5,16 @@ import {
 
 import useTable, { emptyRows } from "../../hooks/useTable";
 import Iconify from "../../components/Iconify";
-import { TableHeadCustom, TableEmptyRows,TableSelectedActions } from "../../components/table";
-import KycListTableRow from "../kyc/kycListTableRow";
+import { TableHeadCustom, TableEmptyRows, TableSelectedActions } from "../../components/table";
+import ReportTableListRow from "../report/reportTableListRow";
 
-
-// function createData(userid, name, created, token, btc, usdt, status) {
-//   return { userid, name, created, token, btc, usdt, status };
-// }
 
 const headCells = [
   {
-    id: 'name',
+    id: 'coin',
     numeric: true,
     disablePadding: false,
-    label: 'FullName',
+    label: 'Coin',
   },
   {
     id: 'userid',
@@ -33,22 +29,29 @@ const headCells = [
     label: 'Created At',
   },
   {
-    id: 'email',
+    id: 'txid',
     numeric: false,
     disablePadding: true,
-    label: 'Email',
+    label: 'Tx Id',
   },
   {
-    id: 'document',
+    id: 'network',
     numeric: false,
     disablePadding: false,
-    label: 'Doc Type',
+    label: 'Network',
   },
   {
-    id: 'front/back',
+    id: 'amount',
     numeric: true,
     disablePadding: false,
-    label: 'Front/Back',
+    label: 'Amount',
+  },
+  {
+    id: 'walletAddress',
+    numeric: true,
+    disablePadding: false,
+    label: 'Wallet Address',
+    align: 'center'
   },
   {
     id: 'status',
@@ -56,17 +59,10 @@ const headCells = [
     disablePadding: false,
     label: 'Status',
   },
-  {
-    id: 'isAction',
-    numeric: true,
-    disablePadding: false,
-    label: 'Action',
-    align : 'center'
-  },
 ];
 
 
-const KycUsersList = (props) => {
+const ReportTableList = (props) => {
   const {
     dense,
     page,
@@ -87,20 +83,24 @@ const KycUsersList = (props) => {
 
   const [list, setList] = useState([]);
 
-  function createData(name, userid, createdAt,  email, document, frontback, status) {
-    return { name, userid, createdAt, email, document, frontback, status };
+  function createData(coin, userid, createdAt, txid, network, amount, walletAddress, status) {
+    return { coin, userid, createdAt, txid, network, amount, walletAddress, status };
   }
   useEffect(() => {
     const rows = [
-      createData('Shane', '#12345','01-02-2022', 'abc@gmail.com',"Voter Card", 'Document', 'Pending'),
-      createData('Cameron', '#12445', '01-02-2022','xyz@gmail.com',"Voter Card", 'Document', 'Pending'),
-      createData('Kristin', '#12555','01-02-2022', 'aaa@gmail.com',"Voter Card", 'Document', 'Pending'),
-      createData('Victoria', '#13345', '01-02-2022','ojc@gmail.com',"Voter Card", 'Document', 'Pending'),
+      createData('Bitcoin', '#12345', '01-02-2022', 'Txn19i89898989iee', "BTC/BitCoin", '1.1524 BTC', '3J98t1WpEZ73CNmQviecrny', 'Pending'),
+      createData('Polygon', '#12445', '01-02-2022', 'Txn19i982394839iee', "MATIC/M5", '5.1524 ETH', '3J98t1WpEZ73CNmQviecrny', 'Failed'),
+      createData('XRP', '#12555', '01-02-2022', 'Txn19i89743987iee', "XRP/Riple", '7.3454 XRP', '3J98t1WpEZ73CNmQviecrny', 'Success'),
+      createData('Binance', '#13345', '01-02-2022', 'Txn1jhiu3iu392u4iee', "BNB/B5", '9.2344 BND', '3J98t1WpEZ73CNmQviecrny', 'Pending'),
+      createData('Bitcoin', '#12345', '01-02-2022', 'Txn19i89898989iee', "BTC/BitCoin", '1.1524 BTC', '3J98t1WpEZ73CNmQviecrny', 'Pending'),
+      createData('Polygon', '#12445', '01-02-2022', 'Txn19i982394839iee', "MATIC/M5", '5.1524 ETH', '3J98t1WpEZ73CNmQviecrny', 'Failed'),
+      createData('XRP', '#12555', '01-02-2022', 'Txn19i89743987iee', "XRP/Riple", '7.3454 XRP', '3J98t1WpEZ73CNmQviecrny', 'Success'),
+      createData('Binance', '#13345', '01-02-2022', 'Txn1jhiu3iu392u4iee', "BNB/B5", '9.2344 BND', '3J98t1WpEZ73CNmQviecrny', 'Pending'),
+      createData('Bitcoin', '#12345', '01-02-2022', 'Txn19i89898989iee', "BTC/BitCoin", '1.1524 BTC', '3J98t1WpEZ73CNmQviecrny', 'Pending'),
     ];
-  
     setList(rows);
   }, [setList])
- 
+
 
 
   const handleDeleteRows = (selected) => {
@@ -139,12 +139,12 @@ const KycUsersList = (props) => {
           />
         )}
         <Typography
-          sx={{ flex: '1 1 100%', fontsize:'20px' }}
-          
+          sx={{ flex: '1 1 100%', fontsize: '20px' }}
+
           id="tableTitle"
           component="div"
         >
-          All Users
+          Top Holders
         </Typography>
 
         <Table size={dense ? 'small' : 'medium'}>
@@ -163,7 +163,7 @@ const KycUsersList = (props) => {
 
           <TableBody>
             {list.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
-              <KycListTableRow
+              <ReportTableListRow
                 key={row.userid}
                 row={row}
                 selected={selected.includes(row.userid)}
@@ -187,4 +187,4 @@ const KycUsersList = (props) => {
     </Grid>)
 }
 
-export default KycUsersList;
+export default ReportTableList;

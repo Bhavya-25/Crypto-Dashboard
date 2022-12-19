@@ -1,6 +1,6 @@
 import {
-    Box, Stack, Typography, Button,
-    IconButton, Card, CardContent, Grid
+    Box, Stack, Typography, 
+ Card, CardContent, Grid
 } from "@mui/material";
 import React, { useState } from "react";
 import { Avatar, AvatarGroup } from "@mui/material";
@@ -8,8 +8,6 @@ import Avtar1 from '../../assets/images/Avatar1.png'
 import Avtar2 from '../../assets/images/Avatar2.png'
 import Avtar3 from '../../assets/images/Avatar3.png'
 import Avtar4 from '../../assets/images/Avatar4.png'
-import PersonIcon from '@mui/icons-material/Person';
-import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 import LinearProgress from '@mui/material/LinearProgress';
 
 const TopCard = (props) => {
