@@ -13,3 +13,16 @@
 .responsive{
   max-width: 100%;
 }
+
+.highcharts-background{fill: #000 !important;}
+.highcharts-credits {display: none;}
+.highcharts-title{color: #fff !important; fill:rgb(253 253 253) !important}
+.highcharts-legend-item text{color: #fff !important; fill:rgb(253 253 253) !important}
+.MuiListItem-root{text-align: center !important;}
+
+.tableActive{
+  border: 1px solid rgba(102, 187, 106, 0.12);
+    border-radius: 6px;
+    padding: 0px 4px;
+    width: 55px;
+}

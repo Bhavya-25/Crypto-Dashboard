@@ -9,7 +9,7 @@ const users = (users = {}, action) => {
       if (action.payload.status === 200) {
         return action.payload
       }
-
+         
     case LOGOUT:
       sessionStorage.removeItem('token')
       return action.payload
