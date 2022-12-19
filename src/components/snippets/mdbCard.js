@@ -1,7 +1,7 @@
 import * as React from "react";
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
-import { Box, Grid, Card, IconButton,Paper, CardHeader, CardActions, Typography } from "@mui/material";
+import { Box, Grid, Card, IconButton, CardHeader, CardActions, Typography } from "@mui/material";
 import Items from "./items";
 
 

@@ -17,4 +17,4 @@ export const apiBaseUrl = baseurl;
 export const loginRequestApi = (formData) => API.post('/user/login', formData)
 
 
-export const userListRequestApi = () => API.get('/admin/user/all')
+// export const userListRequestApi = () => API.get('/admin/user/all')
