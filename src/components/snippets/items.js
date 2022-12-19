@@ -2,6 +2,7 @@ import StackedBarChartIcon from '@mui/icons-material/StackedBarChart';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import TimelineIcon from '@mui/icons-material/Timeline';
 import UpdateIcon from '@mui/icons-material/Update';
+// import green from 'material-ui/colors/green';
 import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 
 const Items=[
@@ -34,7 +35,7 @@ const Items=[
         subHeader:"468 Coins",
         previous:'150 Coins',
         increment:'+5.3',
-        progressIcon: <TrendingUpIcon/>
+        progressIcon: <TrendingUpIcon />
     }
     ]
     export default Items;

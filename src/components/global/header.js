@@ -18,6 +18,8 @@ import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import Button from '@mui/material/Button';
+import MenuIcon from '@mui/icons-material/Menu';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -48,14 +50,21 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
   '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    padding: '10.5px 20px 10.5px 45px',
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('md')]: {
       width: '20ch',
     },
+    backgroundColor:'transparent',
+    border: '1px solid rgba(255, 255, 255, 0.23)',
+    borderRadius:'8px',
+    fontFamily: 'Public Sans',
+    fontStyle: 'normal',
+    fontWeight: '400',
+    fontSize: '16px',
+    lineHeight: '24px',
+    letterSpacing: '0.15px'
   },
 }));
 
@@ -111,6 +120,9 @@ const Header = ()=>{
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
+        <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 , display:{md: 'block', lg: 'none'} }}>
+          <MenuIcon />
+        </IconButton>
           <Box sx={{  display:{xs: 'none',md: 'none', lg: 'flex'},flexDirection:'column'}}>
             <Typography
                 variant="h6"
@@ -129,8 +141,13 @@ const Header = ()=>{
             </Typography>
           </Box>
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: 'none', md: 'flex', gap:'40px' ,alignItems:'center' } }}>
-            <Search>
+          <Box sx={{ display: { xs: 'none', md: 'flex', gap:'30px' ,alignItems:'center' } }}>
+            <Search sx={{
+              background:"transparent",
+              '&:hover':{
+                background:"transparent",
+              }
+              }}>
                 <SearchIconWrapper>
                     <SearchIcon />
                 </SearchIconWrapper>
@@ -144,7 +161,8 @@ const Header = ()=>{
               aria-label="show 17 new notifications"
               color="inherit"
             >
-              <Badge badgeContent={17} color="error">
+              <Badge variant="dot" color='primary' >
+                
                 <NotificationsIcon />
               </Badge>
             </IconButton>
@@ -165,13 +183,18 @@ const Header = ()=>{
                 <Avatar alt="Remy Sharp" src={require('../assets/images/Avatar.jpg')} />
               </IconButton>
             </Tooltip> */}
+            <ListItemAvatar sx={{ display: { md: 'block',lg:'none' } }}>
+              <Avatar alt="Profile Picture" src={require('../../assets/images/Avatar.jpg')} />
+            </ListItemAvatar>
+            <Button sx={{ display: { md: 'none',lg:'block' } }}>
                 <ListItem sx={{ cursor:'pointer' }}  >
                     <ListItemAvatar>
-                        <Avatar alt="Profile Picture" src={require('../assets/images/Avatar.jpg')} />
+                        <Avatar alt="Profile Picture" src={require('../../assets/images/Avatar.jpg')} />
                     </ListItemAvatar>
                     <ListItemText primary="Allie Grater" secondary="Admin" />
                     <KeyboardArrowDownIcon sx={{ marginLeft:"30px" }} />
                 </ListItem>
+            </Button>
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
             <IconButton

@@ -5,11 +5,11 @@ import variablePie from "highcharts/modules/variable-pie.js";
 variablePie(Highcharts);
 
 const MultilpleDougnutChart=()=>{
-let icon=' '
   useEffect(()=>{
     Highcharts.chart("container5", {
     chart: {
-      height:414,
+      height:'464px',
+      // height:'100%',
         type: 'pie'
     },
     legend: {
@@ -39,6 +39,7 @@ let icon=' '
     plotOptions: {
     	series: {
             dataLabels: {
+
                 connectorColor: 'transparent',
                 connectorPadding: 10,
                 distance: 0,
@@ -54,9 +55,7 @@ let icon=' '
         enableMouseTracking: false,
         showInLegend: true,
         marker:{enabled:false},
-        dataLabels: {
-          connectorWidth: 0
-      },
+        
     	size: '30%',
         center: ['15%', '50%'],
         data: [  
@@ -70,7 +69,17 @@ let icon=' '
                 name:'USD',
             y: 60,
             color:'#3699FF'
-          }]
+          }],
+          dataLabels: {
+            enabled: true,
+              align:'center',
+              distance:-50,
+              format: '60%',
+              style: {
+                  fontSize: '12x'
+              },
+            connectorWidth: 0
+        },
     }, {
         
         innerSize: '99%',
@@ -125,9 +134,7 @@ caption: {
 }
 },
 
-);
-    
-  
+); 
   },[])
   
   return(

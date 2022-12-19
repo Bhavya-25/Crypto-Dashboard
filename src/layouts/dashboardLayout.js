@@ -1,21 +1,22 @@
-import { Box,Stack } from "@mui/material";
-import SideBar from  './sideBar'
-// import  from '@mui/material/Stack';
-import Header from "../components/header";
+import { Box, Stack } from "@mui/material";
+import SideBar from './sideBar'
+import Header from "../components/global/header";
 
-export default function DashboardLayout({pageContent}){
+export default function DashboardLayout({ pageContent }) {
     return (
         <>
-            <Stack direction="row">
-                <Box sx={{background: (theme)=> theme.palette.bgGray.dark , width: '241px'  }}>
-                    <SideBar/>
+            <Stack direction="row" sx={{ overflow: 'hidden' }} >
+                <Box sx={{ background: (theme) => theme.palette.bgGray.dark, }}>
+                    <SideBar />
                 </Box>
 
-                <Box sx={{width: 'calc(100% - 241px)'}}>
-                    <Box sx={{bgcolor: (theme)=> theme.palette.gradients.primary  }}>
+                <Box sx={{
+                    width: '100%',
+                }}>
+                    <Box sx={{ bgcolor: (theme) => theme.palette.gradients.primary }}>
                         <Header />
                     </Box>
-                    <Box sx={{background: (theme)=> theme.palette.bgGray.dark}}>
+                    <Box sx={{ background: (theme) => theme.palette.bgGray.dark, height: "calc(100vh - 72px)", overflow: 'scroll' }}>
                         {pageContent}
                     </Box>
                 </Box>
