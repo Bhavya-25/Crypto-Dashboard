@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import {
   Typography, Grid, TableContainer, Table, TableBody, TablePagination, Tooltip, IconButton
 } from "@mui/material";
@@ -67,7 +68,7 @@ const headCells = [
 ];
 
 
-const AllUserList = (props) => {
+const AllUserList = () => {
   const {
     dense,
     page,
@@ -88,13 +89,15 @@ const AllUserList = (props) => {
 
   const [list, setList] = useState([]);
 
+  const userList = useSelector((state) => state.userList);
+
   useEffect(() => {
     let alluser = [];
-    for (const user of props.allUsers) {
-      alluser.push(createData(user._id.substring(0, 6) + '....', 'surinder', user.createdAt, 'USDT', 0, 0, user.status, true));
+    for (const user of userList) {
+      alluser.push(createData(user._id, user.name, user.createdAt, 'USDT', 0, user.holding, user.status, true));
     }
     setList(alluser);
-  }, [setList, props.allUsers])
+  }, [setList, userList])
 
   const handleDeleteRows = (selected) => {
     const deleteRows = list.filter((row) => !selected.includes(row.userid));

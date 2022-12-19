@@ -49,7 +49,7 @@ export default function UserTableRow({ row, selected, onEditRow, onSelectRow, on
         {btc}
       </TableCell>
       <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
-        {usdt}
+        {usdt.toFixed(4)}
       </TableCell>
       <TableCell align="left">
         <Typography className='tableActive'

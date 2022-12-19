@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import {
   Box, Stack, Typography, Button,
   IconButton, Card, CardContent, Grid 
@@ -8,7 +10,15 @@ import PersonIcon from '@mui/icons-material/Person';
 import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 
 
-const TopCard=(props)=>{
+const TopCard=()=>{
+
+  const userList = useSelector((state) => state.userList);
+
+  let activeUser = userList.filter((item) => {
+    return item.status === "Active"
+  })
+
+
   return (
     <Grid container spacing={2} sx={{ padding: '24px 24px' }}>
         <Grid item xs={12} sm={6} md={4}>
@@ -23,10 +33,10 @@ const TopCard=(props)=>{
                 </Stack>
               </Box>
               <Box>
-                <Typography sx={{ textAlign: 'start' }}>{props.allUsers.length}</Typography>
+                <Typography sx={{ textAlign: 'start' }}>{userList.length}</Typography>
               </Box>
               <Box>
-                <Typography sx={{ textAlign: 'start', fontSize: '14px' }}>Compared to {props.allUsers.length} last month</Typography>
+                <Typography sx={{ textAlign: 'start', fontSize: '14px' }}>Compared to {userList.length} last month</Typography>
               </Box>
             </CardContent>
           </Card>
@@ -44,10 +54,10 @@ const TopCard=(props)=>{
                 </Stack>
               </Box>
               <Box>
-                <Typography sx={{ textAlign: 'start' }}>{props.activeUsers.length}</Typography>
+                <Typography sx={{ textAlign: 'start' }}>{activeUser.length}</Typography>
               </Box>
               <Box>
-                <Typography sx={{ textAlign: 'start', fontSize: '14px' }}>Compared to {props.activeUsers.length} last month</Typography>
+                <Typography sx={{ textAlign: 'start', fontSize: '14px' }}>Compared to {activeUser.length} last month</Typography>
               </Box>
             </CardContent>
           </Card>
@@ -65,10 +75,10 @@ const TopCard=(props)=>{
                 </Stack>
               </Box>
               <Box>
-                <Typography sx={{ textAlign: 'start' }}>{props.activeUsers.length}</Typography>
+                <Typography sx={{ textAlign: 'start' }}>{activeUser.length}</Typography>
               </Box>
               <Box>
-                <Typography sx={{ textAlign: 'start', fontSize: '14px' }}>Compared to {props.activeUsers.length} last month</Typography>
+                <Typography sx={{ textAlign: 'start', fontSize: '14px' }}>Compared to {activeUser.length} last month</Typography>
               </Box>
             </CardContent>
           </Card>

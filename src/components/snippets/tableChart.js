@@ -5,9 +5,9 @@ import {
   TableContainer, TableHead, TableRow, Paper, Checkbox,
   IconButton, Tooltip, Toolbar, TableSortLabel,Button
 } from "@mui/material";
-// import MoreVertIcon from '@mui/icons-material/MoreVert';
-// import MarketData from './marketData';
-// import svgimg from '../../assets/images/graph.svg'
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import MarketData from './marketData';
+import svgimg from '../../assets/images/graph.svg'
 import { visuallyHidden } from '@mui/utils';
 import { alpha } from '@mui/material/styles';
 import DeleteIcon from '@mui/icons-material/Delete';
