@@ -33,7 +33,71 @@ const Users = () => {
 
   }, [dispatch, navigate]);
 
-  
+  let doughnutProp = {
+    chart: {
+      type: 'variablepie',
+
+    },
+    title: {
+      text: 'Vistor Distribution'
+    },
+    legend: {
+      align: "top",
+      verticalAlign: "right",
+      layout: "vertical",
+      x: 5,
+      y: 100,
+      itemMarginTop: 5,
+      itemMarginBottom: 5,
+      itemStyle: {
+        font: "14px Trebuchet MS, Verdana, sans-serif",
+        color: "#333333"
+      }
+    },
+    plotOptions: {
+      series: {
+        stacking: "normal",
+        dataLabels: {
+          enabled: false
+        },
+        showInLegend: true,
+        size: 185
+      }
+    },
+    series: [{
+      minPointSize: 1,
+      innerSize: '60%',
+      zMin: 0,
+      name: 'countries',
+      data: [{
+        name: 'Spain',
+        y: 10,
+        z: 30
+      }, {
+        name: 'France',
+        y: 20,
+        z: 30
+      }, {
+        name: 'Poland',
+        y: 30,
+        z: 30
+      }, {
+        name: 'Italy',
+        y: 30,
+        z: 30
+      }, {
+        name: 'Switzerland',
+        y: 50,
+        z: 30
+      }, {
+        name: 'Germany',
+        y: 60,
+        z: 30
+      }]
+    }]
+  }
+
+
   return (
     <>
       <TopCard />
@@ -56,7 +120,7 @@ const Users = () => {
         <Grid item xs={12} sm={6} md={4}>
           <Card sx={{ minWidth: '30%', textAlign: 'center' }}>
             <CardContent>
-              <DougnutChart id="pie-chart" />
+              <DougnutChart id="pie-chart" doughnutProp={doughnutProp}/>
             </CardContent>
 
           </Card>

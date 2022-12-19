@@ -11,9 +11,6 @@ import svgimg from '../../assets/images/graph.svg'
 import { visuallyHidden } from '@mui/utils';
 import { alpha } from '@mui/material/styles';
 import DeleteIcon from '@mui/icons-material/Delete';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import MarketData from './marketData';
-import svgimg from '../../assets/images/graph.svg'
 
 
 const TableChart = (props) => {
