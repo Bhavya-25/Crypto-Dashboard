@@ -8,7 +8,7 @@ import moment from "moment";
 
 // ----------------------------------------------------------------------
 
-KycListTableRow.propTypes = {
+ReportListTableRow.propTypes = {
   row: PropTypes.object,
   selected: PropTypes.bool,
   onEditRow: PropTypes.func,
@@ -16,7 +16,7 @@ KycListTableRow.propTypes = {
   onDeleteRow: PropTypes.func,
 };
 
-export default function KycListTableRow({ row, selected, onEditRow, onSelectRow, onDeleteRow }){
+export default function ReportListTableRow({ row, selected, onEditRow, onSelectRow, onDeleteRow }){
   const theme = useTheme();
 
   const { coin, userid, created,  txid , network, amount,walletAddress, status } = row;

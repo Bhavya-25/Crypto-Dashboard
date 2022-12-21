@@ -1,56 +1,57 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+
 import {
   Typography, Grid, TableContainer, Table, TableBody, TablePagination, Tooltip, IconButton
 } from "@mui/material";
 
 import useTable, { emptyRows } from "../../hooks/useTable";
 import Iconify from "../../components/Iconify";
-import { TableHeadCustom, TableEmptyRows,TableSelectedActions } from "../../components/table";
-import UserListTableRow from "./userListTableRow";
+import { TableHeadCustom, TableEmptyRows, TableSelectedActions } from "../../components/table";
+import DepositTableListRow from "./depositTableListRow";
 
 
-function createData(userid, name, created, token, btc, usdt, status) {
-  return { userid, name, created, token, btc, usdt, status };
-}
+function createData(coin, network, createdAt, txid, amount, walletAddress, status) {
+    return { coin, network, createdAt, txid,  amount, walletAddress, status };
+  }
 
 const headCells = [
-
   {
-    id: 'userid',
-    numeric: false,
-    disablePadding: true,
-    label: 'user ID',
-  },
-  {
-    id: 'name',
+    id: 'coin',
     numeric: true,
     disablePadding: false,
-    label: 'Name',
+    label: 'Coin',
+  },
+  {
+    id: 'network',
+    numeric: false,
+    disablePadding: true,
+    label: 'Network',
   },
   {
     id: 'created',
     numeric: false,
     disablePadding: true,
-    label: 'Created',
+    label: 'Date',
   },
   {
-    id: 'token',
+    id: 'txid',
     numeric: false,
     disablePadding: true,
-    label: 'Token',
+    label: 'Tx Id',
   },
   {
-    id: 'btc',
+    id: 'amount',
     numeric: true,
     disablePadding: false,
-    label: 'In BTC',
+    label: 'Amount',
   },
   {
-    id: 'usdt',
+    id: 'walletAddress',
     numeric: true,
     disablePadding: false,
-    label: 'Holding',
+    label: 'Wallet Address',
+    align: 'center'
   },
   {
     id: 'status',
@@ -58,17 +59,10 @@ const headCells = [
     disablePadding: false,
     label: 'Status',
   },
-  {
-    id: 'isAction',
-    numeric: true,
-    disablePadding: false,
-    label: 'Action',
-    align : 'center'
-  },
 ];
 
 
-const AllUserList = () => {
+const DepositTableList = (props) => {
   const {
     dense,
     page,
@@ -88,20 +82,20 @@ const AllUserList = () => {
   } = useTable();
 
   const [list, setList] = useState([]);
+  const depositList = useSelector((state) => state.depositList);
+  console.log(depositList,'=')
 
-  const userList = useSelector((state) => state.userList);
-  console.log("====userList", userList)
-
+ 
   useEffect(() => {
     let alluser = [];
-    for (const user of userList) {
-      alluser.push(createData(user._id, user.name, user.createdAt, 'USDT', 0, user.holding, user.status, true));
+    for (const deposit of depositList) {
+      alluser.push(createData(deposit.coinName, deposit.network, deposit.createdAt, deposit.tx_hash, deposit.amount, deposit.address, deposit.successful));
     }
     setList(alluser);
-  }, [setList, userList])
+  }, [setList, depositList])
 
   const handleDeleteRows = (selected) => {
-    const deleteRows = list.filter((row) => !selected.includes(row.userid));
+    const deleteRows = list.filter((row) => !selected.includes(row.txid));
     setSelected([]);
     setList(deleteRows);
   };
@@ -114,7 +108,7 @@ const AllUserList = () => {
 
   return (
     <Grid item xs={12}>
-      <TableContainer sx={{ minWidth: 800, position: 'relative' }}>
+      <TableContainer sx={{ minWidth: 335, position: 'relative' }}>
         {selected.length > 0 && (
           <TableSelectedActions
             dense={dense}
@@ -136,12 +130,12 @@ const AllUserList = () => {
           />
         )}
         <Typography
-          sx={{ flex: '1 1 100%' }}
-          variant="h6"
+          sx={{ flex: '1 1 100%', fontsize: '20px' }}
+
           id="tableTitle"
           component="div"
         >
-          All Users
+          Top Holders
         </Typography>
 
         <Table size={dense ? 'small' : 'medium'}>
@@ -153,19 +147,19 @@ const AllUserList = () => {
             onSelectAllRows={(checked) =>
               onSelectAllRows(
                 checked,
-                list.map((row) => row.userid)
+                list.map((row) => row.txid)
               )
             }
           />
 
           <TableBody>
             {list.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
-              <UserListTableRow
-                key={row.userid}
+              <DepositTableListRow
+                key={row.txid}
                 row={row}
-                selected={selected.includes(row.userid)}
-                onSelectRow={() => onSelectRow(row.userid)}
-                onDeleteRow={() => handleDeleteRow(row.userid)}
+                selected={selected.includes(row.txid)}
+                onSelectRow={() => onSelectRow(row.txid)}
+                onDeleteRow={() => handleDeleteRow(row.txid)}
               />
             ))}
             <TableEmptyRows height={72} emptyRows={emptyRows(page, rowsPerPage, list.length)} />
@@ -184,4 +178,4 @@ const AllUserList = () => {
     </Grid>)
 }
 
-export default AllUserList;
+export default DepositTableList;
