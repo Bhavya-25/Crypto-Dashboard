@@ -22,3 +22,8 @@ export const loginRequestApi = (formData) => API.post('/user/login', formData)
  */
 export const userListRequestApi = () => API.get('/admin/user/all')
 export const userStatusUpdate =(data) => API.post('/admin/user/update', data)
+
+
+/** DashBoard */
+
+export const marketCoinRequestAPI=()=>API.get('/admin/market/coin')
