@@ -68,7 +68,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const Header = ()=>{
+const Header = (props)=>{
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -118,32 +118,34 @@ const Header = ()=>{
   
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar>
-        <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 , display:{md: 'block', lg: 'none'} }}>
-          <MenuIcon />
+      <AppBar position="static" sx={{ padding:"30px 20px 20px" }}>
+        <Toolbar sx={{ padding:"0 !important" }}>
+        <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 , display:{md: 'block', lg: 'none'} }} >
+          <MenuIcon onClick={props.handleDrawerOpen} />
         </IconButton>
           <Box sx={{  display:{xs: 'none',md: 'none', lg: 'flex'},flexDirection:'column'}}>
             <Typography
-                variant="h6"
+                variant="h3"
                 noWrap
-                component="h6"
-              
+                component="h3"
             >
                 Dashboard Analysis
             </Typography>
             <Typography
-                variant="p"
+                variant="subtitle1"
                 noWrap
-                component="p"
+                color={(theme) => theme.palette.textG.light}
             >
             With all of the styling tool options available in today's market
             </Typography>
           </Box>
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: 'none', md: 'flex', gap:'30px' ,alignItems:'center' } }}>
+          <Box sx={{ display:"flex" , gap:{xs:'20px',md:'30px'} ,alignItems:'center'  }}>
+          <IconButton size="large" aria-label="search" color="inherit" sx={{ display:{ xs: 'block',md:'none'} }}>
+            <SearchIcon />
+          </IconButton>
             <Search sx={{
-              background:"transparent",
+              display:{xs: 'none',md:"block"},
               '&:hover':{
                 background:"transparent",
               }
@@ -160,53 +162,32 @@ const Header = ()=>{
               size="large"
               aria-label="show 17 new notifications"
               color="inherit"
+
             >
-              <Badge variant="dot" color='primary' >
+              <Badge variant="dot" color='activeColor' >
                 
                 <NotificationsIcon />
               </Badge>
             </IconButton>
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-              sx={{ display: { xs: 'flex', md: 'none' } }}
-            >
-              <AccountCircle />
-            </IconButton>
-            {/* <Tooltip title="Open settings" sx={{ display: { xs: 'none', md: 'block' } }}>
-              <IconButton  sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src={require('../assets/images/Avatar.jpg')} />
-              </IconButton>
-            </Tooltip> */}
-            <ListItemAvatar sx={{ display: { md: 'block',lg:'none' } }}>
+            <ListItemAvatar sx={{ display: {xs: 'flex', md: 'flex',lg:'none' } ,justifyContent: 'end' }}>
               <Avatar alt="Profile Picture" src={require('../../assets/images/Avatar.jpg')} />
             </ListItemAvatar>
-            <Button sx={{ display: { md: 'none',lg:'block' } }}>
+            <Button sx={{ display: { xs: 'none', md: 'none',lg:'block' } }} color="textLight" variant="text">
                 <ListItem sx={{ cursor:'pointer' }}  >
                     <ListItemAvatar>
                         <Avatar alt="Profile Picture" src={require('../../assets/images/Avatar.jpg')} />
                     </ListItemAvatar>
-                    <ListItemText primary="Allie Grater" secondary="Admin" />
-                    <KeyboardArrowDownIcon sx={{ marginLeft:"30px" }} />
+                    <Box>
+                      <Box>
+                        <Typography variant="subtitle1" color={(theme) => theme.palette.secondry.light}>Allie Grater</Typography>
+                      </Box>
+                      <Box>
+                        <Typography variant="subtitle2" color={(theme) => theme.palette.textG.light}>Admin</Typography>
+                      </Box>
+                    </Box>
+                    <KeyboardArrowDownIcon color="#000" sx={{ marginLeft:"30px" }} />
                 </ListItem>
             </Button>
-          </Box>
-          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
           </Box>
         </Toolbar>
       </AppBar>

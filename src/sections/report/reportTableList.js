@@ -1,56 +1,57 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import {
   Typography, Grid, TableContainer, Table, TableBody, TablePagination, Tooltip, IconButton
 } from "@mui/material";
 
 import useTable, { emptyRows } from "../../hooks/useTable";
 import Iconify from "../../components/Iconify";
-import { TableHeadCustom, TableEmptyRows,TableSelectedActions } from "../../components/table";
-import UserListTableRow from "./userListTableRow";
+import { TableHeadCustom, TableEmptyRows, TableSelectedActions } from "../../components/table";
+import ReportTableListRow from "../report/reportTableListRow";
 
-
-function createData(userid, name, created, token, btc, usdt, status) {
-  return { userid, name, created, token, btc, usdt, status };
-}
 
 const headCells = [
-
+  {
+    id: 'coin',
+    numeric: true,
+    disablePadding: false,
+    label: 'Coin',
+  },
   {
     id: 'userid',
     numeric: false,
     disablePadding: true,
-    label: 'user ID',
-  },
-  {
-    id: 'name',
-    numeric: true,
-    disablePadding: false,
-    label: 'Name',
+    label: 'User ID',
   },
   {
     id: 'created',
     numeric: false,
     disablePadding: true,
-    label: 'Created',
+    label: 'Date',
   },
   {
-    id: 'token',
+    id: 'txid',
     numeric: false,
     disablePadding: true,
-    label: 'Token',
+    label: 'Tx Id',
   },
   {
-    id: 'btc',
-    numeric: true,
+    id: 'network',
+    numeric: false,
     disablePadding: false,
-    label: 'In BTC',
+    label: 'Network',
   },
   {
-    id: 'usdt',
+    id: 'amount',
     numeric: true,
     disablePadding: false,
-    label: 'Holding',
+    label: 'Amount',
+  },
+  {
+    id: 'walletAddress',
+    numeric: true,
+    disablePadding: false,
+    label: 'Wallet Address',
+    align: 'center'
   },
   {
     id: 'status',
@@ -58,17 +59,10 @@ const headCells = [
     disablePadding: false,
     label: 'Status',
   },
-  {
-    id: 'isAction',
-    numeric: true,
-    disablePadding: false,
-    label: 'Action',
-    align : 'center'
-  },
 ];
 
 
-const AllUserList = () => {
+const ReportTableList = (props) => {
   const {
     dense,
     page,
@@ -89,16 +83,23 @@ const AllUserList = () => {
 
   const [list, setList] = useState([]);
 
-  const userList = useSelector((state) => state.userList);
-  console.log("====userList", userList)
-
+  function createData(coin, userid, createdAt, txid, network, amount, walletAddress, status) {
+    return { coin, userid, createdAt, txid, network, amount, walletAddress, status };
+  }
   useEffect(() => {
-    let alluser = [];
-    for (const user of userList) {
-      alluser.push(createData(user._id, user.name, user.createdAt, 'USDT', 0, user.holding, user.status, true));
-    }
-    setList(alluser);
-  }, [setList, userList])
+    const rows = [
+      createData('Bitcoin', '#12345', '01-02-2022', 'Txn19i89898989iee', "BTC/BitCoin", '1.1524 BTC', '3J98t1WpEZ73CNmQviecrny', 'Pending'),
+      createData('Polygon', '#12445', '01-02-2022', 'Txn19i982394839iee', "MATIC/M5", '5.1524 ETH', '3J98t1WpEZ73CNmQviecrny', 'Failed'),
+      createData('XRP', '#12555', '01-02-2022', 'Txn19i89743987iee', "XRP/Riple", '7.3454 XRP', '3J98t1WpEZ73CNmQviecrny', 'Success'),
+      createData('Binance', '#13345', '01-02-2022', 'Txn1jhiu3iu392u4iee', "BNB/B5", '9.2344 BND', '3J98t1WpEZ73CNmQviecrny', 'Pending'),
+      createData('Bitcoin', '#12345', '01-02-2022', 'Txn19i89898989iee', "BTC/BitCoin", '1.1524 BTC', '3J98t1WpEZ73CNmQviecrny', 'Pending'),
+      createData('Polygon', '#12445', '01-02-2022', 'Txn19i982394839iee', "MATIC/M5", '5.1524 ETH', '3J98t1WpEZ73CNmQviecrny', 'Failed'),
+      createData('XRP', '#12555', '01-02-2022', 'Txn19i89743987iee', "XRP/Riple", '7.3454 XRP', '3J98t1WpEZ73CNmQviecrny', 'Success'),
+      createData('Binance', '#13345', '01-02-2022', 'Txn1jhiu3iu392u4iee', "BNB/B5", '9.2344 BND', '3J98t1WpEZ73CNmQviecrny', 'Pending'),
+      createData('Bitcoin', '#12345', '01-02-2022', 'Txn19i89898989iee', "BTC/BitCoin", '1.1524 BTC', '3J98t1WpEZ73CNmQviecrny', 'Pending'),
+    ];
+    setList(rows);
+  }, [setList])
 
   const handleDeleteRows = (selected) => {
     const deleteRows = list.filter((row) => !selected.includes(row.userid));
@@ -114,7 +115,7 @@ const AllUserList = () => {
 
   return (
     <Grid item xs={12}>
-      <TableContainer sx={{ minWidth: 800, position: 'relative' }}>
+      <TableContainer sx={{ minWidth: 335, position: 'relative' }}>
         {selected.length > 0 && (
           <TableSelectedActions
             dense={dense}
@@ -136,12 +137,12 @@ const AllUserList = () => {
           />
         )}
         <Typography
-          sx={{ flex: '1 1 100%' }}
-          variant="h6"
+          sx={{ flex: '1 1 100%', fontsize: '20px' }}
+
           id="tableTitle"
           component="div"
         >
-          All Users
+          Top Holders
         </Typography>
 
         <Table size={dense ? 'small' : 'medium'}>
@@ -160,7 +161,7 @@ const AllUserList = () => {
 
           <TableBody>
             {list.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
-              <UserListTableRow
+              <ReportTableListRow
                 key={row.userid}
                 row={row}
                 selected={selected.includes(row.userid)}
@@ -184,4 +185,4 @@ const AllUserList = () => {
     </Grid>)
 }
 
-export default AllUserList;
+export default ReportTableList;

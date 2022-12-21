@@ -9,6 +9,9 @@
     background-color: transparent;
    
 }
+/* body{
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.08) 100%), #121212;
+} */
 
 .responsive{
   max-width: 100%;
@@ -18,7 +21,7 @@
 .highcharts-credits {display: none;}
 .highcharts-title{color: #fff !important; fill:rgb(253 253 253) !important}
 .highcharts-legend-item text{color: #fff !important; fill:rgb(253 253 253) !important}
-.MuiListItem-root{text-align: center !important;}
+/* .MuiListItem-root{text-align: center !important;} */
 
 .tableActive{
   border: 1px solid rgba(102, 187, 106, 0.12);
@@ -26,3 +29,6 @@
     padding: 0px 4px;
     width: 55px;
 }
+/* .card_wrapper{
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.05) 100%), #121212;  
+} */

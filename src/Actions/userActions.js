@@ -1,11 +1,11 @@
 import * as api from '../API'
 import { USERLIST, USERUPDATE } from '../constants'
 
-/**
- * Admin Login
- * @param {*} formData 
- * @returns 
- */
+// /**
+//  * Admin Login
+//  * @param {*} formData 
+//  * @returns 
+//  */
 export const userListRequest = () => async (dispatch) => {
   try {
     const { data } = await api.userListRequestApi();

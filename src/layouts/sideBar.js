@@ -43,7 +43,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open'}
 
 
 
-export default function SideBar() {
+export default function SideBar(props) {
     const [open, setOpen] = useState(true)
     const toggleDrawer = () => {
         setOpen(!open);
@@ -52,7 +52,7 @@ export default function SideBar() {
     return (
 
         // <Box sx={{ width:"100%", height: '100%', maxHeight: 1024 }}>
-        <Drawer  id='drawer' variant="permanent" open={open} sm={{display:'none'}}>
+        <Drawer  id='drawer' variant="permanent" open={open} sm={{display:'none'}} style={props.open}>
             <List sx={{
                 ml: 2,
                 mt: 3,

@@ -39,7 +39,7 @@ export  default function MainListItems(){
       </ListItemIcon>
       <ListItemText primary="Token" />
     </ListItemButton>
-    <ListItemButton>
+    <ListItemButton component={Link} to='/kyc'>
       <ListItemIcon sx={{ color: "white" }}>
         <BuildIcon />
       </ListItemIcon>
@@ -51,19 +51,25 @@ export  default function MainListItems(){
       </ListItemIcon>
       <ListItemText primary="Wallet" />
     </ListItemButton>
-    <ListItemButton>
+    <ListItemButton component={Link} to='/deposit'>
+      <ListItemIcon sx={{ color: "white" }}>
+        <WithdrawalIcon />
+      </ListItemIcon>
+      <ListItemText primary="Deposits" />
+    </ListItemButton>
+    <ListItemButton component={Link} to='/withdraw'>
       <ListItemIcon sx={{ color: "white" }}>
         <WithdrawalIcon />
       </ListItemIcon>
       <ListItemText primary="Withdrawals" />
     </ListItemButton>
-    <ListItemButton>
+    <ListItemButton component={Link} to='/report'>
       <ListItemIcon sx={{ color: "white" }}>
         <TextSnippetIcon />
       </ListItemIcon>
       <ListItemText primary="Reports" />
     </ListItemButton>
-    <ListItemButton>
+    <ListItemButton component={Link} to='/support'>
       <ListItemIcon sx={{ color: "white" }}>
         <HelpCenterIcon />
       </ListItemIcon>

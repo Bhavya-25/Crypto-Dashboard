@@ -74,10 +74,6 @@ const MultilpleDougnutChart=()=>{
             enabled: true,
               align:'center',
               distance:-50,
-              format: '60%',
-              style: {
-                  fontSize: '12x'
-              },
             connectorWidth: 0
         },
     }, {
@@ -88,6 +84,9 @@ const MultilpleDougnutChart=()=>{
         borderColor: null,
         enableMouseTracking: false,
         dataLabels: {
+          enabled: true,
+            align:'center',
+            distance:-50,
           connectorWidth: 0
       },
     		size: '30%',
@@ -110,6 +109,9 @@ const MultilpleDougnutChart=()=>{
         borderColor: null,
         enableMouseTracking: false,
         dataLabels: {
+          enabled: true,
+            align:'center',
+            distance:-50,
           connectorWidth: 1
       },
       showInLegend: true,

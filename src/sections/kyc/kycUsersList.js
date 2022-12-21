@@ -3,58 +3,56 @@ import { useSelector } from "react-redux";
 import {
   Typography, Grid, TableContainer, Table, TableBody, TablePagination, Tooltip, IconButton
 } from "@mui/material";
-
+import EditIcon from '@mui/icons-material/Edit';
 import useTable, { emptyRows } from "../../hooks/useTable";
 import Iconify from "../../components/Iconify";
 import { TableHeadCustom, TableEmptyRows,TableSelectedActions } from "../../components/table";
-import UserListTableRow from "./userListTableRow";
+import KycListTableRow from "./kycListTableRow";
+import EditModal from "../../Modal/editModal";
 
-
-function createData(userid, name, created, token, btc, usdt, status) {
-  return { userid, name, created, token, btc, usdt, status };
+function createData(name, userid, createdAt,  email, document, frontback, status) {
+  return { name, userid, createdAt, email, document, frontback, status };
 }
 
 const headCells = [
-
-  {
-    id: 'userid',
-    numeric: false,
-    disablePadding: true,
-    label: 'user ID',
-  },
   {
     id: 'name',
     numeric: true,
     disablePadding: false,
-    label: 'Name',
+    label: 'FullName',
+  },
+  {
+    id: 'userid',
+    numeric: false,
+    disablePadding: true,
+    label: 'User ID',
   },
   {
     id: 'created',
     numeric: false,
     disablePadding: true,
-    label: 'Created',
+    label: 'Date',
   },
   {
-    id: 'token',
+    id: 'email',
     numeric: false,
     disablePadding: true,
-    label: 'Token',
+    label: 'Email',
   },
   {
-    id: 'btc',
-    numeric: true,
+    id: 'document',
+    numeric: false,
     disablePadding: false,
-    label: 'In BTC',
+    label: 'Doc Type',
   },
   {
-    id: 'usdt',
-    numeric: true,
+    id: 'front/back',
     disablePadding: false,
-    label: 'Holding',
+    label: 'Front/Back',
   },
   {
     id: 'status',
-    numeric: true,
+    numeric: false,
     disablePadding: false,
     label: 'Status',
   },
@@ -68,7 +66,7 @@ const headCells = [
 ];
 
 
-const AllUserList = () => {
+const KycUsersList = (props) => {
   const {
     dense,
     page,
@@ -88,17 +86,18 @@ const AllUserList = () => {
   } = useTable();
 
   const [list, setList] = useState([]);
-
-  const userList = useSelector((state) => state.userList);
-  console.log("====userList", userList)
-
+  const [showLogin,setShowLogin] = useState(false)
+  const kycList = useSelector((state) => state.kycList); 
+ 
   useEffect(() => {
     let alluser = [];
-    for (const user of userList) {
-      alluser.push(createData(user._id, user.name, user.createdAt, 'USDT', 0, user.holding, user.status, true));
+    for (const kyc of kycList.kycList) {
+      alluser.push(createData(kyc.name, kyc.userid, kyc.createdAt, kyc.email, kyc.doctype,kyc.media[0].file, kyc.isVerified));
     }
     setList(alluser);
-  }, [setList, userList])
+  }, [setList,kycList])
+ 
+
 
   const handleDeleteRows = (selected) => {
     const deleteRows = list.filter((row) => !selected.includes(row.userid));
@@ -114,7 +113,7 @@ const AllUserList = () => {
 
   return (
     <Grid item xs={12}>
-      <TableContainer sx={{ minWidth: 800, position: 'relative' }}>
+      <TableContainer sx={{ minWidth: 335, position: 'relative' }}>
         {selected.length > 0 && (
           <TableSelectedActions
             dense={dense}
@@ -136,13 +135,18 @@ const AllUserList = () => {
           />
         )}
         <Typography
-          sx={{ flex: '1 1 100%' }}
-          variant="h6"
+          sx={{ flex: '1 1 100%', fontsize:'20px' }}
+          
           id="tableTitle"
           component="div"
         >
           All Users
         </Typography>
+        <IconButton aria-label="edit" onClick={() => setShowLogin(true)}>
+                  <EditIcon />
+                  
+                </IconButton>
+        <EditModal show={showLogin} close={() => setShowLogin(false)} />
 
         <Table size={dense ? 'small' : 'medium'}>
           <TableHeadCustom
@@ -160,7 +164,7 @@ const AllUserList = () => {
 
           <TableBody>
             {list.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
-              <UserListTableRow
+              <KycListTableRow
                 key={row.userid}
                 row={row}
                 selected={selected.includes(row.userid)}
@@ -184,4 +188,4 @@ const AllUserList = () => {
     </Grid>)
 }
 
-export default AllUserList;
+export default KycUsersList;

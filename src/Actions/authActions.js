@@ -1,11 +1,11 @@
 import * as api from '../API'
 import { LOGIN } from '../constants'
 
-/**
- * Admin Login
- * @param {*} formData 
- * @returns 
- */
+// /**
+//  * Admin Login
+//  * @param {*} formData 
+//  * @returns 
+//  */
 export const loginRequest = (formData) => async (dispatch) => {
   try {
     const { data } = await api.loginRequestApi(formData);

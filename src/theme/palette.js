@@ -23,7 +23,9 @@ const error = {
   main:"#F44336"
 }
 const secondry = {
+  light:"#fff",
   dark: 'rgba(255, 255, 255, 0.5);',
+  darker:"#193E79"
 };
 
 const gradients = {
@@ -33,9 +35,12 @@ const activeColor = {
   main:"#90CAF9"
 }
 const textG = {
-  main:"#0BB783"
+  main:"#0BB783",
+  light:"#ffffff80"
 }
-
+const textLight = {
+  main: 'rgba(255, 255, 255, 0.5);',
+}
 const INFO = {
   lighter: '#D0F2FF',
   light: '#74CAFF',
@@ -110,7 +115,8 @@ const palette = {
     gradients,
     activeColor,
     textG,
-    error
+    error,
+    textLight
   },
   dark: { 
     mode: 'dark',
@@ -120,7 +126,8 @@ const palette = {
     gradients,
     activeColor,
     textG,
-    error
+    error,
+    textLight
   },
 };
 
