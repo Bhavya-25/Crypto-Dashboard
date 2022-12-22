@@ -9,6 +9,8 @@ const styles = {
     card: {
         background: 'transparent',
         width: '100%',
+        boxShadow:'unset',
+        padding:"0 20px"
     },
     stack: {
         border: '1px solid',
@@ -24,19 +26,19 @@ const styles = {
 };
 const mdbCard = () => {
     return (
-        <div style={{
-            padding: '48px 40px',
+        <Box sx={{
+            padding: '48px 0px 24px',
         }}>
 
-            <Grid container spacing={3} columns={{ xs: 3, sm: 4, md: 8 }} sx={{ background: "#000" }}>
+            <Grid container spacing={0} columns={{ xs: 3, sm: 4, md: 8 }} sx={{ borderRadius:"10px",padding:"24px 4px", background:(theme)=>theme.palette.bgGray.dark }}>
                 {Items.map((value, index) => (
-                    <Grid item xs={3} sm={2} md={2} key={value} sx={{
+                    <Grid  item xs={3} sm={2} md={2} key={value} sx={{
                         gap: '10px'
                     }}>
-                        <div style={{
+                        <Box sx={{
                             display: 'flex',
                             alignItems: 'center',
-                            gap: '24px'
+                            
                         }}>
                             <Card key={value} item style={styles.card}  >
                                 <CardHeader
@@ -74,10 +76,13 @@ const mdbCard = () => {
 
                                     <Box
                                         sx={{
-                                            padding: '2px 4px',
+                                            padding: '4px 8px',
                                             display: 'flex',
                                             justifyContent: 'space-evenly',
-                                            border:'2px solid #000000e6',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: '2px',
+                                            background: 'linear-gradient(0deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), #66BB6A',
                                             borderRadius:2,
                                             
                                         }}>
@@ -90,12 +95,12 @@ const mdbCard = () => {
                                 <div className="divide" style={styles.divider}></div>
                             }
 
-                        </div>
+                        </Box>
                     </Grid>
                 ))}
 
             </Grid>
-        </div>
+        </Box>
 
 
 
