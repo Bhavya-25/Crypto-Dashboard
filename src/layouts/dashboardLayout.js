@@ -28,7 +28,7 @@ export default function DashboardLayout({ pageContent }) {
                         <Header handleDrawerOpen={handleDrawerOpen} />
                         {/* <HeaderTest /> */}
                     </Box>
-                    <Box sx={{ background: (theme) => theme.palette.bgGray.dark, height: "calc(100vh - 72px)", overflow: 'scroll' }}>
+                    <Box sx={{ background: (theme) => theme.palette.bgGray.dark, height: "calc(100vh - 72px)", overflowY: 'scroll' }}>
                         {pageContent}
                     </Box>
                 </Box>
