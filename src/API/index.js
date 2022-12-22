@@ -22,3 +22,20 @@ export const loginRequestApi = (formData) => API.post('/user/login', formData)
  */
 export const userListRequestApi = () => API.get('/admin/user/all')
 export const userStatusUpdate =(data) => API.post('/admin/user/update', data)
+
+export const marketCoinRequestAPI=()=>API.get('/admin/market/coin')
+/**
+ * Deposit Requests
+ */
+export const depositListRequestApi = () => API.get('/admin/deposit/all')
+
+/**
+ * Withdraw Requests
+ */
+export const withdrawListRequestApi = () => API.get('/admin/withdraw/all')
+
+/**
+ * Kyc Requests
+ */
+export const kycListRequestApi = () => API.get('/admin/kyc/all')
+

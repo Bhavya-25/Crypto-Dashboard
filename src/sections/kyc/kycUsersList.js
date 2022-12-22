@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import {
   Typography, Grid, TableContainer, Table, TableBody, TablePagination, Tooltip, IconButton
 } from "@mui/material";
-
+import EditIcon from '@mui/icons-material/Edit';
 import useTable, { emptyRows } from "../../hooks/useTable";
 import Iconify from "../../components/Iconify";
 import { TableHeadCustom, TableEmptyRows,TableSelectedActions } from "../../components/table";
-import KycListTableRow from "../kyc/kycListTableRow";
+import KycListTableRow from "./kycListTableRow";
+import EditModal from "../../Modal/editModal";
 
-
-// function createData(userid, name, created, token, btc, usdt, status) {
-//   return { userid, name, created, token, btc, usdt, status };
-// }
+function createData(name, userid, createdAt,  email, document, frontback, status) {
+  return { name, userid, createdAt, email, document, frontback, status };
+}
 
 const headCells = [
   {
@@ -30,7 +31,7 @@ const headCells = [
     id: 'created',
     numeric: false,
     disablePadding: true,
-    label: 'Created At',
+    label: 'Date',
   },
   {
     id: 'email',
@@ -46,13 +47,12 @@ const headCells = [
   },
   {
     id: 'front/back',
-    numeric: true,
     disablePadding: false,
     label: 'Front/Back',
   },
   {
     id: 'status',
-    numeric: true,
+    numeric: false,
     disablePadding: false,
     label: 'Status',
   },
@@ -86,20 +86,16 @@ const KycUsersList = (props) => {
   } = useTable();
 
   const [list, setList] = useState([]);
-
-  function createData(name, userid, createdAt,  email, document, frontback, status) {
-    return { name, userid, createdAt, email, document, frontback, status };
-  }
+  const [showLogin,setShowLogin] = useState(false)
+  const kycList = useSelector((state) => state.kycList); 
+ 
   useEffect(() => {
-    const rows = [
-      createData('Shane', '#12345','01-02-2022', 'abc@gmail.com',"Voter Card", 'Document', 'Pending'),
-      createData('Cameron', '#12445', '01-02-2022','xyz@gmail.com',"Voter Card", 'Document', 'Pending'),
-      createData('Kristin', '#12555','01-02-2022', 'aaa@gmail.com',"Voter Card", 'Document', 'Pending'),
-      createData('Victoria', '#13345', '01-02-2022','ojc@gmail.com',"Voter Card", 'Document', 'Pending'),
-    ];
-  
-    setList(rows);
-  }, [setList])
+    let alluser = [];
+    for (const kyc of kycList.kycList) {
+      alluser.push(createData(kyc.name, kyc.userid, kyc.createdAt, kyc.email, kyc.doctype,kyc.media[0].file, kyc.isVerified));
+    }
+    setList(alluser);
+  }, [setList,kycList])
  
 
 
@@ -146,6 +142,11 @@ const KycUsersList = (props) => {
         >
           All Users
         </Typography>
+        <IconButton aria-label="edit" onClick={() => setShowLogin(true)}>
+                  <EditIcon />
+                  
+                </IconButton>
+        <EditModal show={showLogin} close={() => setShowLogin(false)} />
 
         <Table size={dense ? 'small' : 'medium'}>
           <TableHeadCustom

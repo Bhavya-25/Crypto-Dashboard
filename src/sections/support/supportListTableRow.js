@@ -8,7 +8,7 @@ import moment from "moment";
 
 // ----------------------------------------------------------------------
 
-KycListTableRow.propTypes = {
+SupportListTableRow.propTypes = {
   row: PropTypes.object,
   selected: PropTypes.bool,
   onEditRow: PropTypes.func,
@@ -20,10 +20,10 @@ KycListTableRow.propTypes = {
 
 
 
-export default function KycListTableRow({ row, selected, onEditRow, onSelectRow, onDeleteRow }){
+export default function SupportListTableRow({ row, selected, onEditRow, onSelectRow, onDeleteRow }){
   const theme = useTheme();
 
-  const { name, userid,created,  email, document, frontback, status } = row;
+  const { name, userid, created, email, subject, issue, status ,priority } = row;
 
   return (
     <TableRow hover selected={selected}>
@@ -38,24 +38,27 @@ export default function KycListTableRow({ row, selected, onEditRow, onSelectRow,
       <TableCell align="left">{moment(created).format('Y/MM/DD HH:mm:ss')}</TableCell>
       <TableCell align="left">{email}</TableCell>
       <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
-        {document}
+        {subject}
       </TableCell>
-      <TableCell component="a" href="/dashboard" align="left" sx={{ textTransform: 'capitalize',
-     maxWidth: '180px',
-     whiteSpace: 'nowrap',
-     overflow: 'hidden',
-     textOverflow: 'ellipsis',
-     textDecoration:'none',
-     color:theme.palette.info.dark }}>
-        {frontback}
+      <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
+        {issue}
       </TableCell>
       <TableCell align="left">
         <Typography 
           variant="outlined"
-          color={(status === true) ? theme.palette.success.dark : theme.palette.error.dark}
+          color={(status === 'Active') ? theme.palette.success.dark : theme.palette.error.dark}
           sx={{ textTransform: 'capitalize' }}
         >
-          {(status===true)?'Accept':'Reject'}
+          {status}
+        </Typography>
+        </TableCell>
+        <TableCell align="left">
+        <Typography 
+          variant="outlined"
+          color={(status === 'High') ? theme.palette.success.dark : theme.palette.info.dark}
+          sx={{ textTransform: 'capitalize' }}
+        >
+          {priority}
         </Typography>
       </TableCell>
       <TableCell align="center">

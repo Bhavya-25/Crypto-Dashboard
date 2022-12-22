@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 // @mui
 import { Box, Checkbox, TableRow, TableCell, TableHead, TableSortLabel } from '@mui/material';
 
+
 // ----------------------------------------------------------------------
 
 const visuallyHidden = {
@@ -57,7 +58,7 @@ export default function TableHeadCustom({
             key={headCell.id}
             align={headCell.align || 'left'}
             sortDirection={orderBy === headCell.id ? order : false}
-            sx={{ width: headCell.width, minWidth: headCell.minWidth, fontSize:'12px' }}
+            sx={{ width: headCell.width, minWidth: headCell.minWidth, fontSize: '12px' }}
           >
             {onSort ? (
               <TableSortLabel
@@ -68,6 +69,8 @@ export default function TableHeadCustom({
                 sx={{ textTransform: 'capitalize' }}
               >
                 {headCell.label}
+
+              
 
                 {orderBy === headCell.id ? (
                   <Box sx={{ ...visuallyHidden }}>{order === 'desc' ? 'sorted descending' : 'sorted ascending'}</Box>

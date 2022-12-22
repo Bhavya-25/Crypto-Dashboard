@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import {
   Typography, Grid, TableContainer, Table, TableBody, TablePagination, Tooltip, IconButton
 } from "@mui/material";
@@ -7,56 +6,61 @@ import {
 import useTable, { emptyRows } from "../../hooks/useTable";
 import Iconify from "../../components/Iconify";
 import { TableHeadCustom, TableEmptyRows,TableSelectedActions } from "../../components/table";
-import UserListTableRow from "./userListTableRow";
+import SupportListTableRow from "../support/supportListTableRow";
 
 
-function createData(userid, name, created, token, btc, usdt, status) {
-  return { userid, name, created, token, btc, usdt, status };
-}
+// function createData(userid, name, created, token, btc, usdt, status) {
+//   return { userid, name, created, token, btc, usdt, status };
+// }
 
 const headCells = [
-
-  {
-    id: 'userid',
-    numeric: false,
-    disablePadding: true,
-    label: 'user ID',
-  },
   {
     id: 'name',
     numeric: true,
     disablePadding: false,
-    label: 'Name',
+    label: 'FullName',
+  },
+  {
+    id: 'userid',
+    numeric: false,
+    disablePadding: true,
+    label: 'User ID',
   },
   {
     id: 'created',
     numeric: false,
     disablePadding: true,
-    label: 'Created',
+    label: 'Date',
   },
   {
-    id: 'token',
+    id: 'email',
     numeric: false,
     disablePadding: true,
-    label: 'Token',
+    label: 'Email',
   },
   {
-    id: 'btc',
-    numeric: true,
+    id: 'subject',
+    numeric: false,
     disablePadding: false,
-    label: 'In BTC',
+    label: 'Subject',
   },
   {
-    id: 'usdt',
+    id: 'issue',
     numeric: true,
     disablePadding: false,
-    label: 'Holding',
+    label: 'Issue',
   },
   {
     id: 'status',
     numeric: true,
     disablePadding: false,
     label: 'Status',
+  },
+  {
+    id: 'priority',
+    numeric: true,
+    disablePadding: false,
+    label: 'Priority',
   },
   {
     id: 'isAction',
@@ -68,7 +72,7 @@ const headCells = [
 ];
 
 
-const AllUserList = () => {
+const SupportUsersList = (props) => {
   const {
     dense,
     page,
@@ -89,16 +93,21 @@ const AllUserList = () => {
 
   const [list, setList] = useState([]);
 
-  const userList = useSelector((state) => state.userList);
-  console.log("====userList", userList)
-
+  function createData(name, userid, createdAt,  email, subject, issue, status,priority) {
+    return { name, userid, createdAt, email, subject, issue, status ,priority};
+  }
   useEffect(() => {
-    let alluser = [];
-    for (const user of userList) {
-      alluser.push(createData(user._id, user.name, user.createdAt, 'USDT', 0, user.holding, user.status, true));
-    }
-    setList(alluser);
-  }, [setList, userList])
+      const rows = [
+        createData('Shane', '#12345','01-02-2022', 'abc@gmail.com',"abcjdsjhdjhfjdh", 'Doc', 'Pending','High'),
+      createData('Cameron', '#12445', '01-02-2022','xyz@gmail.com',"abcjdsjhdjhfjdh", 'Doc','Pending', 'Medium'),
+      createData('Kristin', '#12555','01-02-2022', 'aaa@gmail.com',"abcjdsjhdjhfjdh", 'Doc','Pending', 'Low'),
+      createData('Victoria', '#13345', '01-02-2022','ojc@gmail.com',"abcjdsjhdjhfjdh", 'Doc','Pending','High'),
+    ];
+  
+    setList(rows);
+  }, [setList])
+ 
+
 
   const handleDeleteRows = (selected) => {
     const deleteRows = list.filter((row) => !selected.includes(row.userid));
@@ -114,7 +123,7 @@ const AllUserList = () => {
 
   return (
     <Grid item xs={12}>
-      <TableContainer sx={{ minWidth: 800, position: 'relative' }}>
+      <TableContainer sx={{ minWidth: 335, position: 'relative' }}>
         {selected.length > 0 && (
           <TableSelectedActions
             dense={dense}
@@ -136,8 +145,8 @@ const AllUserList = () => {
           />
         )}
         <Typography
-          sx={{ flex: '1 1 100%' }}
-          variant="h6"
+          sx={{ flex: '1 1 100%', fontsize:'20px' }}
+          
           id="tableTitle"
           component="div"
         >
@@ -160,7 +169,7 @@ const AllUserList = () => {
 
           <TableBody>
             {list.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
-              <UserListTableRow
+              <SupportListTableRow
                 key={row.userid}
                 row={row}
                 selected={selected.includes(row.userid)}
@@ -184,4 +193,4 @@ const AllUserList = () => {
     </Grid>)
 }
 
-export default AllUserList;
+export default SupportUsersList;

@@ -26,7 +26,7 @@ const headCells = [
     id: 'created',
     numeric: false,
     disablePadding: true,
-    label: 'Created At',
+    label: 'Date',
   },
   {
     id: 'txid',
@@ -100,8 +100,6 @@ const ReportTableList = (props) => {
     ];
     setList(rows);
   }, [setList])
-
-
 
   const handleDeleteRows = (selected) => {
     const deleteRows = list.filter((row) => !selected.includes(row.userid));

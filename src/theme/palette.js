@@ -25,6 +25,7 @@ const error = {
 const secondry = {
   light:"#fff",
   dark: 'rgba(255, 255, 255, 0.5);',
+  darker:"#193E79"
 };
 
 const gradients = {
