@@ -19,6 +19,8 @@ import * as yup from "yup";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import network from '../../networks.json'
+import { useState } from "react";
+
 
 
 const tokens = [
@@ -33,6 +35,13 @@ const tokens = [
 ];
 
 const TokenForm = () => {
+
+  const [open, setOpen] = useState({
+    Binance: false,
+    Ethereum: false,
+    Tron: false
+  })
+
   const schema = yup.object().shape({
     coinName: yup.string().required("This field is required"),
     confirmation: yup.number().positive().typeError('Amount must be a number'),
@@ -41,20 +50,51 @@ const TokenForm = () => {
     fullName: yup.string().required("This field is required"),
     minimumWithdraw: yup.string().required("This field is required"),
     select: yup.string().required("This field is required"),
+    Binance : yup.object().shape({
+      decimalNum: yup.number().positive(),
+      fee: yup.number().positive(),
+      contract: yup.string(),
+      abi: yup.string()
+    }),
+    Ethereum : yup.object().shape({
+      decimalNum: yup.number().positive(),
+      fee: yup.number().positive(),
+      contract: yup.string(),
+      abi: yup.string()
+    }),
+    Tron : yup.object().shape({
+      decimalNum: yup.number().positive(),
+      fee: yup.number().positive(),
+      contract: yup.string(),
+      abi: yup.string()
+    }),
+
+
+
     // chooseCb: yup.array().required("Field must have at least 1 item").min(1).nullable(),
   });
 
 
-  const { register, handleSubmit, setValue,control, formState: { errors }, reset  } = useForm({
+  const { register, handleSubmit, setValue, control, formState: { errors }, reset } = useForm({
     resolver: yupResolver(schema),
   });
+
+  const handleChange = (event, feildName) => {
+
+    setOpen((prevalue) => {
+      return {
+        ...prevalue,
+        [feildName]: event.target.checked
+      }
+    })
+  }
 
 
   let submitForm = (data, e) => {
     e.preventDefault(e);
     let formData = new FormData(e.target);
     let uploadFile = formData.get('image');
-        var reader = new FileReader();
+    var reader = new FileReader();
     reader.readAsDataURL(uploadFile);
     reader.onload = function () {
       data.image = reader.result;
@@ -62,22 +102,23 @@ const TokenForm = () => {
     reader.onerror = function (error) {
       console.log('Error: ', error);
     };
+    setOpen(false)
     console.log(data)
-    document.querySelectorAll('.network-checkbox input').forEach((elem)=>{
-      if(elem.checked){
+    document.querySelectorAll('.network-checkbox input').forEach((elem) => {
+      if (elem.checked) {
         elem.click();
       }
-     })
-     reset();
+    })
+    reset();
   }
 
-  
+
   return (
 
     <Paper sx={{
       margin: 'auto'
     }} >
-      <Box component='form' px={3} py={2} maxWidth='550px' width='100%' alignContent='center' onSubmit={handleSubmit(submitForm)}>
+      <Box component='form' px={3} py={2} maxWidth='750px' width='100%' alignContent='center' onSubmit={handleSubmit(submitForm)}>
         <Typography variant="h6" align="center" margin="dense">
           Token Form
         </Typography>
@@ -214,37 +255,106 @@ const TokenForm = () => {
             <Box
               fullWidth
               margin="dense"
+              
 
             >
 
-              <FormControl component="fieldset" variant="standard" 
+              <FormControl   component="fieldset" variant="standard"
                 error={errors.chooseCb ? true : false} >
                 <FormLabel component="legend">Networks</FormLabel>
                 <FormGroup>
-              
-                {network.map((check,i) => {
-                  return(
-                    <FormControlLabel
-                      control={ 
-                           <Controller      
-                        name={check.forControl}
-                        control={control}
-                        rules={{ required: true }}
-                        render={({ field: { value, ...field } }) => (
-                          <MuiCheckbox
-                            {...field}
-                            checked={!!value}
-                 
-                            />
-                          )}
-                          />
-                      }                
-                    label={check.Network}
-                    
-                  />
 
-                  )
-              })}     
+                  {network.map((check, index) => {
+                    return (
+                      <FormControlLabel sx={{ display:'block'}}
+                        label={
+                          <Box >
+                            {open[check.forControl] &&
+                              <Box id={check.Network}>
+                                <Grid container spacing={1}>
+                                <Grid item xs={12} sm={3}>
+                                  <TextField
+                                    onChange={(event)=>{setValue(`${check.forControl}.decimalNum`,`${event.target.value}`);}}
+                                    type='number'
+                                    required
+                                    id={`decimalsnum${index}`}
+                                    name="decimalsnum"
+                                    label="Decimal"
+                                    fullWidth
+                                    margin="dense"              
+                                  />          
+                                </Grid>
+                                <Grid item xs={12} sm={3}>
+                                  <TextField
+                                  onChange={(event)=>{setValue(`${check.forControl}.fee`,`${event.target.value}`);}}
+                                  type='number'
+                                  required
+                                    id={`fee${index}`}
+                                    name="fee"
+                                    label="fee"
+                                    fullWidth
+                                    margin="dense"                     
+                                />           
+                                </Grid>
+                                <Grid item xs={12} sm={3}>
+                                  <TextField
+                                  onChange={(event)=>{setValue(`${check.forControl}.contract`,`${event.target.value}`);}}
+                                  required
+                                    id={`contract${index}`}
+                                    name="contract"
+                                    label="Contract"
+                                    fullWidth
+                                    margin="dense"                   
+                                  />
+                                  
+                                </Grid>
+                                <Grid item xs={12} sm={3}>
+                                  <TextField
+                                  onChange={(event)=>{setValue(`${check.forControl}.abi`,`${event.target.value}`);}}
+                                    id={`abi${index}`}
+                                    required
+                                    name="abi"
+                                    label="ABI"
+                                    fullWidth
+                                    margin="dense"  
+                                  />
+                                </Grid>
+                                </Grid>
+                              </Box>
+                            }
+
+                          </Box>
+                        }
+                        control={
+                          <Controller
+                            name={check.forControl}
+                            control={control}
+                            rules={{ required: true }}
+                            render={({ field: { value, ...field } }) => {
+                              return (
+                                <Box sx={{
+                                  display:'block'
+                                }}>
+                                  <MuiCheckbox
+                                    {...field}
+                                    checked={!!value}
+                                    onChange={(event) => { field.onChange(event); handleChange(event, check.forControl) }}
+                                  />
+                                  {check.Network}
+                                </Box>
+
+                              )
+                            }}
+
+                          />
+                        }
+
+                      />
+
+
+                    )
+                  })}
+
                 </FormGroup>
               </FormControl>
               <Typography variant="inherit" color="textSecondary">
@@ -255,6 +365,9 @@ const TokenForm = () => {
 
 
           </Grid>
+
+
+
         </Grid>
 
         <Box mt={3}>
