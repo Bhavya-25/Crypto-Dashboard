@@ -33,7 +33,7 @@ export  default function MainListItems(){
       </ListItemIcon>
       <ListItemText primary="Users" />
     </ListItemButton>
-    <ListItemButton>
+    <ListItemButton component={Link} to='/token'>
       <ListItemIcon sx={{ color: "white" }}>
         <CurrencyExchangeIcon />
       </ListItemIcon>

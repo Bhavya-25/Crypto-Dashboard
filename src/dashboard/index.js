@@ -12,7 +12,7 @@ const Dashboard = () => {
     useEffect(()=>{
 
         const getTokenList=async()=>{
-            let data = await dispatch(tokenListRequest());
+             await dispatch(tokenListRequest());
         }
 
         getTokenList()

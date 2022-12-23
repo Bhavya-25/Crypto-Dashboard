@@ -10,7 +10,6 @@ export default function DashboardLayout({ pageContent }) {
     const [open, setOpen] = useState(false);
     const handleDrawerOpen = () => {
       setOpen(true);
-      console.log("i am here 1");
     };
     
     const handleDrawerClose = () => {

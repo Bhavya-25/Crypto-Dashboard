@@ -7,6 +7,7 @@ import Report from "./templates/report";
 import Support from "./templates/support";
 import Deposit from "./templates/deposit";
 import Withdraw from "./templates/withdraw";
+import Token from "./templates/token";
 export default function Routing() {
 
   let session =  sessionStorage.getItem('token')
@@ -21,6 +22,7 @@ export default function Routing() {
         <Route exact path="/support" element={ <Support /> }></Route>
         <Route exact path="/deposit" element={ <Deposit /> }></Route>
         <Route exact path="/withdraw" element={ <Withdraw /> }></Route>
+        <Route exact path="/token" element={ <Token /> }></Route>
       </Routes>
   );
 }

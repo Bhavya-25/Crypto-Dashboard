@@ -8,6 +8,7 @@ const tokenList =(tokenList = [], action)=>{
       if (action.payload.status === 200) {
         return action.payload.data
       }   
+      break
         
     default:
       return tokenList
