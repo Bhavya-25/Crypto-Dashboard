@@ -39,3 +39,8 @@ export const withdrawListRequestApi = () => API.get('/admin/withdraw/all')
  */
 export const kycListRequestApi = () => API.get('/admin/kyc/all')
 
+/**
+ * Token List Requests
+ */
+export const tokenList =(data) => API.post('/admin/token/create', data)
+

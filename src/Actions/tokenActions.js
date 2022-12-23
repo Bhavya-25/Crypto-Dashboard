@@ -1,6 +1,6 @@
 import * as api from '../API'
 
-import { TOKENLIST } from '../constants'
+import { TOKENLIST, TOKENLISTCREATE } from '../constants'
 
 export const tokenListRequest = () => async (dispatch) => {
   try {
@@ -8,6 +8,23 @@ export const tokenListRequest = () => async (dispatch) => {
 
     if (data.status === 200) {
       await dispatch({ type: TOKENLIST, payload: data })
+      return data;
+    }
+    else {
+      return data;
+    }
+
+  } catch (error) {
+
+  }
+}
+
+export const tokenListCreate = (params) => async (dispatch) => {
+  try {
+    const { data } = await api.tokenList(params);
+
+    if (data.status === 200) {
+      await dispatch({ type: TOKENLISTCREATE, payload: data })
       return data;
     }
     else {

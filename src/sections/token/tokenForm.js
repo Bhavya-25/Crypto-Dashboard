@@ -14,13 +14,13 @@ import {
   Checkbox,
   Checkbox as MuiCheckbox,
 } from "@mui/material";
-
+import { useDispatch } from 'react-redux';
 import * as yup from "yup";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import network from '../../networks.json'
 import { useState } from "react";
-
+import { tokenListCreate } from '../../Actions/tokenActions';
 
 
 const tokens = [
@@ -35,7 +35,7 @@ const tokens = [
 ];
 
 const TokenForm = () => {
-
+  const dispatch = useDispatch();
   const [open, setOpen] = useState({
     Binance: false,
     Ethereum: false,
@@ -44,25 +44,25 @@ const TokenForm = () => {
 
   const schema = yup.object().shape({
     coinName: yup.string().required("This field is required"),
-    confirmation: yup.number().positive().typeError('Amount must be a number'),
-    decimal: yup.number().positive().typeError('Amount must be a number'),
+    confirmations: yup.number().positive().typeError('Amount must be a number'),
+    decimals: yup.number().positive().typeError('Amount must be a number'),
     image: yup.mixed().required("Image is required"),
     fullName: yup.string().required("This field is required"),
-    minimumWithdraw: yup.string().required("This field is required"),
-    select: yup.string().required("This field is required"),
-    Binance : yup.object().shape({
+    minimum_withdraw: yup.string().required("This field is required"),
+    tokenType: yup.string().required("This field is required"),
+    Binance: yup.object().shape({
       decimalNum: yup.number().positive(),
       fee: yup.number().positive(),
       contract: yup.string(),
       abi: yup.string()
     }),
-    Ethereum : yup.object().shape({
+    Ethereum: yup.object().shape({
       decimalNum: yup.number().positive(),
       fee: yup.number().positive(),
       contract: yup.string(),
       abi: yup.string()
     }),
-    Tron : yup.object().shape({
+    Tron: yup.object().shape({
       decimalNum: yup.number().positive(),
       fee: yup.number().positive(),
       contract: yup.string(),
@@ -90,26 +90,43 @@ const TokenForm = () => {
   }
 
 
-  let submitForm = (data, e) => {
+  let submitForm = async (data, e) => {
     e.preventDefault(e);
+
+    let networks = [];
+    networks.push(data.Binance)
+    networks.push(data.Tron)
+    networks.push(data.Ethereum)
+    console.log(networks)
+
     let formData = new FormData(e.target);
     let uploadFile = formData.get('image');
     var reader = new FileReader();
     reader.readAsDataURL(uploadFile);
     reader.onload = function () {
       data.image = reader.result;
+
+      data.networks = networks;
+      console.log(networks)
+      setOpen(false)
+      dispatch(tokenListCreate(data)).then((response) => {
+        console.log(response)
+
+      }).catch(err => {
+        console.log("err", err)
+      });
+      document.querySelectorAll('.network-checkbox input').forEach((elem) => {
+        if (elem.checked) {
+          elem.click();
+        }
+      })
+      reset();
+
     };
     reader.onerror = function (error) {
       console.log('Error: ', error);
     };
-    setOpen(false)
-    console.log(data)
-    document.querySelectorAll('.network-checkbox input').forEach((elem) => {
-      if (elem.checked) {
-        elem.click();
-      }
-    })
-    reset();
+
   }
 
 
@@ -142,16 +159,16 @@ const TokenForm = () => {
             <TextField
 
               type='number'
-              id="confirmation"
-              name="confirmation"
+              id="confirmations"
+              name="confirmations"
               label="Confirmation Number"
               fullWidth
               margin="dense"
-              {...register('confirmation')}
-              error={errors.confirmation ? true : false}
+              {...register('confirmations')}
+              error={errors.confirmations ? true : false}
             />
             <Typography variant="inherit" color="textSecondary">
-              {errors.confirmation?.message}
+              {errors.confirmations?.message}
             </Typography>
 
           </Grid>
@@ -159,17 +176,17 @@ const TokenForm = () => {
             <TextField
 
               type='number'
-              id="decimal"
-              name="decimal"
+              id="decimals"
+              name="decimals"
               label="Decimal"
               fullWidth
               margin="dense"
-              {...register('decimal')}
+              {...register('decimals')}
 
-              error={errors.decimal ? true : false}
+              error={errors.decimals ? true : false}
             />
             <Typography variant="inherit" color="textSecondary">
-              {errors.decimal?.message}
+              {errors.decimals?.message}
             </Typography>
 
           </Grid>
@@ -212,17 +229,17 @@ const TokenForm = () => {
           <Grid item xs={12} sm={12}>
             <TextField
 
-              id="minimumWithdraw"
-              name="minimumWithdraw"
+              id="minimum_withdraw"
+              name="minimum_withdraw"
               label="Minimum Withdraw"
               fullWidth
               margin="dense"
-              {...register('minimumWithdraw')}
+              {...register('minimum_withdraw')}
 
-              error={errors.minimumWithdraw ? true : false}
+              error={errors.minimum_withdraw ? true : false}
             />
             <Typography variant="inherit" color="textSecondary">
-              {errors.minimumWithdraw?.message}
+              {errors.minimum_withdraw?.message}
             </Typography>
 
           </Grid>
@@ -230,17 +247,17 @@ const TokenForm = () => {
 
           <Grid item xs={12} sm={12}>
             <TextField
-              id="select"
+              id="tokenType"
               select
               fullWidth
               margin="dense"
               label="Token Type"
               helperText="Please select your Token Type"
-              {...register('select')}
-              error={errors.select ? true : false}
+              {...register('tokenType')}
+              error={errors.tokenType ? true : false}
             >
               <Typography variant="inherit" color="textSecondary">
-                {errors.select?.message}
+                {errors.tokenType?.message}
               </Typography>
               {tokens.map((option) => (
                 <MenuItem key={option.value} value={option.value}>
@@ -255,70 +272,70 @@ const TokenForm = () => {
             <Box
               fullWidth
               margin="dense"
-              
+
 
             >
 
-              <FormControl   component="fieldset" variant="standard"
+              <FormControl component="fieldset" variant="standard"
                 error={errors.chooseCb ? true : false} >
                 <FormLabel component="legend">Networks</FormLabel>
                 <FormGroup>
 
                   {network.map((check, index) => {
                     return (
-                      <FormControlLabel sx={{ display:'block'}}
+                      <FormControlLabel sx={{ display: 'block' }}
                         label={
                           <Box >
                             {open[check.forControl] &&
                               <Box id={check.Network}>
                                 <Grid container spacing={1}>
-                                <Grid item xs={12} sm={3}>
-                                  <TextField
-                                    onChange={(event)=>{setValue(`${check.forControl}.decimalNum`,`${event.target.value}`);}}
-                                    type='number'
-                                    required
-                                    id={`decimalsnum${index}`}
-                                    name="decimalsnum"
-                                    label="Decimal"
-                                    fullWidth
-                                    margin="dense"              
-                                  />          
-                                </Grid>
-                                <Grid item xs={12} sm={3}>
-                                  <TextField
-                                  onChange={(event)=>{setValue(`${check.forControl}.fee`,`${event.target.value}`);}}
-                                  type='number'
-                                  required
-                                    id={`fee${index}`}
-                                    name="fee"
-                                    label="fee"
-                                    fullWidth
-                                    margin="dense"                     
-                                />           
-                                </Grid>
-                                <Grid item xs={12} sm={3}>
-                                  <TextField
-                                  onChange={(event)=>{setValue(`${check.forControl}.contract`,`${event.target.value}`);}}
-                                  required
-                                    id={`contract${index}`}
-                                    name="contract"
-                                    label="Contract"
-                                    fullWidth
-                                    margin="dense"                   
-                                  />
-                                  
-                                </Grid>
-                                <Grid item xs={12} sm={3}>
-                                  <TextField
-                                  onChange={(event)=>{setValue(`${check.forControl}.abi`,`${event.target.value}`);}}
-                                    id={`abi${index}`}
-                                    required
-                                    name="abi"
-                                    label="ABI"
-                                    fullWidth
-                                    margin="dense"  
-                                  />
-                                </Grid>
+                                  <Grid item xs={12} sm={3}>
+                                    <TextField
+                                      onChange={(event) => { setValue(`${check.forControl}.decimalNum`, `${event.target.value}`); }}
+                                      type='number'
+                                      required
+                                      id={`decimalsnum${index}`}
+                                      name="decimalsnum"
+                                      label="Decimal"
+                                      fullWidth
+                                      margin="dense"
+                                    />
+                                  </Grid>
+                                  <Grid item xs={12} sm={3}>
+                                    <TextField
+                                      onChange={(event) => { setValue(`${check.forControl}.fee`, `${event.target.value}`); }}
+                                      type='number'
+                                      required
+                                      id={`fee${index}`}
+                                      name="fee"
+                                      label="fee"
+                                      fullWidth
+                                      margin="dense"
+                                    />
+                                  </Grid>
+                                  <Grid item xs={12} sm={3}>
+                                    <TextField
+                                      onChange={(event) => { setValue(`${check.forControl}.contract`, `${event.target.value}`); }}
+                                      required
+                                      id={`contract${index}`}
+                                      name="contract"
+                                      label="Contract"
+                                      fullWidth
+                                      margin="dense"
+                                    />
+
+                                  </Grid>
+                                  <Grid item xs={12} sm={3}>
+                                    <TextField
+                                      onChange={(event) => { setValue(`${check.forControl}.abi`, `${event.target.value}`); }}
+                                      id={`abi${index}`}
+                                      required
+                                      name="abi"
+                                      label="ABI"
+                                      fullWidth
+                                      margin="dense"
+                                    />
+                                  </Grid>
                                 </Grid>
                               </Box>
                             }
@@ -333,7 +350,7 @@ const TokenForm = () => {
                             render={({ field: { value, ...field } }) => {
                               return (
                                 <Box sx={{
-                                  display:'block'
+                                  display: 'block'
                                 }}>
                                   <MuiCheckbox
                                     {...field}
