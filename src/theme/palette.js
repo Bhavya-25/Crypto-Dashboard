@@ -18,6 +18,7 @@ const primary = {
 const bgGray = {
   main:"#464E5F",
   dark: '#121212',    
+  darker:"#252525"
 }
 const error = {
   main:"#F44336"

@@ -1,19 +1,18 @@
 import React from "react";
+<<<<<<< HEAD
 import {  Grid } from '@mui/material'
 
+=======
+import { Card, Grid , Box} from '@mui/material'
+import TableChart from './tableChart'
+>>>>>>> 7606231bf95b6e89a226cdcd847b6f8bec485b99
 import MultilpleDougnutChart from './multipleDougnutChart'
 import RevenueTokenList from "../../sections/dashboard/revenueTokenList";
 
 const RevenueToken = () => {
     return (
-        <div
-            style={{
-                padding: '24px 30px',
-
-            }}>
-
-            <Grid container spacing={6} columns={{ xs: '8', sm: '12' }}
-            >
+        <Box>
+            <Grid container spacing={6} columns={{ xs: '8', sm: '12' }}>
                 <RevenueTokenList />
                 <Grid item xs={8} sm={6}
                     sx={{
@@ -23,9 +22,7 @@ const RevenueToken = () => {
                     <MultilpleDougnutChart id="container5" />
                 </Grid>
             </Grid>
-        </div>
-
-
+        </Box>
     )
 
 };
