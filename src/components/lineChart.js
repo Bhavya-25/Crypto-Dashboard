@@ -20,14 +20,16 @@ const LineChart=()=>{
   useEffect(()=>{
     Highcharts.chart('line-chart', {
       chart: {
-          type: 'spline'
+          type: 'spline',
+          spacingLeft: 20,
+          spacingBottom: 40,
+          spacingRight: 30,
       },
       title: {
           text: 'Revenue Statisitics',
           align:'left',
-          itemMarginTop: 5,
-          itemMarginBottom: 5,
-          
+          x: 25,
+          y: 35
       },
     
       xAxis: {

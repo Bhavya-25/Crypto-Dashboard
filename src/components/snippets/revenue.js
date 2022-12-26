@@ -91,10 +91,10 @@ const Revenue = () => {
   return (
     <Box>
       <Grid container spacing={6} columns={{ xs: '8', sm: '12' }}>
-        <Grid item xs={8} sm={8}>
-          <LineChart />
+        <Grid item xs={8} sm={8} className="line_chart_wrapper">
+          <LineChart   />
         </Grid>
-        <Grid item xs={8} sm={4}>
+        <Grid item xs={8} sm={4} className="line_chart_wrapper">
           <DougnutChart id="container" doughnutProp={doughnutProp} />
         </Grid>
       </Grid>
