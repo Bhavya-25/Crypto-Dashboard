@@ -20,8 +20,8 @@ export default function TokenListTableRow({ row, selected, onEditRow, onSelectRo
   const theme = useTheme();
 
 
-  const { name, fullName, networks, confirmations, decimals, tokenType,image,status,_id } = row;
-  console.log("====networks00", networks[0])
+  const { name, fullName, networks, tokenType,image,status,_id } = row;
+
 
     
   return (
@@ -34,10 +34,6 @@ export default function TokenListTableRow({ row, selected, onEditRow, onSelectRo
       <TableCell align="left">{name}</TableCell>
       <TableCell>{fullName}</TableCell>
       <TableCell align="left"></TableCell>
-      {/* <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
-        {confirmations}
-      </TableCell>
-      <TableCell align="left">{decimals}</TableCell> */}
       <TableCell align="left">{tokenType} </TableCell>
       <TableCell component="a" href={image} align="left"
       sx={{ textTransform: 'capitalize',

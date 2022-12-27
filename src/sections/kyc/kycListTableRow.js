@@ -1,10 +1,12 @@
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 // import { useState } from 'react';
 // @mui
 import PreviewIcon from '@mui/icons-material/Preview';
 import { useTheme } from '@mui/material/styles';
 import { Checkbox, TableRow, TableCell, Typography,Button,Stack, IconButton } from '@mui/material';
 import moment from "moment";
+import Kycmedia from '../../templates/kycMedia';
 // components
 
 // ----------------------------------------------------------------------
@@ -21,7 +23,7 @@ KycListTableRow.propTypes = {
 
 
 
-export default function KycListTableRow({ row, selected, onEditRow, onSelectRow, onDeleteRow }){
+export default function KycListTableRow({ row, selected, onEditRow, onSelectRow, onDeleteRow, preview }){
   const theme = useTheme();
 
   const { name, userid,created,  email, document, frontback, status } = row;
@@ -41,7 +43,7 @@ export default function KycListTableRow({ row, selected, onEditRow, onSelectRow,
       <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
         {document}
       </TableCell>
-      <TableCell component="a" href="/dashboard" align="left" sx={{ textTransform: 'capitalize',
+      <TableCell component='a' onClick={() => preview(true)  } align="left" sx={{ textTransform: 'capitalize',
      maxWidth: '180px',
      whiteSpace: 'nowrap',
      overflow: 'hidden',
@@ -49,11 +51,9 @@ export default function KycListTableRow({ row, selected, onEditRow, onSelectRow,
      textDecoration:'none',
      color:theme.palette.info.dark }}>
         {frontback}
-        <IconButton aria-label="edit" >
-                  <PreviewIcon />
-                  
-                </IconButton>
+        
       </TableCell>
+     
       <TableCell align="left">
         <Typography 
           variant="outlined"
@@ -68,6 +68,13 @@ export default function KycListTableRow({ row, selected, onEditRow, onSelectRow,
         <Button variant="outlined" sx={{fontSize:'13px'}} color='info'>{status === 'Approve' ? 'Pending' : 'Approve'}</Button>
         <Button variant="outlined" sx={{fontSize:'13px'}} color="error">Reject</Button></Stack>
       </TableCell>
+      <TableCell>
+      <IconButton aria-label="edit" component={Link} to={`/kyc/media/${userid}`}>
+      
+                  <PreviewIcon onClick={()=>preview(userid)}/>
+                  
+                </IconButton>
+                </TableCell>
     </TableRow>
   );
 }

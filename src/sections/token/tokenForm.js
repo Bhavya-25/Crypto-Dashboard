@@ -38,7 +38,6 @@ const tokens = [
 ];
 
 const TokenForm = ({abc, tokenid}) => {
-  console.log("=== is", tokenid)
   const dispatch = useDispatch();
   const [open, setOpen] = useState({
     Binance: false,
@@ -102,11 +101,11 @@ const TokenForm = ({abc, tokenid}) => {
 
     let networks = [];
     let sd= getValue(data.Binance)
-    console.log(sd)
+   
     networks.push(data.Binance)
     networks.push(data.Tron)
     networks.push(data.Ethereum)
-    console.log(networks)
+ 
 
     let formData = new FormData(e.target);
     let uploadFile = formData.get('image');

@@ -4,13 +4,14 @@ import {
   Typography, Grid, TableContainer, Table, TableBody, TablePagination, Tooltip, IconButton
 } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
-import PreviewIcon from '@mui/icons-material/Preview';
+
 import useTable, { emptyRows } from "../../hooks/useTable";
 import Iconify from "../../components/Iconify";
 import { TableHeadCustom, TableEmptyRows,TableSelectedActions } from "../../components/table";
 import KycListTableRow from "./kycListTableRow";
 import EditModal from "../../Modal/editModal";
 import KycMediaList from "./kycMediaList";
+
 
 function createData(name, userid, createdAt,  email, document, frontback, status) {
   return { name, userid, createdAt, email, document, frontback, status };
@@ -65,6 +66,12 @@ const headCells = [
     label: 'Action',
     align : 'center'
   },
+  {
+    id: 'preview',
+    disablePadding: false,
+    label: 'View',
+    
+  },
 ];
 
 
@@ -90,8 +97,11 @@ const KycUsersList = (props) => {
   const [list, setList] = useState([]);
   const [showLogin,setShowLogin] = useState(false)
   const [open, setOpen] = useState(false)
+  const [mediaid, setMediaid]= useState();
+
+
   const kycList = useSelector((state) => state.kycList); 
-  console.log("==== kycList", kycList)
+
  
   useEffect(() => {
     let alluser = [];
@@ -101,7 +111,10 @@ const KycUsersList = (props) => {
     setList(alluser);
   }, [setList,kycList])
  
-
+  const preview = (status, userid) => {
+    setOpen(status);
+    setMediaid(userid)
+  }
 
   const handleDeleteRows = (selected) => {
     const deleteRows = list.filter((row) => !selected.includes(row.userid));
@@ -154,10 +167,7 @@ const KycUsersList = (props) => {
                   
                 </IconButton>
         <EditModal show={showLogin} close={() => setShowLogin(false)} />
-        <IconButton aria-label="edit" onClick={() => setOpen(true)}>
-                  <PreviewIcon />
-                  
-                </IconButton>
+        
         <Table size={dense ? 'small' : 'medium'}>
           <TableHeadCustom
             order={order}
@@ -180,6 +190,7 @@ const KycUsersList = (props) => {
                 selected={selected.includes(row.userid)}
                 onSelectRow={() => onSelectRow(row.userid)}
                 onDeleteRow={() => handleDeleteRow(row.userid)}
+                preview={preview}
               />
             ))}
             <TableEmptyRows height={72} emptyRows={emptyRows(page, rowsPerPage, list.length)} />
@@ -198,7 +209,7 @@ const KycUsersList = (props) => {
     </Grid>
      }
      {open &&
-        <KycMediaList />
+        <KycMediaList preview={preview} mediaid={mediaid} />
       }
      </>
     )
