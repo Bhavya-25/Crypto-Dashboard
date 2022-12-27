@@ -7,6 +7,7 @@ const Revenue = () => {
   let doughnutProp = {
     chart: {
       type: 'variablepie',
+      align:'right',
       margin: 0,
       spacingTop: 0,
       spacingBottom: 0,
