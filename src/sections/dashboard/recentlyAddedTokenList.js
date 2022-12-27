@@ -51,7 +51,8 @@ const RecentlyAddedTokenList = () => {
   return (
     <Grid item xs={8} sm={4} sx={{
       border: '1px solid transparent',
-      borderRadius: '10px'
+      borderRadius: '20px',
+      marginBottom:"30px",
     }}>
 
       <TableContainer sx={{ maxHeight: 350, overflowX: 'overflow', justifyContent: 'space-between', fontSize: '20px' }}>
@@ -60,11 +61,12 @@ const RecentlyAddedTokenList = () => {
           variant="h6"
           id="tableMarketOverview"
           component="div"
+          
         >
           Market Overview
         </Typography>
 
-        <Table size={dense ? 'small' : 'medium'}>
+        <Table size={dense ? 'small' : 'medium'} sx={{ padding:"24px"}}>
           <TableHeadCustom
             order={order}
             orderBy={orderBy}
