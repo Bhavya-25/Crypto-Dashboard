@@ -6,8 +6,7 @@ import RecentlyAddedTokenList from "../../sections/dashboard/recentlyAddedTokenL
 const MarketOverview = () => {
     return (
         <Box>
-            <Grid container spacing={6} columns={{ xs: '8', sm: '12' }}
-            >
+            <Grid container spacing={6} columns={{ xs: '8', sm: '12' }} sx={{ marginTop:"0px" }} >
                 <MarketOverviewList />
                 <RecentlyAddedTokenList />
             </Grid>

@@ -59,3 +59,9 @@
 body{
   background:#252525 !important;
 }
+
+.line_chart_wrapper > #line-chart,
+.line_chart_wrapper > #container
+{
+  border-radius: 20px;
+}
