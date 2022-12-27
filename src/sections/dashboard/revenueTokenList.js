@@ -51,12 +51,12 @@ const RevenueTokenList = () => {
   return (
     <Grid item xs={8} sm={6} sx={{
       border: '1px solid transparent',
-      borderRadius: '10px'
+      borderRadius: '20px',
   }}>
-      <Card>
-          <TableContainer sx={{ maxHeight: 350, overflowX: 'overflow', justifyContent: 'space-between', fontSize: '20px' }}>
+      <Card sx={{ borderRadius: '20px',padding:"14px" }}> 
+        <TableContainer sx={{ maxHeight: 350, overflowX: 'overflow', justifyContent: 'space-between', fontSize: '20px',borderRadius:"20px" }}>
         <Typography
-          sx={{ flex: '1 1 100%' }}
+          sx={{ flex: '1 1 100%',margin:"16px 0 0 16px" }}
           variant="h6"
           id="tableMarketOverview"
           component="div"
@@ -72,11 +72,12 @@ const RevenueTokenList = () => {
             rowCount={list.length}
           />
 
-          <TableBody>
+          <TableBody >
             {list.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
               <RevenueTokenTableRow
                 key={row.name}
                 row={row}
+                
               />
             ))}
             <TableEmptyRows height={72} emptyRows={emptyRows(page, rowsPerPage, list.length)} />
