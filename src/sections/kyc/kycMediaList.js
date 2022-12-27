@@ -7,68 +7,63 @@ import {
 import useTable, { emptyRows } from "../../hooks/useTable";
 import Iconify from "../../components/Iconify";
 import { TableHeadCustom, TableEmptyRows,TableSelectedActions } from "../../components/table";
-import UserListTableRow from "./userListTableRow";
+import KycMediaListTable from "./kycMediaListTable";
 
 
-function createData(userid, name, created, token, btc, usdt, status) {
-  return { userid, name, created, token, btc, usdt, status };
+function createData(name, userid,  email, document,documentnum, front,back, pdf) {
+  return { name, userid,  email, document,documentnum, front,back, pdf };
 }
 
 const headCells = [
-
-  {
-    id: 'userid',
-    numeric: false,
-    disablePadding: true,
-    label: 'user ID',
-  },
   {
     id: 'name',
     numeric: true,
     disablePadding: false,
-    label: 'Name',
+    label: 'FullName',
   },
   {
-    id: 'created',
+    id: 'userid',
     numeric: false,
     disablePadding: true,
-    label: 'Created',
+    label: 'User ID',
   },
   {
-    id: 'token',
+    id: 'email',
     numeric: false,
     disablePadding: true,
-    label: 'Token',
+    label: 'Email',
   },
   {
-    id: 'btc',
-    numeric: true,
+    id: 'document',
+    numeric: false,
     disablePadding: false,
-    label: 'In BTC',
+    label: 'Doc Type',
   },
   {
-    id: 'usdt',
-    numeric: true,
+    id: 'documentnum',
+    numeric: false,
     disablePadding: false,
-    label: 'Holding',
+    label: 'Doc Number',
   },
   {
-    id: 'status',
-    numeric: true,
+    id: 'front',
     disablePadding: false,
-    label: 'Status',
+    label: 'Front',
   },
   {
-    id: 'isAction',
-    numeric: true,
+    id: 'back',
     disablePadding: false,
-    label: 'Action',
-    align : 'center'
+    label: 'Back',
+  },
+  {
+    id: 'pdf',
+    disablePadding: false,
+    label: 'Pdf',
   },
 ];
 
 
-const AllUserList = () => {
+const KycMediaList = (props) => {
   const {
     dense,
     page,
@@ -88,17 +83,17 @@ const AllUserList = () => {
   } = useTable();
 
   const [list, setList] = useState([]);
-
-  const userList = useSelector((state) => state.userList);
-
-
+  const kycList = useSelector((state) => state.kycList); 
+ 
   useEffect(() => {
     let alluser = [];
-    for (const user of userList) {
-      alluser.push(createData(user._id, user.name, user.createdAt, 'USDT', 0, user.holding, user.status, true));
+    for (const kyc of kycList.kycList) {
+      alluser.push(createData(kyc.name, kyc.userid, kyc.email, kyc.doctype, kyc.docnumber,kyc.media[0].file, kyc.media[1].file));
     }
     setList(alluser);
-  }, [setList, userList])
+  }, [setList,kycList])
+ 
+
 
   const handleDeleteRows = (selected) => {
     const deleteRows = list.filter((row) => !selected.includes(row.userid));
@@ -114,7 +109,7 @@ const AllUserList = () => {
 
   return (
     <Grid item xs={12}>
-      <TableContainer sx={{ minWidth: 800, position: 'relative' }}>
+      <TableContainer sx={{ minWidth: 335, position: 'relative' }}>
         {selected.length > 0 && (
           <TableSelectedActions
             dense={dense}
@@ -136,14 +131,13 @@ const AllUserList = () => {
           />
         )}
         <Typography
-          sx={{ flex: '1 1 100%' }}
-          variant="h6"
+          sx={{ flex: '1 1 100%', fontsize:'20px' }}
+          
           id="tableTitle"
           component="div"
         >
           All Users
         </Typography>
-
         <Table size={dense ? 'small' : 'medium'}>
           <TableHeadCustom
             order={order}
@@ -160,7 +154,7 @@ const AllUserList = () => {
 
           <TableBody>
             {list.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
-              <UserListTableRow
+              <KycMediaListTable
                 key={row.userid}
                 row={row}
                 selected={selected.includes(row.userid)}
@@ -184,4 +178,4 @@ const AllUserList = () => {
     </Grid>)
 }
 
-export default AllUserList;
+export default KycMediaList;

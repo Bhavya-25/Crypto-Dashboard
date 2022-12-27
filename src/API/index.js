@@ -42,5 +42,7 @@ export const kycListRequestApi = () => API.get('/admin/kyc/all')
 /**
  * Token List Requests
  */
+export const tokenListRequestApi=()=>API.get('/admin/token/all')
 export const tokenList =(data) => API.post('/admin/token/create', data)
+export const tokenUpdate =(data) => API.put('/admin/token/update', data)
 
