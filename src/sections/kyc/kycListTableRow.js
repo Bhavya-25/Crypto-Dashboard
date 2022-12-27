@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
 // import { useState } from 'react';
 // @mui
+import PreviewIcon from '@mui/icons-material/Preview';
 import { useTheme } from '@mui/material/styles';
-import { Checkbox, TableRow, TableCell, Typography,Button,Stack } from '@mui/material';
+import { Checkbox, TableRow, TableCell, Typography,Button,Stack, IconButton } from '@mui/material';
 import moment from "moment";
 // components
 
@@ -48,6 +49,10 @@ export default function KycListTableRow({ row, selected, onEditRow, onSelectRow,
      textDecoration:'none',
      color:theme.palette.info.dark }}>
         {frontback}
+        <IconButton aria-label="edit" >
+                  <PreviewIcon />
+                  
+                </IconButton>
       </TableCell>
       <TableCell align="left">
         <Typography 

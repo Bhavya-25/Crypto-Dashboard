@@ -26,7 +26,7 @@ const Users = () => {
       navigate('/')
     }
     const getUserList = async () => {
-      let users = await dispatch(userListRequest());
+       await dispatch(userListRequest());
     }
 
     getUserList();

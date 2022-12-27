@@ -27,9 +27,9 @@ export default function MarketOverviewTableRow({ row, selected, onEditRow, onSel
         
         <TableCell align="left">{name}</TableCell>
         <TableCell align="left">${price}</TableCell>
-        <TableCell align="left">{volume.toFixed(5)}</TableCell>
+        <TableCell align="left">{volume!=undefined && volume.toFixed(5)}</TableCell>
         <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
-          {change.toFixed(5)}
+          {change!=undefined && change.toFixed(5)}
         </TableCell>
         <TableCell align="left">
           <img src={svgimg} alt='' />
