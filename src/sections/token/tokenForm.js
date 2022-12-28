@@ -22,7 +22,7 @@ import network from '../../networks.json'
 import { useState } from "react";
 import { tokenListCreate, tokenUpdateRequest } from '../../Actions/tokenActions';
 import CloseIcon from '@mui/icons-material/Close';
-import { getValue } from "@mui/system";
+
 
 
 
@@ -100,7 +100,7 @@ const TokenForm = ({abc, tokenid}) => {
     e.preventDefault(e);
 
     let networks = [];
-    let sd= getValue(data.Binance)
+    // let sd= getValue(data.Binance)
    
     networks.push(data.Binance)
     networks.push(data.Tron)
@@ -117,7 +117,7 @@ const TokenForm = ({abc, tokenid}) => {
       setOpen(false)
       if(tokenid===''){
         dispatch(tokenListCreate(data)).then((response) => {
-          console.log("====hello", response)
+          console.log("response", response)
 
         }).catch(err => {
           console.log("err", err)

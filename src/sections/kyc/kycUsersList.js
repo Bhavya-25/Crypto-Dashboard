@@ -13,8 +13,8 @@ import EditModal from "../../Modal/editModal";
 import KycMediaList from "./kycMediaList";
 
 
-function createData(name, userid, createdAt,  email, document, frontback, status) {
-  return { name, userid, createdAt, email, document, frontback, status };
+function createData(name, userid, createdAt,  email, status) {
+  return { name, userid, createdAt, email,  status };
 }
 
 const headCells = [
@@ -41,17 +41,6 @@ const headCells = [
     numeric: false,
     disablePadding: true,
     label: 'Email',
-  },
-  {
-    id: 'document',
-    numeric: false,
-    disablePadding: false,
-    label: 'Doc Type',
-  },
-  {
-    id: 'front/back',
-    disablePadding: false,
-    label: 'Front/Back',
   },
   {
     id: 'status',
@@ -105,8 +94,8 @@ const KycUsersList = (props) => {
  
   useEffect(() => {
     let alluser = [];
-    for (const kyc of kycList.kycList) {
-      alluser.push(createData(kyc.name, kyc.userid, kyc.createdAt, kyc.email, kyc.doctype,kyc.media[0].file, kyc.isVerified));
+    for (const kyc of kycList) {
+      alluser.push(createData(kyc.name, kyc.userid, kyc.createdAt, kyc.email, kyc.isVerified));
     }
     setList(alluser);
   }, [setList,kycList])

@@ -2,8 +2,7 @@ import * as React from 'react';
 import { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
 import { useSelector } from "react-redux";
-import { Card, CardHeader, CardContent, IconButton, CardMedia, TextField, Grid, Box, Typography, Stack } from '@mui/material';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { Card, CardHeader, CardContent, IconButton, CardMedia, TextField, Grid, Box, Typography } from '@mui/material';
 import { imageBaseUrl } from '../../API';
 import { pdfBaseUrl } from '../../API';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
@@ -17,7 +16,7 @@ export default function KycMediaList() {
 
   useEffect(() => {
     let alluser = [];
-    for (const kyc of kycList.kycList) {
+    for (const kyc of kycList) {
       if (params.userid == kyc.userid) {
 
         alluser.push(kyc);
