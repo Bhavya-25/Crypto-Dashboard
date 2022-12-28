@@ -80,7 +80,7 @@ export const tokenUpdateRequest = (param) => async (dispatch) => {
 
 export const gettokenbyid =  (tokedis) => async (dispatch) => {
   try {
-    const {data} = await api.tokenGetById(tokedis)
+    const { data } = await api.tokenGetById(tokedis)
 
     console.log(data,' ===========');
 

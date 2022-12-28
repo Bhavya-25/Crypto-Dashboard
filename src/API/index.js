@@ -1,6 +1,8 @@
 import axios from "axios";
 // const baseurl = 'http://ndemo.elp.exchange/api';
 const baseurl = 'http://localhost:5000/api';
+const ImageUrl = 'http://localhost:5000/document/';
+const PdfUrl = 'http://localhost:5000/statement/';
 
 const API = axios.create(
     {
@@ -12,6 +14,8 @@ const auth = `${sessionStorage.getItem('token')}`;
 API.defaults.headers.common['Authorization'] = auth;
 
 export const apiBaseUrl = baseurl;
+export const imageBaseUrl = ImageUrl;
+export const pdfBaseUrl = PdfUrl;
 /** user Auth */
 
 export const loginRequestApi = (formData) => API.post('/user/login', formData)
@@ -23,7 +27,11 @@ export const loginRequestApi = (formData) => API.post('/user/login', formData)
 export const userListRequestApi = () => API.get('/admin/user/all')
 export const userStatusUpdate =(data) => API.post('/admin/user/update', data)
 
-export const marketCoinRequestAPI=()=>API.get('/admin/market/coin')
+export const marketCoinRequestAPI=()=>{
+    let sauth = sessionStorage.getItem('token');
+    API.defaults.headers.common['Authorization'] = sauth;
+    return API.get('/admin/market/coin')
+}
 /**
  * Deposit Requests
  */
@@ -38,6 +46,7 @@ export const withdrawListRequestApi = () => API.get('/admin/withdraw/all')
  * Kyc Requests
  */
 export const kycListRequestApi = () => API.get('/admin/kyc/all')
+export const kycStatusUpdate =(data) => API.post('/admin/kyc/kycupdate', data)
 
 /**
  * Token List Requests

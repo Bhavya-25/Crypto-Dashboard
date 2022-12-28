@@ -1,18 +1,27 @@
-import { useState } from 'react';
+import { useEffect } from 'react';
 import { Box, Stack } from "@mui/material";
 import HeaderTest from "../components/global/header-test";
-
+import { useNavigate } from "react-router-dom";
 
 export default function DashboardLayout({ pageContent }) {
 
-    const [open, setOpen] = useState(false);
-    const handleDrawerOpen = () => {
-      setOpen(true);
-    };
-    
-    const handleDrawerClose = () => {
-      setOpen(false);
-    };
+    // const [open, setOpen] = useState(false);
+    // const handleDrawerOpen = () => {
+    //     setOpen(true);
+    // };
+
+    // const handleDrawerClose = () => {
+    //     setOpen(false);
+    // };
+
+    const navigate = useNavigate();
+
+    useEffect(()=>{
+        let session = sessionStorage.getItem('token')
+        if (session === null) {
+            navigate('/')
+        }
+    },[navigate]);
     
     return (
         <>

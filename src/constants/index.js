@@ -16,5 +16,7 @@ export const DEPOSITLIST = 'DEPOSITLIST'
 export const WITHDRAWLIST = 'WITHDRAWLIST'
 
 export const KYCLIST = 'KYCLIST'
+export const KYCUPDATE = 'KYCUPDATE'
+
 
 

@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import {
-  Typography, Grid, TableContainer, Table, TableBody, TablePagination, Tooltip, IconButton
+  Typography, Grid, TableContainer, Table, TableBody, TablePagination,
 } from "@mui/material";
 
 import useTable, { emptyRows } from "../../hooks/useTable";
-import Iconify from "../../components/Iconify";
-import { TableHeadCustom, TableEmptyRows, TableSelectedActions } from "../../components/table";
+import { TableHeadCustom, TableEmptyRows } from "../../components/table";
 import RecentlyAddedTableRow from "./recentlyAddedTableRow";
 
 function createData(name, price, added) {
@@ -51,7 +50,8 @@ const RecentlyAddedTokenList = () => {
   return (
     <Grid item xs={8} sm={4} sx={{
       border: '1px solid transparent',
-      borderRadius: '10px'
+      borderRadius: '20px',
+      marginBottom:"30px",
     }}>
 
       <TableContainer sx={{ maxHeight: 350, overflowX: 'overflow', justifyContent: 'space-between', fontSize: '20px' }}>
@@ -60,11 +60,12 @@ const RecentlyAddedTokenList = () => {
           variant="h6"
           id="tableMarketOverview"
           component="div"
+          
         >
           Market Overview
         </Typography>
 
-        <Table size={dense ? 'small' : 'medium'}>
+        <Table size={dense ? 'small' : 'medium'} sx={{ padding:"24px"}}>
           <TableHeadCustom
             order={order}
             orderBy={orderBy}

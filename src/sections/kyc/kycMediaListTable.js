@@ -23,7 +23,7 @@ KycMediaListTable.propTypes = {
 export default function KycMediaListTable({ row, selected, onEditRow, onSelectRow, onDeleteRow }){
   const theme = useTheme();
 
-  const { name, userid,  email, document,documentnum, front,back, pdf} = row;
+  const { name,  email, document,documentnum, front,back, pdf} = row;
 
   return (
     <TableRow hover selected={selected}>
@@ -33,8 +33,6 @@ export default function KycMediaListTable({ row, selected, onEditRow, onSelectRo
       </TableCell>
       }
       <TableCell align="left">{name}</TableCell>
-      <TableCell>{userid}</TableCell>
-
       <TableCell align="left">{email}</TableCell>
       <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
         {document}

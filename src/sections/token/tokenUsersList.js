@@ -1,12 +1,19 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import {
+<<<<<<< HEAD
   Typography, Grid, TableContainer, Table, TableBody, TablePagination, Tooltip, IconButton,Button
 
 } from "@mui/material";
 
 import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 
+=======
+  Typography, Grid, TableContainer, Table, TableBody, TablePagination, Tooltip, IconButton,Box
+
+} from "@mui/material";
+import AddIcon from '@mui/icons-material/Add';
+>>>>>>> ae90c72e11099bfcd472545c820ad930ddde61fc
 import useTable, { emptyRows } from "../../hooks/useTable";
 import Iconify from "../../components/Iconify";
 import { TableHeadCustom, TableEmptyRows, TableSelectedActions } from "../../components/table";
@@ -16,8 +23,8 @@ import TokenForm from "./tokenForm";
 import { useNavigate, Link } from "react-router-dom";
 
 
-function createData(name, fullName, networks, confirmations, decimals, tokenType, image, status,_id) {
-  return { name, fullName, networks, confirmations, decimals, tokenType, image, status,_id };
+function createData(name, fullName, networks, tokenType, image, status,_id) {
+  return { name, fullName, networks,  tokenType, image, status,_id };
 }
 
 const headCells = [
@@ -38,18 +45,6 @@ const headCells = [
     disablePadding: true,
     label: 'Networks',
   },
-  // {
-  //   id: 'confirmations',
-  //   numeric: false,
-  //   disablePadding: true,
-  //   label: 'Confirmations',
-  // },
-  // {
-  //   id: 'decimals',
-  //   numeric: false,
-  //   disablePadding: false,
-  //   label: 'Decimals',
-  // },
   {
     id: 'tokenType',
     disablePadding: false,
@@ -64,6 +59,11 @@ const headCells = [
     id: 'status',
     disablePadding: false,
     label: 'Status',
+  },
+  {
+    id: 'edit',
+    disablePadding: false,
+    label: '',
   },
 
 ];
@@ -93,14 +93,18 @@ const TokenUsersList = () => {
   const [tokenid, setTokenid]= useState();
 
   const tokensList = useSelector((state) => state.tokenList);
+<<<<<<< HEAD
   
 
   const redirect = useNavigate();
+=======
+
+>>>>>>> ae90c72e11099bfcd472545c820ad930ddde61fc
 
   useEffect(() => {
     let alluser = [];
     for (const token of tokensList) {
-      alluser.push(createData(token.coinName, token.fullName, token.networks, token.confirmations, token.decimals, token.tokenType, token.image, token.status, token._id));
+      alluser.push(createData(token.coinName, token.fullName, token.networks, token.tokenType, token.image, token.status, token._id));
     }
     setList(alluser);
   }, [setList, tokensList])
@@ -161,6 +165,9 @@ const TokenUsersList = () => {
                 }
               />
             )}
+            <Box sx={{
+              display:'flex'
+            }}>
             <Typography
               sx={{ flex: '1 1 100%', fontsize: '20px' }}
 
@@ -169,6 +176,12 @@ const TokenUsersList = () => {
             >
               All Users
             </Typography>
+            <IconButton aria-label="edit" onClick={ abc} >
+              <AddIcon />
+
+            </IconButton>
+            </Box>
+            
 
             <Table size={dense ? 'small' : 'medium'}>
               <TableHeadCustom

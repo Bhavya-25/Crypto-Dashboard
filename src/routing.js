@@ -1,6 +1,7 @@
 import { Routes,Route,Navigate } from "react-router-dom";
 import Dashboard from "./dashboard";
 import Kyc from "./templates/kyc";
+import KycMedia from "./templates/kycMedia";
 import Login from "./templates/login";
 import Users from "./templates/users";
 import Report from "./templates/report";
@@ -20,6 +21,7 @@ export default function Routing() {
         <Route exact path="/dashboard" element={ <Dashboard/> }/>
         <Route exact path="/user" element={ <Users /> }></Route>
         <Route exact path="/kyc" element={ <Kyc /> }></Route>
+        <Route exact path="/kyc/media/:userid" element={ <KycMedia /> }></Route>
         <Route exact path="/report" element={ <Report /> }></Route>
         <Route exact path="/support" element={ <Support /> }></Route>
         <Route exact path="/deposit" element={ <Deposit /> }></Route>

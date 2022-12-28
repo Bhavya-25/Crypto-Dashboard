@@ -83,7 +83,7 @@ const DepositTableList = (props) => {
 
   const [list, setList] = useState([]);
   const depositList = useSelector((state) => state.depositList);
-  console.log(depositList,'=')
+
 
  
   useEffect(() => {

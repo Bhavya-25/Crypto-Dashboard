@@ -44,8 +44,10 @@ export default function UserListTableRow({ row, selected, onEditRow, onSelectRow
       userid: userid,
       status: status === 'Active' ? 'On Hold' : 'Active'
     }
-    let response = await dispatch(userStatusUpdateRequest(data));
+    await dispatch(userStatusUpdateRequest(data));
   }
+
+  console.log(open)
 
   return (
     <>

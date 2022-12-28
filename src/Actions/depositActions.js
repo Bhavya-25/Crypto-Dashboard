@@ -1,6 +1,6 @@
 import * as api from '../API'
 import { DEPOSITLIST } from '../constants'
-
+import { logOut } from './authActions';
 // /**
 //  * Deposit List
 //  * @param {*} formData 
@@ -15,7 +15,13 @@ export const depositListRequest = () => async (dispatch) => {
       return data;
     }
     else {
-      return data;
+      if(data.data === "unauthorized user" && data.status === 404){
+        await dispatch(logOut()); 
+        return data;
+      }
+      else{
+        return data;
+      }
     }
 
   } catch (error) {
