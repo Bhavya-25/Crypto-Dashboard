@@ -21,10 +21,10 @@ const Users = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    let session = sessionStorage.getItem('token')
-    if (session === null) {
-      navigate('/')
-    }
+    // let session = sessionStorage.getItem('token')
+    // if (session === null) {
+    //   navigate('/')
+    // }
     const getUserList = async () => {
       let users = await dispatch(userListRequest());
     }

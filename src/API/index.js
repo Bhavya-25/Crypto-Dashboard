@@ -23,7 +23,11 @@ export const loginRequestApi = (formData) => API.post('/user/login', formData)
 export const userListRequestApi = () => API.get('/admin/user/all')
 export const userStatusUpdate =(data) => API.post('/admin/user/update', data)
 
-export const marketCoinRequestAPI=()=>API.get('/admin/market/coin')
+export const marketCoinRequestAPI=()=>{
+    let sauth = sessionStorage.getItem('token');
+    API.defaults.headers.common['Authorization'] = sauth;
+    return API.get('/admin/market/coin')
+}
 /**
  * Deposit Requests
  */

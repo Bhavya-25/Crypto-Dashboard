@@ -1,5 +1,5 @@
 import * as api from '../API'
-import { LOGIN } from '../constants'
+import { LOGIN, USERLIST } from '../constants'
 
 // /**
 //  * Admin Login
@@ -22,4 +22,10 @@ export const loginRequest = (formData) => async (dispatch) => {
   } catch (error) {
 
   }
+}
+
+export const logOut=()=>async(dispatch)=>{
+  sessionStorage.clear();
+  await dispatch({ type: USERLIST, payload: [] });
+
 }
