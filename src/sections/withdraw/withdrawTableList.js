@@ -29,7 +29,7 @@ const headCells = [
     label: 'Network',
   },
   {
-    id: 'created',
+    id: 'createdAt',
     numeric: false,
     disablePadding: true,
     label: 'Date',

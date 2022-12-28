@@ -31,7 +31,7 @@ const headCells = [
     label: 'User ID',
   },
   {
-    id: 'created',
+    id: 'createdAt',
     numeric: false,
     disablePadding: true,
     label: 'Date',
@@ -95,6 +95,7 @@ const KycUsersList = (props) => {
   useEffect(() => {
     let alluser = [];
     for (const kyc of kycList) {
+      
       alluser.push(createData(kyc.name, kyc.userid, kyc.createdAt, kyc.email, kyc.isVerified));
     }
     setList(alluser);

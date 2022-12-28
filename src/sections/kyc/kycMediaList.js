@@ -17,14 +17,14 @@ export default function KycMediaList() {
   useEffect(() => {
     let alluser = [];
     for (const kyc of kycList) {
-      if (params.userid == kyc.userid) {
+      if (params.userid === kyc.userid) {
 
         alluser.push(kyc);
       }
 
     }
     setList(alluser);
-  }, [setList, kycList])
+  }, [setList, kycList, params])
 
   return (
     <Card sx={{

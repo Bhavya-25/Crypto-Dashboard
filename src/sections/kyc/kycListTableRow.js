@@ -39,7 +39,7 @@ export default function KycListTableRow({ row, selected, onEditRow, onSelectRow,
 
 
 
-  const { name, userid,created,  email,  status } = row;
+  const { name, userid,createdAt,  email,  status } = row;
 
   return (
     <TableRow hover selected={selected}>
@@ -51,7 +51,7 @@ export default function KycListTableRow({ row, selected, onEditRow, onSelectRow,
       <TableCell align="left">{name}</TableCell>
       <TableCell>{userid}</TableCell>
       
-      <TableCell align="left">{moment(created).format('Y/MM/DD HH:mm:ss')}</TableCell>
+      <TableCell align="left">{moment(createdAt).format('Y/MM/DD HH:mm:ss')}</TableCell>
       <TableCell align="left">{email}</TableCell>
      
       <TableCell align="left">
