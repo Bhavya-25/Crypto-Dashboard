@@ -170,51 +170,67 @@ const TokenForm = ({ abc, tokenid }) => {
   let submitForm = async (data, e) => {
     e.preventDefault(e)
 
-    let networks = []
-    let sd = getValue(data.Binance)
-    console.log(sd)
-    networks.push(data.Binance)
-    networks.push(data.Tron)
-    networks.push(data.Ethereum)
+    /**
+     * unnecessary  record deleted 
+     */
+    delete data['6329776b201dd027dee16342'];
+    delete data['63218707d2e3551816b9b8af'];
+    delete data['63218947d2e3551816b9b8b0'];
+    delete data['Binance'];
+    delete data['Ethereum'];
+    delete data['Tron'];
 
-    let formData = new FormData(e.target)
-    let uploadFile = formData.get('image')
-    var reader = new FileReader()
-    reader.readAsDataURL(uploadFile)
-    reader.onload = function () {
-      data.image = reader.result
-      data.networks = networks
-      setOpen(false)
-      if (tokenid === '') {
-        dispatch(tokenListCreate(data))
-          .then((response) => {
-            console.log('====hello', response)
-          })
-          .catch((err) => {
-            console.log('err', err)
-          })
-      } else {
-        let tokenData = {
-          tokenid: tokenid,
-          data: data,
-        }
-        dispatch(tokenUpdateRequest(tokenData))
-          .then((response) => {})
-          .catch((err) => {
-            console.log('err', err)
-          })
-      }
+    dispatch(tokenListCreate(data))
 
-      document.querySelectorAll('.network-checkbox input').forEach((elem) => {
-        if (elem.checked) {
-          elem.click()
-        }
-      })
-      reset()
+    if(tokenid == ''){
+       /** create new record record */
+    }else{
+       /** update existing record */
     }
-    reader.onerror = function (error) {
-      console.log('Error: ', error)
-    }
+
+    console.log(data)
+
+    return;
+
+
+    // let formData = new FormData(e.target)
+    // let uploadFile = formData.get('image')
+    // var reader = new FileReader()
+    // reader.readAsDataURL(uploadFile)
+    // reader.onload = function () {
+    //   data.image = reader.result
+    //   data.networks = networks
+    //   setOpen(false)
+    //   if (tokenid === '') {
+    //     dispatch(tokenListCreate(data))
+    //       .then((response) => {
+    //         console.log('====hello', response)
+    //       })
+    //       .catch((err) => {
+    //         console.log('err', err)
+    //       })
+    //   } else {
+    //     let tokenData = {
+    //       tokenid: tokenid,
+    //       data: data,
+    //     }
+    //     dispatch(tokenUpdateRequest(tokenData))
+    //       .then((response) => {})
+    //       .catch((err) => {
+    //         console.log('err', err)
+    //       })
+    //   }
+
+    //   document.querySelectorAll('.network-checkbox input').forEach((elem) => {
+    //     if (elem.checked) {
+    //       elem.click()
+    //     }
+    //   })
+    //   reset()
+    // }
+    // reader.onerror = function (error) {
+    //   console.log('Error: ', error)
+    // }
   }
 
 
@@ -261,7 +277,7 @@ const TokenForm = ({ abc, tokenid }) => {
           <TextField
               id="coinName"
               label="Coin Name"
-              fullwidth
+              fullWidth
               margin="dense"
               {...register('coinName')}
               error={errors.coinName ? true : false}
@@ -420,7 +436,7 @@ const TokenForm = ({ abc, tokenid }) => {
               select
               fullWidth
               margin="dense"
-              value={emptyData.tokenType}
+              // value={emptyData.tokenType}
               label="Token Type"
               helperText="Please select your Token Type"
               {...register('tokenType')}
@@ -465,7 +481,7 @@ const TokenForm = ({ abc, tokenid }) => {
                                       }}
                                       onChange={(event) => {
                                         setValue(
-                                          `${check.network_id}.decimalNum`,
+                                          `networks.${check.network_id}.decimalNum`,
                                           `${event.target.value}`,
                                         )
                                       }}
@@ -487,7 +503,7 @@ const TokenForm = ({ abc, tokenid }) => {
                                       }}
                                       onChange={(event) => {
                                         setValue(
-                                          `${check.network_id}.fee`,
+                                          `networks.${check.network_id}.fee`,
                                           `${event.target.value}`,
                                         )
                                       }}
@@ -505,7 +521,7 @@ const TokenForm = ({ abc, tokenid }) => {
                                     <TextField
                                       onChange={(event) => {
                                         setValue(
-                                          `${check.network_id}.contract`,
+                                          `networks.${check.network_id}.contract`,
                                           `${event.target.value}`,
                                         )
                                       }}
@@ -522,7 +538,7 @@ const TokenForm = ({ abc, tokenid }) => {
                                     <TextField
                                       onChange={(event) => {
                                         setValue(
-                                          `${check.network_id}.abi`,
+                                          `networks.${check.network_id}.abi`,
                                           `${event.target.value}`,
                                         )
                                       }}
@@ -557,10 +573,10 @@ const TokenForm = ({ abc, tokenid }) => {
                                     checked={!!value}
                                     onChange={(event) => {
                                       field.onChange(event)
-                                      setValue(
-                                        `${check.forControl}.name`,
-                                        `${event.target.value}`,
-                                      )
+                                      // setValue(
+                                      //   `${check.forControl}.name`,
+                                      //   `${event.target.value}`,
+                                      // )
                                       handleChange(event, check.network_id)
                                     }}
                                   />

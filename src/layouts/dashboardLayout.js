@@ -19,7 +19,7 @@ export default function DashboardLayout({ pageContent }) {
     useEffect(()=>{
         let session = sessionStorage.getItem('token')
         if (session === null) {
-            navigate('/')
+            //navigate('/')
         }
     },[navigate]);
     

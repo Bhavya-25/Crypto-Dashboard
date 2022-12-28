@@ -1,19 +1,11 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import {
-<<<<<<< HEAD
-  Typography, Grid, TableContainer, Table, TableBody, TablePagination, Tooltip, IconButton,Button
-
-} from "@mui/material";
-
-import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
-
-=======
   Typography, Grid, TableContainer, Table, TableBody, TablePagination, Tooltip, IconButton,Box
 
 } from "@mui/material";
+import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 import AddIcon from '@mui/icons-material/Add';
->>>>>>> ae90c72e11099bfcd472545c820ad930ddde61fc
 import useTable, { emptyRows } from "../../hooks/useTable";
 import Iconify from "../../components/Iconify";
 import { TableHeadCustom, TableEmptyRows, TableSelectedActions } from "../../components/table";
@@ -93,13 +85,9 @@ const TokenUsersList = () => {
   const [tokenid, setTokenid]= useState();
 
   const tokensList = useSelector((state) => state.tokenList);
-<<<<<<< HEAD
   
 
   const redirect = useNavigate();
-=======
-
->>>>>>> ae90c72e11099bfcd472545c820ad930ddde61fc
 
   useEffect(() => {
     let alluser = [];
