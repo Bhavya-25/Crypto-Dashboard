@@ -23,12 +23,12 @@ export default function RevenueTokenTableRow({ row, selected, onEditRow, onSelec
 
   return (
     <>
-      <TableRow hover selected={selected}>
+      <TableRow hover selected={selected} >
         
         <TableCell align="left">{name}</TableCell>
         <TableCell align="left">${revenue}</TableCell>
         <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
-          {change.toFixed(5)}
+          {change!=undefined && change.toFixed(5)}
         </TableCell>
         <TableCell align="left">
           <img src={svgimg} alt='' />

@@ -10,7 +10,7 @@ const DougnutChart=(props)=>{
     
     Highcharts.chart(props.id, {
       chart: props.doughnutProp.chart,
-      title: props.doughnutProp.title,
+      title:props.doughnutProp.title,
       legend: props.doughnutProp.legend,
       plotOptions: props.doughnutProp.plotOptions,
       series: props.doughnutProp.series
@@ -20,6 +20,6 @@ const DougnutChart=(props)=>{
   return(
     <div id={props.id}></div>
   )
-}
+} 
 
 export default DougnutChart;

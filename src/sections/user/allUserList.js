@@ -90,7 +90,7 @@ const AllUserList = () => {
   const [list, setList] = useState([]);
 
   const userList = useSelector((state) => state.userList);
-  console.log("====userList", userList)
+
 
   useEffect(() => {
     let alluser = [];

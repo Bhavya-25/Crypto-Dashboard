@@ -1,5 +1,6 @@
   [
     {
+    "id":1,
     "forControl" : "Tron",
     "Network": "Tron TRC(20)",
     "confirmations": "5",
@@ -11,6 +12,7 @@
     "abi": ""
 },
 {
+    "id":2,
     "forControl" : "Binance",
     "Network": "Binance Smart Chain(BEP20)",
     "confirmations": "5",
@@ -22,6 +24,7 @@
     "abi": ""
 },
 {
+    "id":3,
     "forControl" : "Ethereum",
     "Network": "Ethereum(ERC20)",
     "confirmations": "5",
