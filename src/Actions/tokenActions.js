@@ -1,6 +1,9 @@
 import * as api from '../API'
-
+import TmbNotification from '../error-notification';
 import { TOKENLIST, TOKENLISTCREATE, TOKENSLIST, TOKENUPDATE, GETTOKENBYID } from '../constants'
+import { toast } from 'react-toastify';
+
+const notify = new TmbNotification();
 
 export const tokenListRequest = () => async (dispatch) => {
   try {
@@ -55,12 +58,12 @@ export const tokenListCreate = (params) => async (dispatch) => {
 }
 
 
-export const tokenUpdateRequest = (param) => async (dispatch) => {
+export const tokenUpdateRequest = (tokenid,param) => async (dispatch) => {
   try {
-    const { data } = await api.tokenUpdate(param);
-
+    const  data  = await api.tokenUpdate(tokenid,param);
     if (data.status === 200) {
-      await dispatch({ type: TOKENUPDATE, payload: data })
+       notify.success("Token Successfully Updated..");
+       await dispatch({ type: TOKENUPDATE, payload: data.data })
       return data;
     }
     else {
@@ -68,8 +71,8 @@ export const tokenUpdateRequest = (param) => async (dispatch) => {
     }
 
   } catch (error) {
-
-  }
+     notify.error(error)
+  } 
 }
 
 
