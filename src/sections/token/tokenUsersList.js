@@ -1,15 +1,19 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import {
-  Typography, Grid, TableContainer, Table, TableBody, TablePagination, Tooltip, IconButton
+  Typography, Grid, TableContainer, Table, TableBody, TablePagination, Tooltip, IconButton,Button
 
 } from "@mui/material";
+
+import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 
 import useTable, { emptyRows } from "../../hooks/useTable";
 import Iconify from "../../components/Iconify";
 import { TableHeadCustom, TableEmptyRows, TableSelectedActions } from "../../components/table";
 import TokenListTableRow from "./tokenListTablerow";
 import TokenForm from "./tokenForm";
+
+import { useNavigate, Link } from "react-router-dom";
 
 
 function createData(name, fullName, networks, confirmations, decimals, tokenType, image, status,_id) {
@@ -89,7 +93,9 @@ const TokenUsersList = () => {
   const [tokenid, setTokenid]= useState();
 
   const tokensList = useSelector((state) => state.tokenList);
-  console.log("====", tokensList)
+  
+
+  const redirect = useNavigate();
 
   useEffect(() => {
     let alluser = [];
@@ -98,10 +104,10 @@ const TokenUsersList = () => {
     }
     setList(alluser);
   }, [setList, tokensList])
-  const abc = (status, userid) => {
-    setOpen(status);
-    setTokenid(userid)
-   
+
+
+  const abc = (status, tokenId) => {
+    redirect(`/token/edit/${tokenId}`)
   }
 
   const handleDeleteRows = (selected) => {
@@ -118,6 +124,18 @@ const TokenUsersList = () => {
 
   return (
     <>
+    
+      <Link
+      component="button"
+      to="/token/add-new"
+      variant="body2"
+      onClick={() => {
+        console.info("I'm a button.");
+      }}
+    >
+      Button Link <PlaylistAddIcon />
+    </Link>
+
       {
         !open &&
 

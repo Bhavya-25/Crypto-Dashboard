@@ -1,4 +1,4 @@
-import { TOKENLIST, TOKENSLIST, TOKENUPDATE } from '../constants/index'
+import { TOKENLIST, TOKENSLIST, TOKENUPDATE, GETTOKENBYID } from '../constants/index'
 
 const tokenList = (tokenList = [], action) => {
 
@@ -13,7 +13,14 @@ const tokenList = (tokenList = [], action) => {
       if (action.payload.status === 200) {
         return action.payload.data
       }
-      break
+    break;
+
+    case GETTOKENBYID : 
+      if (action.payload.status === 200) {
+        return action.payload.data
+      }
+    break;
+
     case TOKENUPDATE:
       if (action.payload.status === 200) {
         return tokenList = tokenList.map((d) => {

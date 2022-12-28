@@ -1,4 +1,3 @@
-
 import {
   Box,
   Typography,
@@ -13,18 +12,23 @@ import {
   FormControlLabel,
   IconButton,
   Checkbox as MuiCheckbox,
-} from "@mui/material";
-import { useDispatch } from 'react-redux';
-import * as yup from "yup";
-import { useForm, Controller } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup';
+} from '@mui/material'
+
+import EditIcon from '@mui/icons-material/Edit'
+
+import { useDispatch } from 'react-redux'
+import * as yup from 'yup'
+import { useForm, Controller } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
 import network from '../../networks.json'
-import { useState } from "react";
-import { tokenListCreate, tokenUpdateRequest } from '../../Actions/tokenActions';
-import CloseIcon from '@mui/icons-material/Close';
-import { getValue } from "@mui/system";
-
-
+import { useEffect, useState } from 'react'
+import {
+  tokenListCreate,
+  tokenUpdateRequest,
+  gettokenbyid,
+} from '../../Actions/tokenActions'
+import CloseIcon from '@mui/icons-material/Close'
+import { getValue } from '@mui/system'
 
 const tokens = [
   {
@@ -34,152 +38,237 @@ const tokens = [
   {
     value: 'mannual',
     label: 'Mannual',
-  }
-];
+  },
+]
 
-const TokenForm = ({abc, tokenid}) => {
-  console.log("=== is", tokenid)
-  const dispatch = useDispatch();
-  const [open, setOpen] = useState({
-    Binance: false,
-    Ethereum: false,
-    Tron: false
+const TokenForm = ({ abc, tokenid }) => {
+  // empty data for form
+  
+  const [emptyData, SetEmptyData] = useState({
+    coinName: '',
+    confirmations: 0,
+    decimals: 0,
+    image: '',
+    fullName: '',
+    tokenType: '',
+    minimum_withdraw: 0,
+    networks : {}
   })
 
+  const dispatch = useDispatch()
+  const [open, setOpen] = useState({
+    '63218947d2e3551816b9b8b0': false,
+    '6329776b201dd027dee16342': false,
+    '63218707d2e3551816b9b8af': false,
+  })
+
+  useEffect(() => { 
+    if (tokenid != '') {
+      ;(async () => {
+        let data = await dispatch(gettokenbyid(tokenid))
+
+        let group = {}
+        let openField = open
+
+        if(data[0].networks.length > 0){
+           data[0].networks.forEach((ele , index) => {
+            open[ele.id] = true 
+
+            setValue(ele.id,true);
+        
+
+              group[ele.id] = {
+                abi : ele?.abi,
+                contract : ele?.contract,
+                decimalNum : ele?.decimalNum,
+                fee  : ele?.fee
+              }
+            
+           })
+        }   
+        data[0].networks = group
+        setOpen(openField)
+        SetEmptyData(data[0])
+
+        Object.entries(data[0]).forEach(entry => {
+          const [key, value] = entry;
+          if(key === 'networks') return;
+          console.log(key,value);
+          setValue(key,value)
+        });
+
+      })()
+    }
+  }, [])
+
+
+
+
   const schema = yup.object().shape({
-    coinName: yup.string().required("This field is required"),
+    coinName: yup.string().required('This field is required'),
     confirmations: yup.number().positive().typeError('Amount must be a number'),
     decimals: yup.number().positive().typeError('Amount must be a number'),
-    image: yup.mixed().required("Image is required"),
-    fullName: yup.string().required("This field is required"),
-    minimum_withdraw: yup.number().positive().typeError('Amount must be a number'),
-    tokenType: yup.string().required("This field is required"),
+    image: yup.mixed().required('Image is required'),
+    fullName: yup.string().required('This field is required'),
+    minimum_withdraw: yup
+      .number()
+      .positive()
+      .typeError('Amount must be a number'),
+    tokenType: yup.string().required('This field is required'),
     Binance: yup.object().shape({
-      name : yup.string(),
+      name: yup.string(),
       decimalNum: yup.number().positive(),
       fee: yup.number().positive(),
       contract: yup.string(),
-      abi: yup.string()
+      abi: yup.string(),
     }),
     Ethereum: yup.object().shape({
-      name : yup.string(),
+      name: yup.string(),
       decimalNum: yup.number().positive(),
       fee: yup.number().positive(),
       contract: yup.string(),
-      abi: yup.string()
+      abi: yup.string(),
     }),
     Tron: yup.object().shape({
-      name : yup.string(),
+      name: yup.string(),
       decimalNum: yup.number().positive(),
       fee: yup.number().positive(),
       contract: yup.string(),
-      abi: yup.string()
+      abi: yup.string(),
     }),
 
-
-
     // chooseCb: yup.array().required("Field must have at least 1 item").min(1).nullable(),
-  });
+  })
 
-
-  const { register, handleSubmit, setValue, control, formState: { errors }, reset } = useForm({
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    control,
+    formState: { errors },
+    reset,
+  } = useForm({
     resolver: yupResolver(schema),
-  });
+    defaultValues : emptyData
+  })
 
   const handleChange = (event, feildName) => {
-
     setOpen((prevalue) => {
       return {
         ...prevalue,
-        [feildName]: event.target.checked
+        [feildName]: event.target.checked,
       }
     })
   }
 
+  const [logo, setlogo] = useState(false)
+
+  const changeLogo = () => {
+    setlogo(true)
+  }
 
   let submitForm = async (data, e) => {
-    e.preventDefault(e);
+    e.preventDefault(e)
 
-    let networks = [];
-    let sd= getValue(data.Binance)
+    let networks = []
+    let sd = getValue(data.Binance)
     console.log(sd)
     networks.push(data.Binance)
     networks.push(data.Tron)
     networks.push(data.Ethereum)
-    console.log(networks)
 
-    let formData = new FormData(e.target);
-    let uploadFile = formData.get('image');
-    var reader = new FileReader();
-    reader.readAsDataURL(uploadFile);
+    let formData = new FormData(e.target)
+    let uploadFile = formData.get('image')
+    var reader = new FileReader()
+    reader.readAsDataURL(uploadFile)
     reader.onload = function () {
-      data.image = reader.result;
-      data.networks = networks;
+      data.image = reader.result
+      data.networks = networks
       setOpen(false)
-      if(tokenid===''){
-        dispatch(tokenListCreate(data)).then((response) => {
-          console.log("====hello", response)
+      if (tokenid === '') {
+        dispatch(tokenListCreate(data))
+          .then((response) => {
+            console.log('====hello', response)
+          })
+          .catch((err) => {
+            console.log('err', err)
+          })
+      } else {
+        let tokenData = {
+          tokenid: tokenid,
+          data: data,
+        }
+        dispatch(tokenUpdateRequest(tokenData))
+          .then((response) => {})
+          .catch((err) => {
+            console.log('err', err)
+          })
+      }
 
-        }).catch(err => {
-          console.log("err", err)
-        });
-      }
-    else{
-      let tokenData = {
-        tokenid: tokenid,
-        data:data
-      }
-      dispatch(tokenUpdateRequest(tokenData)).then((response) => {
-      }).catch(err => {
-        console.log("err", err)
-      });
-    }
-      
       document.querySelectorAll('.network-checkbox input').forEach((elem) => {
         if (elem.checked) {
-          elem.click();
+          elem.click()
         }
       })
-      reset();
-
-    };
+      reset()
+    }
     reader.onerror = function (error) {
-      console.log('Error: ', error);
-    };
-
+      console.log('Error: ', error)
+    }
   }
 
 
+  const updateValues = (event) => {
+      console.log('adasdasdasd',event.target.value)
+    //{ ...emptyData, coinName : e.target.value}
+  }
+
   return (
-    <Paper sx={{
-      margin: 'auto'
-    }} >
-      <Box component='form' px={3} py={2} maxWidth='750px' width='100%' alignContent='center' onSubmit={handleSubmit(submitForm)}>
-        <Box sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          margin: '10px 30px'
-        }}>
+    <Paper
+      sx={{
+        margin: 'auto',
+      }}
+    >
+      <Box
+        component="form"
+        px={3}
+        py={2}
+        maxWidth="750px"
+        width="100%"
+        alignContent="center"
+        onSubmit={handleSubmit(submitForm)}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            margin: '10px 30px',
+          }}
+        >
           <Typography variant="h6" align="center" margin="dense">
             Token Form
           </Typography>
-          <IconButton onClick={() => abc(false)} >
+          <IconButton onClick={() => abc(false)}>
             <CloseIcon />
           </IconButton>
         </Box>
 
         <Grid container spacing={1}>
           <Grid item xs={12} sm={12}>
-            <TextField
+
+          
+          <TextField
               id="coinName"
-              name="coinName"
               label="Coin Name"
-              fullWidth
+              fullwidth
               margin="dense"
               {...register('coinName')}
               error={errors.coinName ? true : false}
             />
+            
+
+
             <Typography variant="inherit" color="textSecondary">
               {errors.coinName?.message}
             </Typography>
@@ -187,13 +276,13 @@ const TokenForm = ({abc, tokenid}) => {
           <Grid item xs={12} sm={12}>
             <TextField
               sx={{
-                "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
-                  display: "none",
-                }
+                '& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button': {
+                  display: 'none',
+                },
               }}
-
-              type='number'
+              type="number"
               id="confirmations"
+              defaultValue={emptyData?.confirmations}
               name="confirmations"
               label="Confirmation Number"
               fullWidth
@@ -204,90 +293,126 @@ const TokenForm = ({abc, tokenid}) => {
             <Typography variant="inherit" color="textSecondary">
               {errors.confirmations?.message}
             </Typography>
-
           </Grid>
           <Grid item xs={12} sm={12}>
             <TextField
               sx={{
-                "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
-                  display: "none",
-                }
+                '& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button': {
+                  display: 'none',
+                },
               }}
-
-              type='number'
+              type="number"
               id="decimals"
               name="decimals"
+              defaultValue={emptyData?.decimals}
               label="Decimal"
               fullWidth
               margin="dense"
               {...register('decimals')}
-
               error={errors.decimals ? true : false}
             />
             <Typography variant="inherit" color="textSecondary">
               {errors.decimals?.message}
             </Typography>
-
           </Grid>
           <Grid item xs={12} sm={12}>
-            <TextField
-              id="image"
-              name="image"
-              label="Image"
-              type="file"
-              fullWidth
-              margin="dense"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              onChange={(e) => { setValue('image', e.target.files[0], { shouldValidate: true }) }}
-              error={errors.image ? true : false}
-            />
+            {tokenid !== '' ? (
+              <>
+                {!logo ? (
+                  <>
+                    <Typography variant="inherit" color="textSecondary">
+                      Change Logo
+                    </Typography>
+                    <img src={emptyData?.image} />
+                    <Button
+                      variant="contained"
+                      endIcon={<EditIcon />}
+                      onClick={changeLogo}
+                    >
+                      Change Logo
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <TextField
+                      id="image"
+                      name="image"
+                      label="Image"
+                      type="file"
+                      fullWidth
+                      margin="dense"
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                      onChange={(e) => {
+                        setValue('image', e.target.files[0], {
+                          shouldValidate: true,
+                        })
+                      }}
+                      error={errors.image ? true : false}
+                    />
+                  </>
+                )}
+              </>
+            ) : (
+              <TextField
+                id="image"
+                name="image"
+                label="Image"
+                type="file"
+                fullWidth
+                margin="dense"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                onChange={(e) => {
+                  setValue('image', e.target.files[0], {
+                    shouldValidate: true,
+                  })
+                }}
+                error={errors.image ? true : false}
+              />
+            )}
+
             <Typography variant="inherit" color="textSecondary">
               {errors.image?.message}
             </Typography>
-
           </Grid>
           <Grid item xs={12} sm={12}>
             <TextField
-
               id="fullName"
               name="fullName"
               label="Full Name"
+              defaultValue={emptyData?.fullName}
               fullWidth
               margin="dense"
               {...register('fullName')}
-
               error={errors.fullName ? true : false}
             />
             <Typography variant="inherit" color="textSecondary">
               {errors.fullName?.message}
             </Typography>
-
           </Grid>
           <Grid item xs={12} sm={12}>
             <TextField
               sx={{
-                "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
-                  display: "none",
-                }
+                '& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button': {
+                  display: 'none',
+                },
               }}
-              type='number'
+              type="number"
               id="minimum_withdraw"
               name="minimum_withdraw"
               label="Minimum Withdraw"
               fullWidth
               margin="dense"
               {...register('minimum_withdraw')}
-
               error={errors.minimum_withdraw ? true : false}
             />
             <Typography variant="inherit" color="textSecondary">
               {errors.minimum_withdraw?.message}
             </Typography>
-
           </Grid>
-
 
           <Grid item xs={12} sm={12}>
             <TextField
@@ -295,6 +420,7 @@ const TokenForm = ({abc, tokenid}) => {
               select
               fullWidth
               margin="dense"
+              value={emptyData.tokenType}
               label="Token Type"
               helperText="Please select your Token Type"
               {...register('tokenType')}
@@ -309,42 +435,44 @@ const TokenForm = ({abc, tokenid}) => {
                 </MenuItem>
               ))}
             </TextField>
-
           </Grid>
 
           <Grid item xs={12} sm={12}>
-            <Box
-              fullWidth
-              margin="dense"
-
-
-            >
-
-              <FormControl component="fieldset" variant="standard"
-                error={errors.chooseCb ? true : false} >
+            <Box fullWidth margin="dense">
+              <FormControl
+                component="fieldset"
+                variant="standard"
+                error={errors.chooseCb ? true : false}
+              >
                 <FormLabel component="legend">Networks</FormLabel>
                 <FormGroup>
-
-                  {network.map((check, index) => {
+                  {network.map((check, index) => { 
                     return (
-                      <FormControlLabel sx={{ display: 'block' }}
+                      <FormControlLabel
+                        key={check.network_id}
+                        sx={{ display: 'block' }}
                         label={
-                          <Box >
-                            {open[check.forControl] &&
+                          <Box>
+                            { open[check.network_id]  &&  (
                               <Box id={check.Network}>
                                 <Grid container spacing={1}>
                                   <Grid item xs={12} sm={3}>
                                     <TextField
                                       sx={{
-                                        "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
-                                          display: "none",
-                                        }
+                                        '& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button': {
+                                          display: 'none',
+                                        },
                                       }}
-                                      onChange={(event) => { setValue(`${check.forControl}.decimalNum`, `${event.target.value}`); }}
-                                      type='number'
+                                      onChange={(event) => {
+                                        setValue(
+                                          `${check.network_id}.decimalNum`,
+                                          `${event.target.value}`,
+                                        )
+                                      }}
+                                      type="number"
                                       required
                                       id={`decimalsnum${index}`}
-                                      name="decimalsnum"
+                                      defaultValue={ emptyData.networks.hasOwnProperty(check.network_id) ? emptyData?.networks[check.network_id]?.decimalNum : '' }
                                       label="Decimal"
                                       fullWidth
                                       margin="dense"
@@ -353,15 +481,21 @@ const TokenForm = ({abc, tokenid}) => {
                                   <Grid item xs={12} sm={3}>
                                     <TextField
                                       sx={{
-                                        "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
-                                          display: "none",
-                                        }
+                                        '& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button': {
+                                          display: 'none',
+                                        },
                                       }}
-                                      onChange={(event) => { setValue(`${check.forControl}.fee`, `${event.target.value}`); }}
-                                      type='number'
+                                      onChange={(event) => {
+                                        setValue(
+                                          `${check.network_id}.fee`,
+                                          `${event.target.value}`,
+                                        )
+                                      }}
+                                      type="number"
                                       required
                                       id={`fee${index}`}
                                       name="fee"
+                                      defaultValue={ emptyData.networks.hasOwnProperty(check.network_id) ? emptyData?.networks[check.network_id]?.fee : '' }
                                       label="fee"
                                       fullWidth
                                       margin="dense"
@@ -369,22 +503,33 @@ const TokenForm = ({abc, tokenid}) => {
                                   </Grid>
                                   <Grid item xs={12} sm={3}>
                                     <TextField
-                                      onChange={(event) => { setValue(`${check.forControl}.contract`, `${event.target.value}`); }}
+                                      onChange={(event) => {
+                                        setValue(
+                                          `${check.network_id}.contract`,
+                                          `${event.target.value}`,
+                                        )
+                                      }}
                                       required
                                       id={`contract${index}`}
                                       name="contract"
                                       label="Contract"
+                                      defaultValue={ emptyData.networks.hasOwnProperty(check.network_id) ? emptyData?.networks[check.network_id]?.contract : '' }
                                       fullWidth
                                       margin="dense"
                                     />
-
                                   </Grid>
                                   <Grid item xs={12} sm={3}>
                                     <TextField
-                                      onChange={(event) => { setValue(`${check.forControl}.abi`, `${event.target.value}`); }}
+                                      onChange={(event) => {
+                                        setValue(
+                                          `${check.network_id}.abi`,
+                                          `${event.target.value}`,
+                                        )
+                                      }}
                                       id={`abi${index}`}
                                       required
                                       name="abi"
+                                      defaultValue={ emptyData.networks.hasOwnProperty(check.network_id) ? emptyData?.networks[check.network_id]?.abi : '' }
                                       label="ABI"
                                       fullWidth
                                       margin="dense"
@@ -392,28 +537,35 @@ const TokenForm = ({abc, tokenid}) => {
                                   </Grid>
                                 </Grid>
                               </Box>
-                            }
-
+                            )}
                           </Box>
                         }
                         control={
                           <Controller
-                            name={check.forControl}
+                            name={check.network_id}
                             control={control}
                             rules={{ required: true }}
                             render={({ field: { value, ...field } }) => {
                               return (
-                                <Box sx={{
-                                  display: 'block'
-                                }}>
+                                <Box
+                                  sx={{
+                                    display: 'block',
+                                  }}
+                                >
                                   <MuiCheckbox
                                     {...field}
                                     checked={!!value}
-                                    onChange={(event) => { field.onChange(event);  setValue(`${check.forControl}.name`, `${event.target.value}`);  handleChange(event, check.forControl) }}
+                                    onChange={(event) => {
+                                      field.onChange(event)
+                                      setValue(
+                                        `${check.forControl}.name`,
+                                        `${event.target.value}`,
+                                      )
+                                      handleChange(event, check.network_id)
+                                    }}
                                   />
                                   {check.Network}
                                 </Box>
-
                               )
                             }}
                           />
@@ -421,35 +573,22 @@ const TokenForm = ({abc, tokenid}) => {
                       />
                     )
                   })}
-
                 </FormGroup>
               </FormControl>
               <Typography variant="inherit" color="textSecondary">
                 {errors.chooseCb?.message}
               </Typography>
-
             </Box>
-
-
           </Grid>
-
-
-
         </Grid>
 
         <Box mt={3}>
-          <Button
-            variant="contained"
-            color="primary"
-            type="submit"
-          >
+          <Button variant="contained" color="primary" type="submit">
             Submit
           </Button>
         </Box>
-
       </Box>
     </Paper>
-
-  );
-};
-export default TokenForm;
+  )
+}
+export default TokenForm

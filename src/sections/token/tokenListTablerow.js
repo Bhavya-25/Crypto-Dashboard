@@ -25,6 +25,7 @@ export default function TokenListTableRow({ row, selected, onEditRow, onSelectRo
 
     
   return (
+    <>
     <TableRow hover selected={selected}>
       {onSelectRow && 
         <TableCell padding="checkbox">
@@ -58,14 +59,15 @@ export default function TokenListTableRow({ row, selected, onEditRow, onSelectRo
         </TableCell>
         
         <TableCell padding="checkbox">
-        <IconButton aria-label="edit" onClick={() => abc(true, _id)  } >
+            <IconButton aria-label="edit" onClick={() => abc(true, _id)  } >
               <EditIcon />
-
             </IconButton>
+            
           </TableCell>
         
           
       
     </TableRow>
+    </>
   );
 }

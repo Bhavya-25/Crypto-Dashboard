@@ -1,6 +1,6 @@
 import * as api from '../API'
 
-import { TOKENLIST, TOKENLISTCREATE, TOKENSLIST, TOKENUPDATE } from '../constants'
+import { TOKENLIST, TOKENLISTCREATE, TOKENSLIST, TOKENUPDATE, GETTOKENBYID } from '../constants'
 
 export const tokenListRequest = () => async (dispatch) => {
   try {
@@ -71,3 +71,28 @@ export const tokenUpdateRequest = (param) => async (dispatch) => {
 
   }
 }
+
+
+/**
+ * Get token by specific id
+ */
+
+
+export const gettokenbyid =  (tokedis) => async (dispatch) => {
+  try {
+    const {data} = await api.tokenGetById(tokedis)
+
+    console.log(data,' ===========');
+
+    if (data.status === 200) {
+      await dispatch({ type: GETTOKENBYID, payload: data })
+      return data;
+    }
+    else {
+      return data;
+    }
+
+  } catch (error) {
+     console.log('error')
+  }
+} 
