@@ -1,6 +1,6 @@
 import * as api from '../API'
 import { KYCLIST, KYCUPDATE } from '../constants'
-
+import { logOut } from './authActions';
 // /**
 //  * Kyc List
 //  * @param {*} formData 
@@ -15,7 +15,13 @@ export const kycListRequest = () => async (dispatch) => {
       return data;
     }
     else {
-      return data;
+      if(data.data === "unauthorized user" && data.status === 404){
+        await dispatch(logOut()); 
+        return data;
+      }
+      else{
+        return data;
+      }
     }
 
   } catch (error) {
@@ -32,7 +38,13 @@ export const kycStatusUpdateRequest = (param) => async (dispatch) => {
       return data;
     }
     else {
-      return data;
+      if(data.data === "unauthorized user" && data.status === 404){
+        await dispatch(logOut()); 
+        return data;
+      }
+      else{
+        return data;
+      }
     }
 
   } catch (error) {

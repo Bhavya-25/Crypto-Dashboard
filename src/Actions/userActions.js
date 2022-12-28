@@ -36,7 +36,10 @@ export const userStatusUpdateRequest = (param) => async (dispatch) => {
       return data;
     }
     else {
-      return data;
+      if(data.data === "unauthorized user" && data.status === 404){
+        await dispatch(logOut()); 
+        return data;
+      }
     }
 
   } catch (error) {

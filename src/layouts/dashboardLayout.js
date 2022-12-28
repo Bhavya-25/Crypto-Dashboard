@@ -23,8 +23,6 @@ export default function DashboardLayout({ pageContent }) {
         }
     },[]);
     
-
-
     return (
         <>
             <Stack direction="row" sx={{ overflow: 'hidden' }} >

@@ -1,5 +1,5 @@
 import * as api from '../API'
-
+import { logOut } from './authActions';
 import { TOKENLIST, TOKENLISTCREATE, TOKENSLIST, TOKENUPDATE } from '../constants'
 
 export const tokenListRequest = () => async (dispatch) => {
@@ -11,7 +11,13 @@ export const tokenListRequest = () => async (dispatch) => {
       return data;
     }
     else {
-      return data;
+      if(data.data === "unauthorized user" && data.status === 404){
+        await dispatch(logOut()); 
+        return data;
+      }
+      else{
+        return data;
+      }
     }
 
   } catch (error) {
@@ -29,7 +35,13 @@ export const tokensListRequest = () => async (dispatch) => {
       return data;
     }
     else {
-      return data;
+      if(data.data === "unauthorized user" && data.status === 404){
+        await dispatch(logOut()); 
+        return data;
+      }
+      else{
+        return data;
+      }
     }
 
   } catch (error) {
@@ -46,7 +58,13 @@ export const tokenListCreate = (params) => async (dispatch) => {
       return data;
     }
     else {
-      return data;
+      if(data.data === "unauthorized user" && data.status === 404){
+        await dispatch(logOut()); 
+        return data;
+      }
+      else{
+        return data;
+      }
     }
 
   } catch (error) {
@@ -63,9 +81,16 @@ export const tokenUpdateRequest = (param) => async (dispatch) => {
       await dispatch({ type: TOKENUPDATE, payload: data })
       return data;
     }
-    else {
-      return data;
+    else{
+      if(data.data === "unauthorized user" && data.status === 404){
+        await dispatch(logOut()); 
+        return data;
+      }
+      else{
+        return data;
+      }
     }
+    
 
   } catch (error) {
 
