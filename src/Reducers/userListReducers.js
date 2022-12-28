@@ -8,7 +8,7 @@ const userList =(userList = [], action)=>{
       if (action.payload.status === 200) {
         return action.payload.data
       }
-    
+    break
     case USERUPDATE :
       if(action.payload.status === 200){
         return userList = userList.map((d) => {
@@ -20,7 +20,7 @@ const userList =(userList = [], action)=>{
           }
         })
       }   
-        
+    break    
     default:
       return userList
   }

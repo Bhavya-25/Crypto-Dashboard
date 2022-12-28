@@ -19,7 +19,7 @@ WithdrawListTableRow.propTypes = {
 export default function WithdrawListTableRow({ row, selected, onEditRow, onSelectRow, onDeleteRow }) {
   const theme = useTheme();
 
-  const { coin, network, created, txid, amount, walletAddress, status } = row;
+  const { coin, network, createdAt, txid, amount, walletAddress, status } = row;
 
   return (
     <TableRow hover selected={selected}>
@@ -31,7 +31,7 @@ export default function WithdrawListTableRow({ row, selected, onEditRow, onSelec
       <TableCell align="left" sx={{ fontSize: '14px' }}>{coin}</TableCell>
       <TableCell>{network}</TableCell>
 
-      <TableCell align="left" sx={{ fontSize: '12px' }}>{moment(created).format('Y/MM/DD HH:mm:ss')}</TableCell>
+      <TableCell align="left" sx={{ fontSize: '12px' }}>{moment(createdAt).format('Y/MM/DD HH:mm:ss')}</TableCell>
       <TableCell align="left" sx={{
         fontSize: '12px',
         maxWidth: '180px',
