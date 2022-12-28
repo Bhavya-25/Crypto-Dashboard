@@ -15,7 +15,7 @@ const DougnutChart=(props)=>{
       plotOptions: props.doughnutProp.plotOptions,
       series: props.doughnutProp.series
     });
-  },[props.id])
+  },[props])
   
   return(
     <div id={props.id}></div>

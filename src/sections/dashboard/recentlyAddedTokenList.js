@@ -5,7 +5,7 @@ import {
 } from "@mui/material";
 
 import useTable, { emptyRows } from "../../hooks/useTable";
-import { TableHeadCustom, TableEmptyRows, TableSelectedActions } from "../../components/table";
+import { TableHeadCustom, TableEmptyRows } from "../../components/table";
 import RecentlyAddedTableRow from "./recentlyAddedTableRow";
 
 function createData(name, price, added) {

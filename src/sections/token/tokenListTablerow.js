@@ -22,7 +22,7 @@ export default function TokenListTableRow({ row, selected, onEditRow, onSelectRo
 
   const { name, fullName, networks, tokenType,image,status,_id } = row;
 
-
+  console.log(networks)
     
   return (
     <TableRow hover selected={selected}>
