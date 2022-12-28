@@ -17,6 +17,8 @@ import {
 
 import EditIcon from '@mui/icons-material/Edit'
 
+
+
 import { useDispatch } from 'react-redux'
 import { ToastContainer, toast } from 'react-toastify';
 
@@ -33,6 +35,7 @@ import {
 import CloseIcon from '@mui/icons-material/Close'
 import { getValue } from '@mui/system'
 import { clear } from '@testing-library/user-event/dist/clear'
+import { useNavigate } from 'react-router-dom';
 
 const tokens = [
   {
@@ -47,6 +50,8 @@ const tokens = [
 
 const TokenForm = ({ abc, tokenid }) => {
   // empty data for form
+
+  const redirect = useNavigate()
   
   const [emptyData, SetEmptyData] = useState({
     coinName: '',
@@ -178,6 +183,8 @@ const TokenForm = ({ abc, tokenid }) => {
 
   let submitForm = async (data, e) => {
     e.preventDefault(e)
+    // console.log(data)
+    // return;
 
     /**
      * unnecessary  record deleted 
@@ -204,7 +211,7 @@ const TokenForm = ({ abc, tokenid }) => {
 
     data['networks'] = networks;
     if(tokenid == ''){
-        dispatch(tokenListCreate(data))
+        await dispatch(tokenListCreate(data))
        /** create new record record */
     }else{
        /** update existing record */
@@ -212,9 +219,12 @@ const TokenForm = ({ abc, tokenid }) => {
        delete data['updatedAt'];
        delete data['__v'];
        delete data['createdAt'];
-       dispatch(tokenUpdateRequest(tokenid,data)) 
+       await dispatch(tokenUpdateRequest(tokenid,data)) 
+
     }
-    return;
+    setTimeout(() => {
+      redirect ('/token')
+    }, 1000);
 
      reset();
 
@@ -265,13 +275,11 @@ const TokenForm = ({ abc, tokenid }) => {
               id="coinName"
               label="Coin Name"
               fullWidth
+              defaultValue={emptyData?.coinName}
               margin="dense"
               {...register('coinName')}
               error={errors.coinName ? true : false}
             />
-            
-
-
             <Typography variant="inherit" color="textSecondary">
               {errors.coinName?.message}
             </Typography>
@@ -560,7 +568,7 @@ const TokenForm = ({ abc, tokenid }) => {
                                 >
                                   <MuiCheckbox
                                     {...field}
-                                    checked={true}
+                                    checked={!!value}
                                     onChange={(event) => {
                                       field.onChange(event)
                                       setValue(

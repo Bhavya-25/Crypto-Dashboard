@@ -45,6 +45,7 @@ export const tokenListCreate = (params) => async (dispatch) => {
     const { data } = await api.tokenList(params);
 
     if (data.status === 200) {
+      notify.success("Token Successfully Created..");
       await dispatch({ type: TOKENLISTCREATE, payload: data })
       return data;
     }
@@ -69,7 +70,6 @@ export const tokenUpdateRequest = (tokenid,param) => async (dispatch) => {
     else {
       return data;
     }
-
   } catch (error) {
      notify.error(error)
   } 
