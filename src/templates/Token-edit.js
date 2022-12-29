@@ -7,18 +7,12 @@ import { useNavigate, useParams } from "react-router-dom";
 const TokenEdit = () => {
   const redirect = useNavigate();
   const parma = useParams();
-
-
-    const { id } = useParams();
-
-    
+  
+  const { id } = useParams();
 
   const abc = () => {
     redirect("/token");
   };
-
-
-
 
   return (
     <>

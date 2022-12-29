@@ -33,8 +33,6 @@ import {
   gettokenbyid,
 } from '../../Actions/tokenActions'
 import CloseIcon from '@mui/icons-material/Close'
-import { getValue } from '@mui/system'
-import { clear } from '@testing-library/user-event/dist/clear'
 import { useNavigate } from 'react-router-dom';
 
 const tokens = [

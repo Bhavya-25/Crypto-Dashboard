@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import {
-  Typography, Grid, TableContainer, Table, TableBody, TablePagination, Tooltip, IconButton,Box
+  Typography, Grid, TableContainer, Table, TableBody, TablePagination, Tooltip, IconButton, Box
 
 } from "@mui/material";
 import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
@@ -15,8 +15,8 @@ import TokenForm from "./tokenForm";
 import { useNavigate, Link } from "react-router-dom";
 
 
-function createData(name, fullName, networks, tokenType, image, status,_id) {
-  return { name, fullName, networks,  tokenType, image, status,_id };
+function createData(name, fullName, networks, tokenType, image, status, _id) {
+  return { name, fullName, networks, tokenType, image, status, _id };
 }
 
 const headCells = [
@@ -53,6 +53,13 @@ const headCells = [
     label: 'Status',
   },
   {
+    id: 'isAction',
+    numeric: true,
+    disablePadding: false,
+    label: 'Action',
+    align : 'center'
+  },
+  {
     id: 'edit',
     disablePadding: false,
     label: '',
@@ -82,10 +89,10 @@ const TokenUsersList = () => {
 
   const [list, setList] = useState([]);
   const [open, setOpen] = useState(false)
-  const [tokenid, setTokenid]= useState();
+  const [tokenid, setTokenid] = useState();
 
   const tokensList = useSelector((state) => state.tokenList);
-  
+
 
   const redirect = useNavigate();
 
@@ -116,17 +123,17 @@ const TokenUsersList = () => {
 
   return (
     <>
-    
-      <Link
-      component="button"
-      to="/token/add-new"
-      variant="body2"
-      onClick={() => {
-        console.info("I'm a button.");
-      }}
-    >
-      Button Link <PlaylistAddIcon />
-    </Link>
+
+      {/* <Link
+        component="button"
+        to="/token/add-new"
+        // variant="body2"
+        onClick={() => {
+          console.info("I'm a button.");
+        }}
+      >
+        Button Link <PlaylistAddIcon />
+      </Link> */}
 
       {
         !open &&
@@ -154,22 +161,29 @@ const TokenUsersList = () => {
               />
             )}
             <Box sx={{
-              display:'flex'
+              display: 'flex'
             }}>
-            <Typography
-              sx={{ flex: '1 1 100%', fontsize: '20px' }}
+              <Typography
+                sx={{ flex: '1 1 100%', fontsize: '20px' }}
 
-              id="tableTitle"
-              component="div"
-            >
-              All Users
-            </Typography>
-            <IconButton aria-label="edit" onClick={ abc} >
-              <AddIcon />
-
-            </IconButton>
+                id="tableTitle"
+                component="div"
+              >
+                All Users
+              </Typography>
+              <Link
+                component="button"
+                to="/token/add-new"
+                onClick={() => {
+                  console.info("I'm a button.");
+                }}
+              >
+                <IconButton aria-label="edit"  >
+                  <AddIcon />
+                </IconButton>
+              </Link>
             </Box>
-            
+
 
             <Table size={dense ? 'small' : 'medium'}>
               <TableHeadCustom

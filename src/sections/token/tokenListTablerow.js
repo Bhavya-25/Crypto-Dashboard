@@ -1,8 +1,10 @@
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 // @mui
 import { useTheme } from '@mui/material/styles';
-import { Checkbox, TableRow, TableCell, Typography, IconButton } from '@mui/material';
+import { Checkbox, TableRow, TableCell, Typography, IconButton,Stack,Button } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
+import { tokenStatusUpdateRequest } from '../../Actions/tokenActions';
 
 // components
 
@@ -18,8 +20,15 @@ TokenListTableRow.propTypes = {
 
 export default function TokenListTableRow({ row, selected, onEditRow, onSelectRow, onDeleteRow,abc }){
   const theme = useTheme();
-
-
+const dispatch= useDispatch()
+  const updatetokenStatus = async (status, _id, e) => {
+    e.preventDefault();
+    let data = {
+      tokenid: _id,
+      status: status === true ? false : true
+    }
+   await dispatch(tokenStatusUpdateRequest(data));
+  }
   const { name, fullName, networks, tokenType,image,status,_id } = row;
 
   console.log(networks)
@@ -53,6 +62,11 @@ export default function TokenListTableRow({ row, selected, onEditRow, onSelectRo
          {status === true ? 'Active' : 'InActive'}
         </Typography>
         </TableCell>
+        <TableCell align="center">
+        <Stack direction="row" spacing={2} sx={{justifyContent:'center', fontSize:'13px'}}>
+        <Button variant="outlined" sx={{fontSize:'13px'}} onClick={(e) => updatetokenStatus(status, _id, e)} color={status === true ? 'error' : 'info'}>{status === true ? 'Block' : 'Un BLock'}</Button>
+        </Stack>
+      </TableCell>
         
         <TableCell padding="checkbox">
             <IconButton aria-label="edit" onClick={() => abc(true, _id)  } >

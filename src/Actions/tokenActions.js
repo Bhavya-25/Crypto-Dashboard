@@ -1,7 +1,8 @@
 import * as api from '../API'
 import TmbNotification from '../error-notification';
-import { TOKENLIST, TOKENLISTCREATE, TOKENSLIST, TOKENUPDATE, GETTOKENBYID } from '../constants'
+import { TOKENLIST, TOKENLISTCREATE, TOKENSLIST, TOKENUPDATE, GETTOKENBYID, TOKENSTATUSUPDATE } from '../constants'
 import { toast } from 'react-toastify';
+import { logOut } from './authActions';
 
 const notify = new TmbNotification();
 
@@ -99,3 +100,27 @@ export const gettokenbyid =  (tokedis) => async (dispatch) => {
      console.log('error')
   }
 } 
+
+
+export const tokenStatusUpdateRequest = (param) => async (dispatch) => {
+  try {
+    const { data } = await api.tokenStatusUpdate(param);
+
+    if (data.status === 200) {
+      await dispatch({ type: TOKENSTATUSUPDATE, payload: data })
+      return data;
+    }
+    else {
+      if(data.data === "unauthorized user" && data.status === 404){
+        await dispatch(logOut()); 
+        return data;
+      }
+      else{
+        return data;
+      }
+    }
+
+  } catch (error) {
+
+  }
+}
