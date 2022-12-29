@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Grid, Typography } from "@mui/material";
 import TokenForm from "../sections/token/tokenForm";
 import Layouts from "../layouts";
@@ -6,7 +6,6 @@ import { useNavigate, useParams } from "react-router-dom";
 
 const TokenEdit = () => {
   const redirect = useNavigate();
-  const parma = useParams();
   
   const { id } = useParams();
 
@@ -18,7 +17,7 @@ const TokenEdit = () => {
     <>
       <Grid container spacing={2} sx={{ padding: "48px 24px" }}>
         {
-            id != '' ? 
+            id !== '' ? 
                 (
                  <>
                     <TokenForm abc={abc} tokenid={id} />

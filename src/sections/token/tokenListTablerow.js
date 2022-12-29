@@ -2,10 +2,12 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 // @mui
 import { useTheme } from '@mui/material/styles';
-import { Checkbox, TableRow, TableCell, Typography, IconButton,Stack,Button } from '@mui/material';
+import { Checkbox, TableRow, TableCell, Typography, IconButton, Stack, Button, Box } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import { tokenStatusUpdateRequest } from '../../Actions/tokenActions';
-
+// import ethIcon from 'ethereum-eth.svg'
+// import bnbIcon from 'BinanceIcon.svg'
+// import trxicon from 'tronicon.png'
 // components
 
 // ----------------------------------------------------------------------
@@ -18,66 +20,121 @@ TokenListTableRow.propTypes = {
   onDeleteRow: PropTypes.func,
 };
 
-export default function TokenListTableRow({ row, selected, onEditRow, onSelectRow, onDeleteRow,abc }){
+
+const coins = {
+  BNB: "BinanceIcon.svg",
+  TRX: "tronicon.png",
+  ETH:"ethereum-eth.svg",
+  
+}
+
+
+
+
+
+
+export default function TokenListTableRow({ row, selected, onEditRow, onSelectRow, onDeleteRow, abc }) {
   const theme = useTheme();
-const dispatch= useDispatch()
+  const dispatch = useDispatch()
   const updatetokenStatus = async (status, _id, e) => {
     e.preventDefault();
     let data = {
       tokenid: _id,
       status: status === true ? false : true
     }
-   await dispatch(tokenStatusUpdateRequest(data));
+    await dispatch(tokenStatusUpdateRequest(data));
   }
-  const { name, fullName, networks, tokenType,image,status,_id } = row;
+  const { name, fullName, networks, tokenType, image, status, _id } = row;
 
-  console.log(networks)
-    
+  // const renderNetworkIcon = async (network) => {
+  //   console.log(networks)
+  //   let ree= []; 
+  //   let data = Object.keys(coins).forEach((coin)=>{
+  //     console.log(coin)
+  //     if (coin === network.networkName) { 
+  //       return (<><p>asasdasd</p>
+  //         {/* <Box
+  //           component="img"
+  //           sx={{
+  //             height: 23,
+  //             width: 35,
+  //             maxHeight: { xs: 50, md: 30 },
+  //             maxWidth: { xs: 50, md: 30 },
+  //           }}
+  //           alt="Binance Coin."
+  //           src={require(`../../assets/images/${coins[coin]}`)}
+  //         /> */}
+  //       </>)
+  //     }
+  //   })
+  //   console.log(ree) 
+  //   return ree
+  // }
+
   return (
     <>
-    <TableRow hover selected={selected}>
-      {onSelectRow && 
-        <TableCell padding="checkbox">
-        <Checkbox checked={selected} onClick={onSelectRow} />
-      </TableCell>
-      }
-      <TableCell align="left">{name}</TableCell>
-      <TableCell>{fullName}</TableCell>
-      <TableCell align="left"></TableCell>
-      <TableCell align="left">{tokenType} </TableCell>
-      <TableCell component="a" href={image} align="left"
-      sx={{ textTransform: 'capitalize',
-      maxWidth: '180px',
-      whiteSpace: 'nowrap',
-      overflow: 'hidden',
-      textOverflow: 'ellipsis',
-      textDecoration:'none',
-      color:theme.palette.info.dark }}>Document</TableCell>
-      <TableCell align="left" sx={{ fontSize: '12px' }}>
-        <Typography
-          variant="outlined"
-          color={(status === true) ? theme.palette.success.dark  : theme.palette.error.dark}
-          sx={{ textTransform: 'capitalize', fontSize: '14px' }}
-        >
-         {status === true ? 'Active' : 'InActive'}
-        </Typography>
+      <TableRow hover selected={selected}>
+        {onSelectRow &&
+          <TableCell padding="checkbox">
+            <Checkbox checked={selected} onClick={onSelectRow} />
+          </TableCell>
+        }
+        <TableCell align="left">{name}</TableCell>
+        <TableCell>{fullName}</TableCell>
+        <TableCell align="left">
+          {networks.map((network)=>{
+            return (
+                <Box
+                  component="img"
+                  sx={{
+                    height: 23,
+                    width: 35,
+                    maxHeight: { xs: 50, md: 30 },
+                    maxWidth: { xs: 50, md: 30 },
+                  }}
+                  alt="Binance Coin."
+                  src={require(`../../assets/images/${coins[network.networkName]}`)}
+                />
+              )
+          })}
+
+        </TableCell>
+        <TableCell align="left">{tokenType} </TableCell>
+        <TableCell component="a" href={image} align="left"
+          sx={{
+            textTransform: 'capitalize',
+            maxWidth: '180px',
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            textDecoration: 'none',
+            color: theme.palette.info.dark
+          }}>Document</TableCell>
+        <TableCell align="left" sx={{ fontSize: '12px' }}>
+          <Typography
+            variant="outlined"
+            color={(status === true) ? theme.palette.success.dark : theme.palette.error.dark}
+            sx={{ textTransform: 'capitalize', fontSize: '14px' }}
+          >
+            {status === true ? 'Active' : 'InActive'}
+          </Typography>
         </TableCell>
         <TableCell align="center">
-        <Stack direction="row" spacing={2} sx={{justifyContent:'center', fontSize:'13px'}}>
-        <Button variant="outlined" sx={{fontSize:'13px'}} onClick={(e) => updatetokenStatus(status, _id, e)} color={status === true ? 'error' : 'info'}>{status === true ? 'Block' : 'Un BLock'}</Button>
-        </Stack>
-      </TableCell>
-        
+          <Stack direction="row" spacing={2} sx={{ justifyContent: 'center', fontSize: '13px' }}>
+            <Button variant="outlined" sx={{ fontSize: '13px' }} onClick={(e) => updatetokenStatus(status, _id, e)} color={status === true ? 'error' : 'info'}>{status === true ? 'Block' : 'Un BLock'}</Button>
+          </Stack>
+        </TableCell>
+
         <TableCell padding="checkbox">
-            <IconButton aria-label="edit" onClick={() => abc(true, _id)  } >
-              <EditIcon />
-            </IconButton>
-            
-          </TableCell>
-        
-          
-      
-    </TableRow>
+          <IconButton aria-label="edit" onClick={() => abc(true, _id)} >
+            <EditIcon />
+          </IconButton>
+
+        </TableCell>
+
+
+
+      </TableRow>
     </>
   );
 }

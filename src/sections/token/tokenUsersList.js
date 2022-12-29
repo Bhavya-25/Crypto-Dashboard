@@ -4,7 +4,6 @@ import {
   Typography, Grid, TableContainer, Table, TableBody, TablePagination, Tooltip, IconButton, Box
 
 } from "@mui/material";
-import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 import AddIcon from '@mui/icons-material/Add';
 import useTable, { emptyRows } from "../../hooks/useTable";
 import Iconify from "../../components/Iconify";
@@ -107,6 +106,7 @@ const TokenUsersList = () => {
 
   const abc = (status, tokenId) => {
     redirect(`/token/edit/${tokenId}`)
+    console.log("===", status)
   }
 
   const handleDeleteRows = (selected) => {

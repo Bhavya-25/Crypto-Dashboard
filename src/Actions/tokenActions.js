@@ -1,7 +1,6 @@
 import * as api from '../API'
 import TmbNotification from '../error-notification';
 import { TOKENLIST, TOKENLISTCREATE, TOKENSLIST, TOKENUPDATE, GETTOKENBYID, TOKENSTATUSUPDATE } from '../constants'
-import { toast } from 'react-toastify';
 import { logOut } from './authActions';
 
 const notify = new TmbNotification();
@@ -85,8 +84,6 @@ export const tokenUpdateRequest = (tokenid,param) => async (dispatch) => {
 export const gettokenbyid =  (tokedis) => async (dispatch) => {
   try {
     const { data } = await api.tokenGetById(tokedis)
-
-    console.log(data,' ===========');
 
     if (data.status === 200) {
       await dispatch({ type: GETTOKENBYID, payload: data })

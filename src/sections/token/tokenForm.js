@@ -20,7 +20,7 @@ import EditIcon from '@mui/icons-material/Edit'
 
 
 import { useDispatch } from 'react-redux'
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 
 import * as yup from 'yup'
 import { useForm, Controller } from 'react-hook-form'
@@ -72,7 +72,7 @@ const TokenForm = ({ abc, tokenid }) => {
   useEffect(() => { 
 
     /// fill form when user update request
-    if (tokenid != '') {
+    if (tokenid !== '') {
       ;(async () => {
         let data = await dispatch(gettokenbyid(tokenid))
 
@@ -155,7 +155,7 @@ const TokenForm = ({ abc, tokenid }) => {
     register,
     handleSubmit,
     setValue,
-    getValues,
+   
     control,
     formState: { errors },
     reset,
@@ -208,7 +208,7 @@ const TokenForm = ({ abc, tokenid }) => {
     }
 
     data['networks'] = networks;
-    if(tokenid == ''){
+    if(tokenid === ''){
         await dispatch(tokenListCreate(data))
        /** create new record record */
     }else{
@@ -229,10 +229,10 @@ const TokenForm = ({ abc, tokenid }) => {
   }
 
 
-  const updateValues = (event) => {
-      console.log('adasdasdasd',event.target.value)
-    //{ ...emptyData, coinName : e.target.value}
-  }
+  // const updateValues = (event) => {
+  //     console.log('adasdasdasd',event.target.value)
+  //   //{ ...emptyData, coinName : e.target.value}
+  // }
 
   return (
     <Paper
@@ -267,17 +267,36 @@ const TokenForm = ({ abc, tokenid }) => {
 
         <Grid container spacing={1}>
           <Grid item xs={12} sm={12}>
-
-          
-          <TextField
+               
+          {tokenid !== '' ? (
+              <>
+                <TextField
               id="coinName"
               label="Coin Name"
               fullWidth
               defaultValue={emptyData?.coinName}
               margin="dense"
+              InputLabelProps={{
+                shrink: true,
+              }}
               {...register('coinName')}
               error={errors.coinName ? true : false}
             />
+              </>
+            ) : (
+              <TextField
+              id="coinName"
+              label="Coin Name"
+              fullWidth
+              defaultValue={emptyData?.coinName}
+              margin="dense"
+            
+              {...register('coinName')}
+              error={errors.coinName ? true : false}
+            />
+            )}
+          
+         
             <Typography variant="inherit" color="textSecondary">
               {errors.coinName?.message}
             </Typography>
@@ -332,7 +351,7 @@ const TokenForm = ({ abc, tokenid }) => {
                     <Typography variant="inherit" color="textSecondary">
                       Change Logo
                     </Typography>
-                    <img src={emptyData?.image} />
+                    <img src={emptyData?.image} alt='' />
                     <Button
                       variant="contained"
                       endIcon={<EditIcon />}
@@ -388,7 +407,25 @@ const TokenForm = ({ abc, tokenid }) => {
             </Typography>
           </Grid>
           <Grid item xs={12} sm={12}>
-            <TextField
+
+          {tokenid !== '' ? (
+              <>
+                <TextField
+              id="fullName"
+              name="fullName"
+              label="Full Name"
+              defaultValue={emptyData?.fullName}
+              fullWidth
+                InputLabelProps={{
+                shrink: true,
+              }}
+              margin="dense"
+              {...register('fullName')}
+              error={errors.fullName ? true : false}
+            />
+              </>
+            ) : (
+              <TextField
               id="fullName"
               name="fullName"
               label="Full Name"
@@ -398,6 +435,8 @@ const TokenForm = ({ abc, tokenid }) => {
               {...register('fullName')}
               error={errors.fullName ? true : false}
             />
+            )}
+            
             <Typography variant="inherit" color="textSecondary">
               {errors.fullName?.message}
             </Typography>
