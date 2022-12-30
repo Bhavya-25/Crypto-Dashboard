@@ -6,6 +6,7 @@ import { LOGIN, USERLIST } from '../constants'
 //  * @param {*} formData 
 //  * @returns 
 //  */
+
 export const loginRequest = (formData) => async (dispatch) => {
   try {
     const { data } = await api.loginRequestApi(formData);
@@ -26,6 +27,7 @@ export const loginRequest = (formData) => async (dispatch) => {
 
 export const logOut=()=>async(dispatch)=>{
   sessionStorage.clear();
+  
   await dispatch({ type: USERLIST, payload: [] });
 
 }

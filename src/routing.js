@@ -11,6 +11,8 @@ import Withdraw from "./templates/withdraw";
 import Token from "./templates/token";
 import TokenAdd from "./templates/token-add";
 import  TokenEdit  from "./templates/Token-edit";
+import PageNotFound from "./templates/pagenotfound";
+import Order from "./templates/order";
 export default function Routing() {
 
   let session =  sessionStorage.getItem('token')
@@ -26,9 +28,11 @@ export default function Routing() {
         <Route exact path="/support" element={ <Support /> }></Route>
         <Route exact path="/deposit" element={ <Deposit /> }></Route>
         <Route exact path="/withdraw" element={ <Withdraw /> }></Route>
+        <Route exact path="/order" element={ <Order /> }></Route>
         <Route exact path="/token" element={ <Token /> }></Route>
         <Route exact path="/token/add-new" element={ <TokenAdd /> }></Route>
         <Route exact path="/token/edit/:id" element={ <TokenEdit /> }></Route>
+        <Route exact path="/notfound" element={ <PageNotFound /> }></Route>
 
       </Routes>
   );

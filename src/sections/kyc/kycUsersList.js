@@ -150,7 +150,7 @@ const KycUsersList = (props) => {
           id="tableTitle"
           component="div"
         >
-          All Users
+          All KYC Users
         </Typography>
         <IconButton aria-label="edit" onClick={() => setShowLogin(true)}>
                   <EditIcon />

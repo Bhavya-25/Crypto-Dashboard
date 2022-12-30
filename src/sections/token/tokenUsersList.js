@@ -106,7 +106,7 @@ const TokenUsersList = () => {
 
   const abc = (status, tokenId) => {
     redirect(`/token/edit/${tokenId}`)
-    console.log("===", status)
+    
   }
 
   const handleDeleteRows = (selected) => {
@@ -123,18 +123,6 @@ const TokenUsersList = () => {
 
   return (
     <>
-
-      {/* <Link
-        component="button"
-        to="/token/add-new"
-        // variant="body2"
-        onClick={() => {
-          console.info("I'm a button.");
-        }}
-      >
-        Button Link <PlaylistAddIcon />
-      </Link> */}
-
       {
         !open &&
 
@@ -169,7 +157,7 @@ const TokenUsersList = () => {
                 id="tableTitle"
                 component="div"
               >
-                All Users
+                All Tokens
               </Typography>
               <Link
                 component="button"

@@ -5,9 +5,7 @@ import { useTheme } from '@mui/material/styles';
 import { Checkbox, TableRow, TableCell, Typography, IconButton, Stack, Button, Box } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import { tokenStatusUpdateRequest } from '../../Actions/tokenActions';
-// import ethIcon from 'ethereum-eth.svg'
-// import bnbIcon from 'BinanceIcon.svg'
-// import trxicon from 'tronicon.png'
+
 // components
 
 // ----------------------------------------------------------------------
@@ -23,14 +21,10 @@ TokenListTableRow.propTypes = {
 
 const coins = {
   BNB: "BinanceIcon.svg",
-  TRX: "tronicon.png",
+  TRX: "tronicon.svg",
   ETH:"ethereum-eth.svg",
   
 }
-
-
-
-
 
 
 export default function TokenListTableRow({ row, selected, onEditRow, onSelectRow, onDeleteRow, abc }) {
@@ -46,31 +40,6 @@ export default function TokenListTableRow({ row, selected, onEditRow, onSelectRo
   }
   const { name, fullName, networks, tokenType, image, status, _id } = row;
 
-  // const renderNetworkIcon = async (network) => {
-  //   console.log(networks)
-  //   let ree= []; 
-  //   let data = Object.keys(coins).forEach((coin)=>{
-  //     console.log(coin)
-  //     if (coin === network.networkName) { 
-  //       return (<><p>asasdasd</p>
-  //         {/* <Box
-  //           component="img"
-  //           sx={{
-  //             height: 23,
-  //             width: 35,
-  //             maxHeight: { xs: 50, md: 30 },
-  //             maxWidth: { xs: 50, md: 30 },
-  //           }}
-  //           alt="Binance Coin."
-  //           src={require(`../../assets/images/${coins[coin]}`)}
-  //         /> */}
-  //       </>)
-  //     }
-  //   })
-  //   console.log(ree) 
-  //   return ree
-  // }
-
   return (
     <>
       <TableRow hover selected={selected}>
@@ -82,7 +51,7 @@ export default function TokenListTableRow({ row, selected, onEditRow, onSelectRo
         <TableCell align="left">{name}</TableCell>
         <TableCell>{fullName}</TableCell>
         <TableCell align="left">
-          {networks.map((network)=>{
+          {(networks!==undefined)&&networks.map((network)=>{
             return (
                 <Box
                   component="img"

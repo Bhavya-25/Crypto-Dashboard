@@ -57,4 +57,8 @@ export const tokenUpdate =(tokenid,data) => API.put(`/admin/token/update/${token
 export const tokenGetById =(tokenid) => API.get(`/admin/token/${tokenid}`)
 export const tokenStatusUpdate =(data) => API.post('/admin/token/tokenupdate', data)
 
+/**
+ * Order Requests
+ */
+export const orderListRequestApi = () => API.get('/admin/order/all')
 

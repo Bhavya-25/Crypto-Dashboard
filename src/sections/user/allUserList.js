@@ -91,14 +91,15 @@ const AllUserList = () => {
 
   const userList = useSelector((state) => state.userList);
 
-
   useEffect(() => {
     let alluser = [];
     for (const user of userList) {
       alluser.push(createData(user._id, user.name, user.createdAt, 'USDT', 0, user.holding, user.status, true));
     }
     setList(alluser);
+    
   }, [setList, userList])
+ 
 
   const handleDeleteRows = (selected) => {
     const deleteRows = list.filter((row) => !selected.includes(row.userid));

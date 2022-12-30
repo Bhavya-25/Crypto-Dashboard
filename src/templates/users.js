@@ -25,6 +25,7 @@ const Users = () => {
     // if (session === null) {
     //   navigate('/')
     // }
+    
     const getUserList = async () => {
        await dispatch(userListRequest());
     }
