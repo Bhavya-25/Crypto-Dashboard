@@ -115,7 +115,7 @@ const AllUserList = () => {
 
   return (
     <Grid item xs={12}>
-      <TableContainer sx={{ minWidth: 800, position: 'relative' }}>
+      <TableContainer sx={{ minWidth: 800, position: 'relative', background:(theme)=>theme.palette.bgGray.dark , borderRadius:"20px",padding:"20px", }}>
         {selected.length > 0 && (
           <TableSelectedActions
             dense={dense}

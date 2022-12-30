@@ -64,7 +64,8 @@ const MarketOverviewList = () => {
       borderRadius: '10px'
     }}>
 
-      <TableContainer sx={{ maxHeight: 350, overflowX:'overflow', justifyContent:'space-between', fontSize:'20px' }}>
+      <TableContainer sx={{ maxHeight: 350, overflowX:'overflow', justifyContent:'space-between', fontSize:'20px' ,backgroundColor:(theme)=> theme.palette.bgGray.dark,borderRadius: '20px',
+    padding: '30px'}}>
         <Typography
           sx={{ flex: '1 1 100%' }}
           variant="h6"

@@ -8,6 +8,7 @@ import {
 import GroupIcon from '@mui/icons-material/Group';
 import PersonIcon from '@mui/icons-material/Person';
 import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
+import { theme } from "highcharts";
 
 
 const TopCard=()=>{
@@ -20,15 +21,17 @@ const TopCard=()=>{
 
 
   return (
-    <Grid container spacing={2} sx={{ padding: '24px 24px' }}>
+    <Grid container spacing={2} sx={{ padding: '24px 0px' }}>
         <Grid item xs={12} sm={6} md={4}>
-          <Card sx={{ minWidth: '30%', textAlign: 'center', background: '#90CAF9', borderRadius:'10px' }}>
+          <Card sx={{ minWidth: '30%', textAlign: 'center', background:(theme)=> theme.palette.activeColor.main, borderRadius:'10px' }}>
             <CardContent>
               <Box sx={{ marginBottom: '18px' }}>
                 <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
-                  <Button sx={{ background: '#42A5F5', borderRadius: 0 }}><IconButton>
-                    <GroupIcon />
-                  </IconButton></Button>
+                  <Button sx={{ background: '#42A5F5', borderRadius: '50%',height:'64px' }}>
+                    <IconButton>
+                      <GroupIcon />
+                    </IconButton>
+                  </Button>
                   <Typography>All Users</Typography>
                 </Stack>
               </Box>
@@ -46,7 +49,7 @@ const TopCard=()=>{
             <CardContent>
               <Box sx={{ marginBottom: '18px' }}>
                 <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
-                  <Button sx={{ background: '#42A5F5', borderRadius: 0 }}><IconButton>
+                  <Button sx={{ background: '#42A5F5', borderRadius: 0, borderRadius: '50%',height:'64px' }}><IconButton>
                     <PersonIcon />
                   </IconButton></Button>
 
@@ -67,7 +70,7 @@ const TopCard=()=>{
             <CardContent>
               <Box sx={{ marginBottom: '18px' }}>
                 <Stack direction="row" sx={{ justifyContent: 'space-between' }}>
-                  <Button sx={{ background: '#42A5F5', borderRadius: 0 }}><IconButton>
+                  <Button sx={{ background: '#42A5F5', borderRadius: 0 , borderRadius: '50%',height:'64px'}}><IconButton>
                     <CurrencyExchangeIcon />
                   </IconButton></Button>
 

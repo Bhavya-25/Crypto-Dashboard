@@ -19,10 +19,10 @@ const Dashboard = () => {
     })
     return (
           <>
-          <MDBCard />
-          <Revenue />
-          <MarketRevenue/>
-          <RevenueToken/>
+            <MDBCard />
+            <Revenue />
+            <MarketRevenue/>
+            <RevenueToken/>
           </>
 
     );

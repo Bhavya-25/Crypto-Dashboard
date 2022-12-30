@@ -256,7 +256,7 @@ export default function MiniDrawer({pageContent}) {
           <MainListItems />
         </List>
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1 , padding:'121px 24px 60px'}}>
+      <Box component="main" sx={{ flexGrow: 1 , padding:'121px 24px 120px'}}>
           {pageContent}
       </Box>
     </Box>
