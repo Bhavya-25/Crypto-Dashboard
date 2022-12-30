@@ -74,7 +74,7 @@ const ActiveUserList = () => {
   return (
     <Grid item xs={12} sm={6}>
 
-          <TableContainer sx={{ minWidth: 450, position: 'relative' }}>
+          <TableContainer sx={{ minWidth: 450, position: 'relative',background:(theme)=>theme.palette.bgGray.dark , borderRadius:"20px",padding:"20px", }}>
             <Typography
               sx={{ flex: '1 1 100%' }}
               variant="h6"
