@@ -16,16 +16,17 @@ import TopCard from "../sections/user/topCard";
 import ActiveUserList from "../sections/user/activeUserList";
 
 
+
 const Users = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    // let session = sessionStorage.getItem('token')
-    // if (session === null) {
-    //   navigate('/')
-    // }
-    
+    let session = sessionStorage.getItem('token')
+    if (session === null) {
+      navigate('/*') 
+    }
+ 
     const getUserList = async () => {
        await dispatch(userListRequest());
     }

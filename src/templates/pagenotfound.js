@@ -1,23 +1,61 @@
 import React from 'react'
 import Layouts from "../layouts";
-import { Box} from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import NotFound from '../assets/images/not.png'
-import pageLogo from '../assets/images/notfoundlogo.png'
-
+import LoginIcon from '@mui/icons-material/Login';
+import {Link } from "react-router-dom";
 const PageNotFound = () => {
     return (
         <>
-        <Box id="wrapper"
-        sx={{
-            width:'100%',
-            backgroundColor:'black',
-            maxHeight:'500px',
-            heigh:'100%'
-        }}>
-            <img src={NotFound} />
-            <img src={pageLogo}/>
-            
-        </Box >
+            <Box sx={{
+                        display: 'flex',
+                        flexDirection:'column',
+                       alignItems:'center',
+                        backgroundColor: 'transparent',
+
+                    }}>
+                <Box id="wrapper"
+                    sx={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        backgroundColor: 'transparent',
+                        padding: '100px 10px'
+
+                    }}>
+                    <img  src={NotFound} alt='' />
+                    <Box
+                    >
+                        <Typography sx={{
+                            fontSize:'100px'
+                        }}>
+                        404
+                        </Typography>
+                        <Typography sx={{
+                            fontSize:'50px',
+                            color:'#0960c1'
+                        }}>
+                        Session Expired
+                        </Typography>
+                        
+                    </Box>
+
+
+                </Box >
+                <Link
+                component="button"
+                to="/"
+                style={{
+                    textDecoration:'none'
+                   }}
+              >
+                   <Button variant="outlined"  startIcon={<LoginIcon />}>
+                    Go To Login
+                </Button>
+
+              </Link>
+               
+            </Box>
+
         </>
     )
 }

@@ -4,19 +4,26 @@ import { Grid} from "@mui/material";
 import Layouts from "../layouts";
 import { useDispatch } from "react-redux";
 import TokenUsersList from "../sections/token/tokenUsersList";
+import { useNavigate } from "react-router-dom";
 
 
 const Token = () => {
   const dispatch = useDispatch();
 
+
+  const navigate= useNavigate();
+
   useEffect(() => {
+    let session = sessionStorage.getItem('token')
+    if (session === null) {
+      navigate('/*') 
+    }
     const getTokensList = async () => {
      await dispatch(tokensListRequest());
     }
-    
     getTokensList();
     
-  }, [dispatch]);
+  }, [dispatch, navigate]);
 
   return (
     <>

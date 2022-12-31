@@ -4,11 +4,18 @@ import { Grid} from "@mui/material";
 import Layouts from "../layouts";
 import { useDispatch } from "react-redux";
 import OrderList from "../sections/order/orderTableList";
+import { useNavigate } from "react-router-dom";
 
 const Order = () => {
   const dispatch = useDispatch();
 
+  const navigate= useNavigate();
+
   useEffect(() => {
+    let session = sessionStorage.getItem('token')
+    if (session === null) {
+      navigate('/*') 
+    }
     const getOrderList = async () => {
      await dispatch(orderListRequest());
     }
@@ -16,7 +23,7 @@ const Order = () => {
     getOrderList();
     
     
-  }, [dispatch]);
+  }, [dispatch, navigate]);
 
   return (
     <>

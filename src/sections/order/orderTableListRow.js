@@ -72,7 +72,7 @@ export default function OrderListTableRow({ row, selected, onEditRow, onSelectRo
           color={(isCanceled === true) ? theme.palette.success.dark :  theme.palette.error.dark}
           sx={{ textTransform: 'capitalize', fontSize: '14px' }}
         >
-          {isCanceled===true?'Success':'Failed'}
+          {isCanceled===true?'Canceled':'Failed'}
         </Typography>
       </TableCell>
       <TableCell align="left" sx={{ fontSize: '12px' }}>
@@ -81,7 +81,7 @@ export default function OrderListTableRow({ row, selected, onEditRow, onSelectRo
           color={(inProcess === true) ? theme.palette.success.dark :  theme.palette.error.dark}
           sx={{ textTransform: 'capitalize', fontSize: '14px' }}
         >
-          {inProcess===true?'Success':'Failed'}
+          {inProcess===true?'Pending':'Failed'}
         </Typography>
       </TableCell>
 

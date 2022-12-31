@@ -5,19 +5,25 @@ import KycUsersList from "../sections/kyc/kycUsersList";
 import TopCard from "../sections/kyc/topCard";
 import { kycListRequest } from "../Actions/kycActions";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 
 const Kyc = () => {
   const dispatch = useDispatch();
+  const navigate= useNavigate();
 
   useEffect(() => {
+    let session = sessionStorage.getItem('token')
+    if (session === null) {
+      navigate('/*') 
+    }
     const getKycList = async () => {
      await dispatch(kycListRequest());
     }
 
     getKycList();
     
-  }, [dispatch]);
+  }, [dispatch, navigate]);
 
   return (
     <>
