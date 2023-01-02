@@ -1,5 +1,6 @@
 import React, {useEffect} from "react";
 import { withdrawListRequest } from "../Actions/withdrawActions";
+import { tokensListRequest } from '../Actions/tokenActions';
 import { Grid} from "@mui/material";
 import Layouts from "../layouts";
 import { useDispatch } from "react-redux";
@@ -21,6 +22,10 @@ const Withdraw = () => {
     }
 
     getWithdrawList();
+    const getTokensList = async () => {
+      await dispatch(tokensListRequest());
+     }
+     getTokensList();
     
   }, [dispatch, navigate]);
 

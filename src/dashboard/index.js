@@ -22,7 +22,7 @@ const Dashboard = () => {
         }
 
         getTokenList()
-    })
+    },[dispatch, navigate])
     return (
           <>
             <MDBCard />

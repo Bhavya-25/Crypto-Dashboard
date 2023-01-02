@@ -2,22 +2,22 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 import {
-  Typography, Grid, TableContainer, Table, TableBody, TablePagination, Tooltip, IconButton
+  Typography, Grid, TableContainer, Table, TableBody, TablePagination, Tooltip, IconButton, Box, Button, Menu, MenuItem
 } from "@mui/material";
 
 import useTable, { emptyRows } from "../../hooks/useTable";
 import Iconify from "../../components/Iconify";
 import { TableHeadCustom, TableEmptyRows, TableSelectedActions } from "../../components/table";
 import DepositTableListRow from "./depositTableListRow";
+import FilterListIcon from '@mui/icons-material/FilterList';
 
-
-function createData(coin, network, createdAt, txid, amount, walletAddress, status) {
-    return { coin, network, createdAt, txid,  amount, walletAddress, status };
-  }
+function createData(coinName, network, createdAt, tx_hash, amount, address, successful) {
+  return { coinName, network, createdAt, tx_hash, amount, address, successful };
+}
 
 const headCells = [
   {
-    id: 'coin',
+    id: 'coinName',
     numeric: true,
     disablePadding: false,
     label: 'Coin',
@@ -35,7 +35,7 @@ const headCells = [
     label: 'Date',
   },
   {
-    id: 'txid',
+    id: 'tx_hash',
     numeric: false,
     disablePadding: true,
     label: 'Tx Id',
@@ -47,14 +47,14 @@ const headCells = [
     label: 'Amount',
   },
   {
-    id: 'walletAddress',
+    id: 'address',
     numeric: true,
     disablePadding: false,
     label: 'Wallet Address',
     align: 'center'
   },
   {
-    id: 'status',
+    id: 'successful',
     numeric: true,
     disablePadding: false,
     label: 'Status',
@@ -82,17 +82,31 @@ const DepositTableList = (props) => {
   } = useTable();
 
   const [list, setList] = useState([]);
+  const [coinList, setCoinList] = useState([]);
   const depositList = useSelector((state) => state.depositList);
 
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
 
- 
+  const tokenList = useSelector((state) => state.tokenList);
+
+  
+
   useEffect(() => {
     let alluser = [];
+    let coins = [];
+     
+    for (const token of tokenList) {
+      coins.push(token.coinName)
+    }
+    setCoinList(coins)
+  
     for (const deposit of depositList) {
-      alluser.push(createData(deposit.coinName, deposit.network, deposit.createdAt, deposit.tx_hash, deposit.amount, deposit.address, deposit.successful));
+      alluser.push(createData(deposit.coinName, deposit.network, deposit.createdAt, deposit.tx_hash, deposit.amount, deposit.address, deposit.successful))
     }
     setList(alluser);
-  }, [setList, depositList])
+
+  }, [setList, depositList, tokenList])
 
   const handleDeleteRows = (selected) => {
     const deleteRows = list.filter((row) => !selected.includes(row.txid));
@@ -104,6 +118,25 @@ const DepositTableList = (props) => {
     const deleteRow = list.filter((row) => row.id !== id);
     setSelected([]);
     setList(deleteRow);
+  };
+
+  const filterData = (e) => {
+    if (e === 'All') {
+      setList(depositList)
+      handleClose()
+    }
+    else {
+      const filterRow = depositList.filter((row) => (row.coinName === e.e))
+      setList(filterRow);
+      handleClose()
+    }
+  }
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
   };
 
   return (
@@ -129,14 +162,58 @@ const DepositTableList = (props) => {
             }
           />
         )}
-        <Typography
-          sx={{ flex: '1 1 100%', fontsize: '20px' }}
 
-          id="tableTitle"
-          component="div"
-        >
-          Top Holders
-        </Typography>
+        <Box sx={{
+          display: 'flex'
+        }}>
+          <Typography
+            sx={{ flex: '1 1 100%', fontsize: '20px' }}
+
+            id="tableTitle"
+            component="div"
+          >
+            Top Holders
+          </Typography>
+          <div>
+            <Button
+              id="basic-button"
+              aria-controls={open ? 'basic-menu' : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? 'true' : undefined}
+              onClick={handleClick}
+              startIcon={<FilterListIcon />}
+            >
+              Coin
+            </Button>
+            <Menu
+              id="basic-menu"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              MenuListProps={{
+                'aria-labelledby': 'basic-button',
+              }}
+            >
+              {
+                coinList.map((e) => {
+                  return (
+                    <MenuItem onClick={() => { filterData({e}) }}>{e}</MenuItem>
+                  )
+
+
+                })
+              }
+
+              <MenuItem onClick={(e) => { filterData("All") }}>All</MenuItem>
+               {/*<MenuItem onClick={(e) => { filterData("isComplete") }}>Complete</MenuItem>
+              <MenuItem onClick={(e) => { filterData("isCanceled") }}>Cancel</MenuItem> */}
+            </Menu>
+          </div>
+
+        </Box>
+
+
+
 
         <Table size={dense ? 'small' : 'medium'}>
           <TableHeadCustom

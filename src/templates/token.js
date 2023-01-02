@@ -1,5 +1,5 @@
 import React,{useEffect} from "react";
-import { tokensListRequest } from "../Actions/tokenActions";
+import {  tokensListRequest } from "../Actions/tokenActions";
 import { Grid} from "@mui/material";
 import Layouts from "../layouts";
 import { useDispatch } from "react-redux";
@@ -22,6 +22,8 @@ const Token = () => {
      await dispatch(tokensListRequest());
     }
     getTokensList();
+
+
     
   }, [dispatch, navigate]);
 

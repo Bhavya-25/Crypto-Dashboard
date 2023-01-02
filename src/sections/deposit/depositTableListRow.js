@@ -19,7 +19,7 @@ DepositListTableRow.propTypes = {
 export default function DepositListTableRow({ row, selected, onEditRow, onSelectRow, onDeleteRow }) {
   const theme = useTheme();
 
-  const { coin, network, createdAt, txid, amount, walletAddress, status } = row;
+  const { coinName, network, createdAt, tx_hash, amount, address, successful } = row;
 
   return (
     <TableRow hover selected={selected}>
@@ -28,7 +28,7 @@ export default function DepositListTableRow({ row, selected, onEditRow, onSelect
           <Checkbox checked={selected} onClick={onSelectRow} />
         </TableCell>
       }
-      <TableCell align="left" sx={{ fontSize: '14px' }}>{coin}</TableCell>
+      <TableCell align="left" sx={{ fontSize: '14px' }}>{coinName}</TableCell>
       <TableCell>{network}</TableCell>
 
       <TableCell align="left" sx={{ fontSize: '12px' }}>{moment(createdAt).format('Y/MM/DD HH:mm:ss')}</TableCell>
@@ -38,7 +38,7 @@ export default function DepositListTableRow({ row, selected, onEditRow, onSelect
         whiteSpace: 'nowrap',
         overflow: 'hidden',
         textOverflow: 'ellipsis'
-      }}>{txid}</TableCell>
+      }}>{tx_hash}</TableCell>
       <TableCell align="left" sx={{ textTransform: 'capitalize', fontSize: '14px' }}>
         {amount}
       </TableCell>
@@ -49,15 +49,15 @@ export default function DepositListTableRow({ row, selected, onEditRow, onSelect
         overflow: 'hidden',
         textOverflow: 'ellipsis'
       }}>
-        {walletAddress}
+        {address}
       </TableCell>
       <TableCell align="left" sx={{ fontSize: '12px' }}>
         <Typography
           variant="outlined"
-          color={(status === 'true') ? theme.palette.success.dark :  theme.palette.error.dark}
+          color={(successful === 'true') ? theme.palette.success.dark :  theme.palette.error.dark}
           sx={{ textTransform: 'capitalize', fontSize: '14px' }}
         >
-          {status==='true'?'Success':'Failed'}
+          {successful==='true'?'Success':'Failed'}
         </Typography>
       </TableCell>
 

@@ -56,6 +56,7 @@ export const tokenList =(data) => API.post('/admin/token/create', data)
 export const tokenUpdate =(tokenid,data) => API.put(`/admin/token/update/${tokenid}`, data)
 export const tokenGetById =(tokenid) => API.get(`/admin/token/${tokenid}`)
 export const tokenStatusUpdate =(data) => API.post('/admin/token/tokenupdate', data)
+export const tokenRecentAdded =() => API.get('/admin/market/recent')
 
 /**
  * Order Requests

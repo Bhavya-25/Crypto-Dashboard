@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState,useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { styled, useTheme,alpha } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -25,6 +26,20 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import MainListItems from '../../layouts/listItems';
 import Logo from '../../assets/images/Icon.svg'
 import Text from '../../assets/images/Text.png'
+import { useLocation } from "react-router-dom";
+
+const titles = {
+  "/dashboard": "Dashboard Analysis",
+  "/user": "Users Detail Overview",
+  "/kyc": "Kyc Documents",
+  "/deposit": "Deposit",
+  "/withdraw": "Withdraw Details",
+  "/order": "Order Details ",
+  "/report": "Reports",
+  "/token": "Token Details",
+  "/support": "Support",
+  "/*":'Dashboard Analysis'
+};
 
 
 const drawerWidth = 240;
@@ -143,7 +158,13 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 export default function MiniDrawer({pageContent}) {
   const theme = useTheme();
+  const location = useLocation();
+const [title, setTitle] = useState(titles["/dashboard"]);
   const [open, setOpen] = React.useState(false);
+
+  useEffect(() => {
+    setTitle(titles[location.pathname]);
+  }, [location.pathname]);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -175,7 +196,7 @@ export default function MiniDrawer({pageContent}) {
                 noWrap
                 component="h3"
             >
-                Dashboard Analysis
+               {title}
             </Typography>
             <Typography
                 variant="subtitle1"

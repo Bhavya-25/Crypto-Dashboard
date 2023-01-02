@@ -1,5 +1,6 @@
 import React, {useEffect} from "react";
 import { orderListRequest } from "../Actions/orderActions";
+import { tokensListRequest } from '../Actions/tokenActions';
 import { Grid} from "@mui/material";
 import Layouts from "../layouts";
 import { useDispatch } from "react-redux";
@@ -22,6 +23,10 @@ const Order = () => {
 
     getOrderList();
     
+     const getTokensList = async () => {
+      await dispatch(tokensListRequest());
+     }
+     getTokensList();
     
   }, [dispatch, navigate]);
 

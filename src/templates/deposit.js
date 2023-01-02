@@ -1,5 +1,6 @@
 import React, {useEffect} from "react";
 import { depositListRequest } from "../Actions/depositActions";
+import { tokensListRequest } from '../Actions/tokenActions';
 import { Grid} from "@mui/material";
 import Layouts from "../layouts";
 import { useDispatch } from "react-redux";
@@ -20,13 +21,18 @@ const Deposit = () => {
     }
 
     getDepositList();
+
+    const getTokensList = async () => {
+      await dispatch(tokensListRequest());
+     }
+     getTokensList();
     
   }, [dispatch,navigate]);
 
   return (
     <>
     <Grid container spacing={2} sx={{ padding: '48px 24px' }}>
-        <DepositList />
+        <DepositList  />
       </Grid>
     </>
   )

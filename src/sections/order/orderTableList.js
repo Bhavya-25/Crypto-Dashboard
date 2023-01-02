@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-
+import { createSearchParams, useSearchParams  } from "react-router-dom";
 import {
     Typography, Grid, TableContainer, Table, TableBody, TablePagination, Tooltip, IconButton, Box, Button, Menu, MenuItem
 } from "@mui/material";
@@ -100,18 +100,29 @@ const OrderTableList = (props) => {
     } = useTable();
 
     const [list, setList] = useState([]);
+    const [coinList, setCoinList] = useState([]);
     const [anchorEl, setAnchorEl] = useState(null);
-    const open = Boolean(anchorEl);
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [anchorEl2, setAnchorEl2] = useState(null);
 
     const orderList = useSelector((state) => state.orderList);
+    const tokenList = useSelector((state) => state.tokenList);
 
     useEffect(() => {
         let alluser = [];
+
+        let coins = [];
+       setSearchParams('')
+        for (const token of tokenList) {
+            coins.push(token.coinName)
+        }
+        setCoinList(coins)
+
         for (const order of orderList) {
             alluser.push(createData(order.postid, order.currency, order.createdAt, order.order_amount, order.quantity, order.price, order.token, order.isComplete, order.isCanceled, order.inProcess));
         }
         setList(alluser);
-    }, [setList, orderList])
+    }, [setList, orderList, tokenList])
 
     const handleDeleteRows = (selected) => {
         const deleteRows = list.filter((row) => !selected.includes(row.txid));
@@ -126,22 +137,79 @@ const OrderTableList = (props) => {
     };
 
     const filterData = (status) => {
-        if (status === 'All') {
+        let newObj = {}
+        for (const [key, value] of searchParams.entries()) {
+            if(key === 'status'){
+                newObj[key] = status
+            }
+            else{
+                newObj[key] = value
+            }
+            
+        }
+        // console.log("====", searchParams.get('coin') && searchParams.get('status') !== "All" && searchParams.get('coin') !== "All")
+        setSearchParams(createSearchParams({...newObj,status}));    
+        if ((status === 'All' && !searchParams.get('coin')) || (status === 'All' && searchParams.get('coin') === "All" )) {
             setList(orderList)
-            handleClose()
         }
         else {
-            const filterRow = orderList.filter((row) => (row[status] === true))
-            setList(filterRow);
-            handleClose()
+            const filterRow = orderList.filter((row) => {
+                console.log(searchParams.get('coin') , status);
+                if(status === 'All'){
+                    // console.log("===All Status",searchParams.get('coin'))
+                    console.log(row.token);
+                    return row.token === searchParams.get('coin')
+                }
+                else if(searchParams.get('coin') && status !== "All"  &&  searchParams.get('coin') !== "All"){
+                    // console.log("====jjjj",searchParams.get('coin'),row[status] );
+                    return(
+                        
+                        row[status] === true && row.token === searchParams.get('coin')
+                    )                    
+                }else{
+                    // console.log("====ppp", row[status])
+                    return row[status] === true
+                }
+            })
+            setList(filterRow)
         }
+        handleClose()
     }
 
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
+    const filterDataCoin = (e) => {
+
+        let newObj = {}
+        for (const [key, value] of searchParams.entries()) {
+            newObj[key] = value
+        }
+        setSearchParams(createSearchParams({...newObj,"coin": e.e})); 
+
+        if ( (e.e === 'All' && !searchParams.get('status') ) ||   (e.e === 'All' && searchParams.get('status') === "All" )) {
+            setList(orderList)
+        }
+        else{
+            
+            const filterRow = orderList.filter((row) => {
+                if(e.e === 'All'){
+                    // console.log("====all",searchParams.get('status'))
+                    return row[searchParams.get('status')] === true
+                }
+                else if(searchParams.get('status')  && e.e !== "All" &&  searchParams.get('status') !== "All"){
+                    // console.log("=====",e.e,searchParams.get('status')  )
+                    return (row.token === e.e && row[searchParams.get('status')] === true)
+                }else{
+                    // console.log("====hello", row.token, e.e)
+                    return row.token === e.e
+                }
+            })
+            setList(filterRow);
+        }
+        handleClose()
+    }
+ 
     const handleClose = () => {
         setAnchorEl(null);
+        setAnchorEl2(null);
     };
 
 
@@ -182,31 +250,60 @@ const OrderTableList = (props) => {
                     </Typography>
                     <div>
                         <Button
-                            id="basic-button"
-                            aria-controls={open ? 'basic-menu' : undefined}
+                            name="el1"
+                            aria-controls="simple-menu"
                             aria-haspopup="true"
-                            aria-expanded={open ? 'true' : undefined}
-                            onClick={handleClick}
+                            onClick={e => setAnchorEl(e.currentTarget)}
                             startIcon={<FilterListIcon />}
                         >
                             Status
                         </Button>
                         <Menu
-                            id="basic-menu"
+                            id="simple-menu"
+                            name="el1"
                             anchorEl={anchorEl}
-                            open={open}
+                            open={Boolean(anchorEl)}
+                            keepMounted
                             onClose={handleClose}
                             MenuListProps={{
                                 'aria-labelledby': 'basic-button',
                             }}
+                           
                         >
-                            <MenuItem onClick={(e) => { filterData("All") }}>All</MenuItem>
+                            <MenuItem onClick={(e) => { filterData("All") }} >All</MenuItem>
                             <MenuItem onClick={(e) => { filterData("inProcess") }}>Process</MenuItem>
                             <MenuItem onClick={(e) => { filterData("isComplete") }}>Complete</MenuItem>
                             <MenuItem onClick={(e) => { filterData("isCanceled") }}>Cancel</MenuItem>
                         </Menu>
                     </div>
+                    <div>
+                        <Button
+                            aria-controls="simple-menu"
+                            aria-haspopup="true"
+                            onClick={e => setAnchorEl2(e.currentTarget)}
+                            startIcon={<FilterListIcon />}
+                        >
+                            Coin
+                        </Button>
+                        <Menu
+                            id="simple-menu"
+                            anchorEl={anchorEl2}
+                            keepMounted
+                            open={Boolean(anchorEl2)}
+                            onClose={() => setAnchorEl2(null)}
+                        >
+                            <MenuItem onClick={(e) => { filterDataCoin({e:"All"}) }}>All</MenuItem>
+                            {
+                                coinList.map((e) => {
+                                    return (
+                                        <MenuItem onClick={() => { filterDataCoin({ e }) }}>{e}</MenuItem>
+                                    )
+                                })
+                            }
+                        </Menu>
 
+                    </div>
+                 
                 </Box>
 
                 <Table size={dense ? 'small' : 'medium'}>
@@ -224,7 +321,16 @@ const OrderTableList = (props) => {
                     />
 
                     <TableBody>
-                        {list.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
+                        {list.length>0 && list.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
+                            <OrderTableListRow
+                                key={row.txid}
+                                row={row}
+                                selected={selected.includes(row.txid)}
+                                onSelectRow={() => onSelectRow(row.txid)}
+                                onDeleteRow={() => handleDeleteRow(row.txid)}
+                            />
+                        ))}
+                        {list.length === 0 && list.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
                             <OrderTableListRow
                                 key={row.txid}
                                 row={row}

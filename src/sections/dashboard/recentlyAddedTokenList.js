@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import {
-  Typography, Grid, TableContainer, Table, TableBody, TablePagination,
+  Typography, Grid, TableContainer, Table, TableBody, TablePagination,Box, IconButton
 } from "@mui/material";
 
 import useTable, { emptyRows } from "../../hooks/useTable";
 import { TableHeadCustom, TableEmptyRows } from "../../components/table";
 import RecentlyAddedTableRow from "./recentlyAddedTableRow";
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
 function createData(name, price, added) {
   return { name, price,added };
@@ -36,7 +37,7 @@ const RecentlyAddedTokenList = () => {
   const [list, setList] = useState([]);
 
   const tokenList = useSelector((state) => state.tokenList);
-
+console.log("====tokenList",tokenList)
   useEffect(() => {
     let tokenData = [];
 
@@ -58,15 +59,26 @@ const RecentlyAddedTokenList = () => {
       <TableContainer sx={{ maxHeight: 350, overflowX: 'overflow', justifyContent: 'space-between', fontSize: '20px',backgroundColor:(theme)=> theme.palette.bgGray.dark,
       borderRadius: '20px',
       padding: '30px' }}>
-        <Typography
-          sx={{ flex: '1 1 100%' }}
-          variant="h6"
-          id="tableMarketOverview"
-          component="div"
-          
-        >
-          Market Overview
-        </Typography>
+
+<Box sx={{
+              display: 'flex'
+            }}>
+              <Typography
+                sx={{ flex: '1 1 100%', fontsize: '20px' }}
+                variant="h6"
+                id="tableTitle"
+                component="div"
+              >
+                Recently Added Coin
+              </Typography>
+             
+                <IconButton aria-label="more"  >
+                  <MoreHorizIcon />
+                </IconButton>
+        
+            </Box>
+
+      
 
         <Table size={dense ? 'small' : 'medium'} sx={{ padding:"24px"}}>
           <TableHeadCustom
