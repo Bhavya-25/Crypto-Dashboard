@@ -69,9 +69,7 @@ const TokenForm = ({ abc, tokenid }) => {
     '63218707d2e3551816b9b8af': false,
   })
 
-  useEffect(() => {
-
-    /// fill form when user update request
+  const createForm=React.useCallback(()=>{
     if (tokenid !== '') {
       ; (async () => {
         let data = await dispatch(gettokenbyid(tokenid))
@@ -110,8 +108,13 @@ const TokenForm = ({ abc, tokenid }) => {
 
       })()
     }
-  }, [dispatch, open, tokenid])
+  },[dispatch,open,tokenid])
+  useEffect(() => {
 
+    /// fill form when user update request
+    createForm()
+  
+  }, [createForm])
 
 
 

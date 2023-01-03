@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";import { useSelector } from "react-redux";
 import {
   Typography, Grid, TableContainer, Table, TableBody, TablePagination, Tooltip, IconButton
 } from "@mui/material";
@@ -91,16 +90,20 @@ const KycUsersList = (props) => {
 
   const kycList = useSelector((state) => state.kycList); 
 
- 
-  useEffect(() => {
+  const createKycTable=React.useCallback(()=>{
     let alluser = [];
     for (const kyc of kycList) {
       
       alluser.push(createData(kyc.name, kyc.userid, kyc.createdAt, kyc.email, kyc.isVerified));
     }
     setList(alluser);
-  }, [setList,kycList])
+  },[kycList])
  
+  useEffect(() => {
+    createKycTable();
+  }, [createKycTable])
+ 
+
   const preview = (status, userid) => {
     setOpen(status);
     setMediaid(userid)

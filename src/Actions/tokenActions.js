@@ -1,26 +1,11 @@
 import * as api from '../API'
 import TmbNotification from '../error-notification';
-import { TOKENLIST, TOKENLISTCREATE, TOKENSLIST, TOKENUPDATE, GETTOKENBYID, TOKENSTATUSUPDATE, TOKENRECENTADD } from '../constants'
+import {  TOKENLISTCREATE, TOKENSLIST, TOKENUPDATE, GETTOKENBYID, TOKENSTATUSUPDATE } from '../constants'
 import { logOut } from './authActions';
 
 const notify = new TmbNotification();
 
-export const tokenListRequest = () => async (dispatch) => {
-  try {
-    const { data } = await api.marketCoinRequestAPI();
 
-    if (data.status === 200) {
-      await dispatch({ type: TOKENLIST, payload: data })
-      return data;
-    }
-    else {
-      return data;
-    }
-
-  } catch (error) {
-
-  }
-}
 
 
 export const tokensListRequest = () => async (dispatch) => {
@@ -32,9 +17,14 @@ export const tokensListRequest = () => async (dispatch) => {
       return data;
     }
     else {
+      if(data.data === "unauthorized user" && data.status === 404){
+        await dispatch(logOut()); 
+        return data;
+      }
+    else {
       return data;
     }
-
+  }
   } catch (error) {
 
   }
@@ -50,9 +40,14 @@ export const tokenListCreate = (params) => async (dispatch) => {
       return data;
     }
     else {
+      if(data.data === "unauthorized user" && data.status === 404){
+        await dispatch(logOut()); 
+        return data;
+      }
+    else {
       return data;
     }
-
+  }
   } catch (error) {
 
   }
@@ -68,8 +63,14 @@ export const tokenUpdateRequest = (tokenid,param) => async (dispatch) => {
       return data;
     }
     else {
+      if(data.data === "unauthorized user" && data.status === 404){
+        await dispatch(logOut()); 
+        return data;
+      }
+    else {
       return data;
     }
+  }
   } catch (error) {
      notify.error(error)
   } 
@@ -90,9 +91,14 @@ export const gettokenbyid =  (tokedis) => async (dispatch) => {
       return data;
     }
     else {
+      if(data.data === "unauthorized user" && data.status === 404){
+        await dispatch(logOut()); 
+        return data;
+      }
+    else {
       return data;
     }
-
+  }
   } catch (error) {
      console.log('error')
   }
@@ -105,29 +111,6 @@ export const tokenStatusUpdateRequest = (param) => async (dispatch) => {
 
     if (data.status === 200) {
       await dispatch({ type: TOKENSTATUSUPDATE, payload: data })
-      return data;
-    }
-    else {
-      if(data.data === "unauthorized user" && data.status === 404){
-        await dispatch(logOut()); 
-        return data;
-      }
-      else{
-        return data;
-      }
-    }
-
-  } catch (error) {
-
-  }
-}
-
-export const tokenRecentCoinRequest = () => async (dispatch) => {
-  try {
-    const { data } = await api.tokenRecentAdded();
-    console.log("====data", data)
-    if (data.status === 200) {
-      await dispatch({ type: TOKENRECENTADD, payload: data })
       return data;
     }
     else {

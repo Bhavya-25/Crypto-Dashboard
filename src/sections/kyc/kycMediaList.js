@@ -16,7 +16,7 @@ export default function KycMediaList() {
   const kycList = useSelector((state) => state.kycList);
   const navigate = useNavigate()
 
-  useEffect(() => {
+  const createKyc=React.useCallback(()=>{
     let alluser = [];
     for (const kyc of kycList) {
       if (params.userid === kyc.userid) {
@@ -26,7 +26,11 @@ export default function KycMediaList() {
 
     }
     setList(alluser);
-  }, [setList, kycList, params])
+  },[kycList, params.userid])
+
+  useEffect(() => {
+    createKyc()
+  }, [createKyc])
 
   const handleClose = () => {
       navigate('/kyc')

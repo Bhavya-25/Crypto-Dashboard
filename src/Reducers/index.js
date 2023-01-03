@@ -6,5 +6,6 @@ import depositList from './depositReducers';
 import withdrawList from './withdrawReducers';
 import kycList from './kycReducers';
 import orderList from './orderReducers';
+import marketCoinList from './marketReducers'
 
-export default combineReducers({users, userList,tokenList, depositList, withdrawList, kycList, orderList});
+export default combineReducers({users, userList,tokenList, depositList, withdrawList, kycList, orderList,marketCoinList });

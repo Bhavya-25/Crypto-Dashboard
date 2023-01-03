@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import {
   Typography, Grid, TableContainer, Table, TableBody, TablePagination,Box, IconButton
@@ -35,18 +35,30 @@ const RecentlyAddedTokenList = () => {
   } = useTable();
 
   const [list, setList] = useState([]);
-
-  const tokenList = useSelector((state) => state.tokenList);
-console.log("====tokenList",tokenList)
-  useEffect(() => {
+  const tokenList = useSelector((state) => state.marketCoinList);
+  
+  const createRecentTable= React.useCallback(()=>{
     let tokenData = [];
+  if(tokenList.recent!==undefined){
 
-    for (const token of tokenList) {
-      tokenData.push(createData(token.FROMSYMBOL, token.PRICE, token.CREATEDAT));
+    for (const token of tokenList.recent) {
+      const price = token.price;
+
+     let a= (price && price.map((e)=>{
+        return  e.price;
+      }))
+      tokenData.push(createData(token.coinName, a, token.createdAt));
     }
     setList(tokenData);
+  }
+  },[tokenList])
+ 
+  useEffect(() => {
+    createRecentTable();
 
-  }, [setList, tokenList])
+  }, [createRecentTable])
+
+
 
   return (
     <Grid item xs={8} sm={4} sx={{

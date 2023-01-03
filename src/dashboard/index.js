@@ -5,7 +5,7 @@ import Revenue from "../components/snippets/revenue";
 import MarketRevenue from '../components/snippets/marketRevenue'
 import RevenueToken from "../components/snippets/revenueToken";
 import { useDispatch } from "react-redux";
-import { tokenListRequest } from "../Actions/tokenActions";
+import { marketCoinListRequest } from "../Actions/marketActions";
 import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
@@ -18,7 +18,7 @@ const Dashboard = () => {
         navigate('/*')
       }
         const getTokenList=async()=>{
-             await dispatch(tokenListRequest());
+             await dispatch(marketCoinListRequest());
         }
 
         getTokenList()

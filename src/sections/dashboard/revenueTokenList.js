@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import {
-  Typography, Grid, TableContainer, Table, TableBody, TablePagination, Card
+  Typography, Grid, TableContainer, Table, TableBody, TablePagination, Card, IconButton, Box
 } from "@mui/material";
 
 import useTable, { emptyRows } from "../../hooks/useTable";
 import { TableHeadCustom, TableEmptyRows } from "../../components/table";
 import RevenueTokenTableRow from "./revenueTokenTableRow";
-
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 function createData(name, revenue,change) {
   return { name, revenue,change };
 }
@@ -36,17 +36,25 @@ const RevenueTokenList = () => {
 
   const [list, setList] = useState([]);
 
-  const tokenList = useSelector((state) => state.tokenList);
+  const tokenList = useSelector((state) => state.marketCoinList);
+
+  const createRevenueTable=React.useCallback(()=>{
+    let tokenData = [];
+    if(tokenList.all !== undefined){
+      for (const token of tokenList.all) {
+        tokenData.push(createData(token.FROMSYMBOL, token.PRICE, token.CHANGE24HOUR));
+      }
+      setList(tokenData);
+
+    }
+
+  },[tokenList])
 
   useEffect(() => {
-    let tokenData = [];
+    createRevenueTable()
+  }, [createRevenueTable])
 
-    for (const token of tokenList) {
-      tokenData.push(createData(token.FROMSYMBOL, token.PRICE, token.CHANGE24HOUR));
-    }
-    setList(tokenData);
 
-  }, [setList, tokenList])
 
   return (
     <Grid item xs={8} sm={6} sx={{
@@ -55,14 +63,26 @@ const RevenueTokenList = () => {
   }}>
       <Card sx={{ borderRadius: '20px',padding:"14px" }}> 
         <TableContainer sx={{ maxHeight: 350, overflowX: 'overflow', justifyContent: 'space-between', fontSize: '20px',borderRadius:"20px" , backgroundImage: 'unset'}}>
-        <Typography
+        
+
+
+        <Box sx={{
+              display: 'flex'
+            }}>
+             <Typography
           sx={{ flex: '1 1 100%',margin:"16px 0 0 16px" }}
           variant="h6"
           id="tableMarketOverview"
           component="div"
         >
-          Market Overview
+         High Revenue Token
         </Typography>
+             
+                <IconButton aria-label="more"  >
+                  <MoreHorizIcon />
+                </IconButton>
+        
+            </Box>
 
         <Table size={dense ? 'small' : 'medium'}>
           <TableHeadCustom

@@ -26,7 +26,9 @@ export default function RecentlyAddedTableRow({ row, selected, onEditRow, onSele
       <TableRow hover selected={selected}>
         
         <TableCell align="left">{name}</TableCell>
-        <TableCell align="left">${price}</TableCell>
+        <TableCell align="left">
+          
+          ${price.length>0? price:'0' }</TableCell>
         <TableCell align="left">{moment(added).format('MM/DD/Y HH:mm:ss')}</TableCell>
       </TableRow>
     </>

@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { createSearchParams, useSearchParams  } from "react-router-dom";
+import { createSearchParams, useSearchParams } from "react-router-dom";
 import {
     Typography, Grid, TableContainer, Table, TableBody, TablePagination, Tooltip, IconButton, Box, Button, Menu, MenuItem
 } from "@mui/material";
@@ -108,21 +108,28 @@ const OrderTableList = (props) => {
     const orderList = useSelector((state) => state.orderList);
     const tokenList = useSelector((state) => state.tokenList);
 
-    useEffect(() => {
+    const createOrderTable = React.useCallback(() => {
         let alluser = [];
-
         let coins = [];
-       setSearchParams('')
+        setSearchParams('')
+       if(tokenList !== '' ) {
         for (const token of tokenList) {
             coins.push(token.coinName)
         }
         setCoinList(coins)
-
+       }
+         
+        
         for (const order of orderList) {
             alluser.push(createData(order.postid, order.currency, order.createdAt, order.order_amount, order.quantity, order.price, order.token, order.isComplete, order.isCanceled, order.inProcess));
         }
         setList(alluser);
-    }, [setList, orderList, tokenList])
+    },[orderList,tokenList])
+
+    useEffect(() => {
+        createOrderTable()
+    }, [createOrderTable])
+
 
     const handleDeleteRows = (selected) => {
         const deleteRows = list.filter((row) => !selected.includes(row.txid));
@@ -139,34 +146,34 @@ const OrderTableList = (props) => {
     const filterData = (status) => {
         let newObj = {}
         for (const [key, value] of searchParams.entries()) {
-            if(key === 'status'){
+            if (key === 'status') {
                 newObj[key] = status
             }
-            else{
+            else {
                 newObj[key] = value
             }
-            
+
         }
         // console.log("====", searchParams.get('coin') && searchParams.get('status') !== "All" && searchParams.get('coin') !== "All")
-        setSearchParams(createSearchParams({...newObj,status}));    
-        if ((status === 'All' && !searchParams.get('coin')) || (status === 'All' && searchParams.get('coin') === "All" )) {
+        setSearchParams(createSearchParams({ ...newObj, status }));
+        if ((status === 'All' && !searchParams.get('coin')) || (status === 'All' && searchParams.get('coin') === "All")) {
             setList(orderList)
         }
         else {
             const filterRow = orderList.filter((row) => {
-                console.log(searchParams.get('coin') , status);
-                if(status === 'All'){
+                console.log(searchParams.get('coin'), status);
+                if (status === 'All') {
                     // console.log("===All Status",searchParams.get('coin'))
                     console.log(row.token);
                     return row.token === searchParams.get('coin')
                 }
-                else if(searchParams.get('coin') && status !== "All"  &&  searchParams.get('coin') !== "All"){
+                else if (searchParams.get('coin') && status !== "All" && searchParams.get('coin') !== "All") {
                     // console.log("====jjjj",searchParams.get('coin'),row[status] );
-                    return(
-                        
+                    return (
+
                         row[status] === true && row.token === searchParams.get('coin')
-                    )                    
-                }else{
+                    )
+                } else {
                     // console.log("====ppp", row[status])
                     return row[status] === true
                 }
@@ -182,22 +189,22 @@ const OrderTableList = (props) => {
         for (const [key, value] of searchParams.entries()) {
             newObj[key] = value
         }
-        setSearchParams(createSearchParams({...newObj,"coin": e.e})); 
+        setSearchParams(createSearchParams({ ...newObj, "coin": e.e }));
 
-        if ( (e.e === 'All' && !searchParams.get('status') ) ||   (e.e === 'All' && searchParams.get('status') === "All" )) {
+        if ((e.e === 'All' && !searchParams.get('status')) || (e.e === 'All' && searchParams.get('status') === "All")) {
             setList(orderList)
         }
-        else{
-            
+        else {
+
             const filterRow = orderList.filter((row) => {
-                if(e.e === 'All'){
+                if (e.e === 'All') {
                     // console.log("====all",searchParams.get('status'))
                     return row[searchParams.get('status')] === true
                 }
-                else if(searchParams.get('status')  && e.e !== "All" &&  searchParams.get('status') !== "All"){
+                else if (searchParams.get('status') && e.e !== "All" && searchParams.get('status') !== "All") {
                     // console.log("=====",e.e,searchParams.get('status')  )
                     return (row.token === e.e && row[searchParams.get('status')] === true)
-                }else{
+                } else {
                     // console.log("====hello", row.token, e.e)
                     return row.token === e.e
                 }
@@ -206,7 +213,7 @@ const OrderTableList = (props) => {
         }
         handleClose()
     }
- 
+
     const handleClose = () => {
         setAnchorEl(null);
         setAnchorEl2(null);
@@ -268,7 +275,7 @@ const OrderTableList = (props) => {
                             MenuListProps={{
                                 'aria-labelledby': 'basic-button',
                             }}
-                           
+
                         >
                             <MenuItem onClick={(e) => { filterData("All") }} >All</MenuItem>
                             <MenuItem onClick={(e) => { filterData("inProcess") }}>Process</MenuItem>
@@ -292,7 +299,7 @@ const OrderTableList = (props) => {
                             open={Boolean(anchorEl2)}
                             onClose={() => setAnchorEl2(null)}
                         >
-                            <MenuItem onClick={(e) => { filterDataCoin({e:"All"}) }}>All</MenuItem>
+                            <MenuItem onClick={(e) => { filterDataCoin({ e: "All" }) }}>All</MenuItem>
                             {
                                 coinList.map((e) => {
                                     return (
@@ -303,7 +310,7 @@ const OrderTableList = (props) => {
                         </Menu>
 
                     </div>
-                 
+
                 </Box>
 
                 <Table size={dense ? 'small' : 'medium'}>
@@ -321,7 +328,7 @@ const OrderTableList = (props) => {
                     />
 
                     <TableBody>
-                        {list.length>0 && list.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
+                        {list.length > 0 && list.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
                             <OrderTableListRow
                                 key={row.txid}
                                 row={row}

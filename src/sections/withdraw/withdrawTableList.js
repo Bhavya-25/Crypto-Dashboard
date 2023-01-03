@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 import {
@@ -90,23 +90,25 @@ const WithdrawTableList = (props) => {
 
   const tokenList = useSelector((state) => state.tokenList);
 
+  
+  const createWithdrawTable=React.useCallback(()=>{
+   let alluser = [];
+
+   let coins = [];
+
+   for (const token of tokenList) {
+     coins.push(token.coinName)
+   }
+   setCoinList(coins)
+   for (const withdraw of withdrawList) {
+     alluser.push(createData(withdraw.coinName, withdraw.network, withdraw.createdAt, withdraw.tx_hash, withdraw.amount, withdraw.address, withdraw.successful));
+   }
+   setList(alluser);
+  },[tokenList,withdrawList])
+
   useEffect(() => {
-    let alluser = [];
-
-    let coins = [];
-
-    for (const token of tokenList) {
-      coins.push(token.coinName)
-    }
-    setCoinList(coins)
-
-
-
-    for (const withdraw of withdrawList) {
-      alluser.push(createData(withdraw.coinName, withdraw.network, withdraw.createdAt, withdraw.tx_hash, withdraw.amount, withdraw.address, withdraw.successful));
-    }
-    setList(alluser);
-  }, [setList, withdrawList, tokenList])
+    createWithdrawTable()
+  }, [createWithdrawTable])
 
   const handleDeleteRows = (selected) => {
     const deleteRows = list.filter((row) => !selected.includes(row.txid));

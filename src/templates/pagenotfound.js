@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Layouts from "../layouts";
 import { Box, Button, Typography } from "@mui/material";
 import NotFound from '../assets/images/not.png'
 import LoginIcon from '@mui/icons-material/Login';
 import {Link } from "react-router-dom";
 const PageNotFound = () => {
+    useEffect(() => {
+      sessionStorage.clear();
+    })
     return (
         <>
             <Box sx={{

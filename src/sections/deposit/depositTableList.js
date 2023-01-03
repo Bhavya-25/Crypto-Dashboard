@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React,{ useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 import {
@@ -89,10 +89,9 @@ const DepositTableList = (props) => {
   const open = Boolean(anchorEl);
 
   const tokenList = useSelector((state) => state.tokenList);
-
   
-
-  useEffect(() => {
+  
+  const createDepositTable=React.useCallback(()=>{
     let alluser = [];
     let coins = [];
      
@@ -105,8 +104,15 @@ const DepositTableList = (props) => {
       alluser.push(createData(deposit.coinName, deposit.network, deposit.createdAt, deposit.tx_hash, deposit.amount, deposit.address, deposit.successful))
     }
     setList(alluser);
+  },[depositList, tokenList])
 
-  }, [setList, depositList, tokenList])
+  useEffect(() => {
+    createDepositTable()
+
+  }, [createDepositTable])
+
+
+
 
   const handleDeleteRows = (selected) => {
     const deleteRows = list.filter((row) => !selected.includes(row.txid));

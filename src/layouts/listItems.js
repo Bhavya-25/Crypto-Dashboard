@@ -4,7 +4,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import GroupIcon from '@mui/icons-material/Group';
 import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
-import Inventory2Icon from '@mui/icons-material/Inventory2';
+// import Inventory2Icon from '@mui/icons-material/Inventory2';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import WithdrawalIcon from '@mui/icons-material/IosShare';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
@@ -23,12 +23,12 @@ export  default function MainListItems(){
       </ListItemIcon>
       <ListItemText primary="Analysis" />
     </ListItemButton>
-    <ListItemButton>
+    {/* <ListItemButton>
       <ListItemIcon sx={{ color: "white" }}>
         <Inventory2Icon />
       </ListItemIcon>
       <ListItemText primary="Sub Admin" />
-    </ListItemButton>
+    </ListItemButton> */}
     <ListItemButton component={Link} to='/user'>
       <ListItemIcon sx={{ color: "white" }}>
         <GroupIcon />

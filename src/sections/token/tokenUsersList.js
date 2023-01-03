@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import {
   Typography, Grid, TableContainer, Table, TableBody, TablePagination, Tooltip, IconButton, Box
@@ -56,7 +56,7 @@ const headCells = [
     numeric: true,
     disablePadding: false,
     label: 'Action',
-    align : 'center'
+    align: 'center'
   },
   {
     id: 'edit',
@@ -91,22 +91,26 @@ const TokenUsersList = () => {
   const [tokenid, setTokenid] = useState();
 
   const tokensList = useSelector((state) => state.tokenList);
-
-
+ 
   const redirect = useNavigate();
 
-  useEffect(() => {
+  const createTokenTable = React.useCallback(() => {
     let alluser = [];
     for (const token of tokensList) {
       alluser.push(createData(token.coinName, token.fullName, token.networks, token.tokenType, token.image, token.status, token._id));
     }
     setList(alluser);
-  }, [setList, tokensList])
+  }, [tokensList])
+
+  useEffect(() => {
+    createTokenTable()
+  }, [createTokenTable])
+
 
 
   const abc = (status, tokenId) => {
     redirect(`/token/edit/${tokenId}`)
-    
+
   }
 
   const handleDeleteRows = (selected) => {

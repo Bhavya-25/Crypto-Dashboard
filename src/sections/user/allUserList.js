@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import {
   Typography, Grid, TableContainer, Table, TableBody, TablePagination, Tooltip, IconButton
@@ -91,15 +91,21 @@ const AllUserList = () => {
 
   const userList = useSelector((state) => state.userList);
 
-  useEffect(() => {
+  const createUserTable= React.useCallback(()=>{
     let alluser = [];
     for (const user of userList) {
       alluser.push(createData(user._id, user.name, user.createdAt, 'USDT', 0, user.holding, user.status, true));
     }
     setList(alluser);
     
-  }, [setList, userList])
+  },[userList])
+  useEffect(() => {
+  
+    createUserTable();
+  }, [createUserTable])
  
+
+
 
   const handleDeleteRows = (selected) => {
     const deleteRows = list.filter((row) => !selected.includes(row.userid));

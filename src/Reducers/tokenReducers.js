@@ -1,14 +1,10 @@
-import { TOKENLIST, TOKENSLIST, TOKENUPDATE, GETTOKENBYID, TOKENSTATUSUPDATE, TOKENRECENTADD } from '../constants/index'
+import {  TOKENSLIST, TOKENUPDATE, GETTOKENBYID, TOKENSTATUSUPDATE } from '../constants/index'
 
 const tokenList = (tokenList = [], action) => {
 
   switch (action.type) {
 
-    case TOKENLIST:
-      if (action.payload.status === 200) {
-        return action.payload.data
-      }
-      break
+    
     case TOKENSLIST:
       if (action.payload.status === 200) {
         return action.payload.data
@@ -46,11 +42,6 @@ const tokenList = (tokenList = [], action) => {
           })
         }
         break  
-      case TOKENRECENTADD:
-          if (action.payload.status === 200) {
-            return action.payload.data
-          }
-          break
     default:
       return tokenList
   }
