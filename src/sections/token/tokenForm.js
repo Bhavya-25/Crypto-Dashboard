@@ -609,8 +609,8 @@ const TokenForm = ({ abc, tokenid }) => {
                                       }}
                                       id={`abi${index}`}
                                       required
-                                      {...register(`networks.${check.network_id}.contract`)}
-                                      name={`networks.${check.network_id}.contract`}
+                                      {...register(`networks.${check.network_id}.abi`)}
+                                      name={`networks.${check.network_id}.abi`}
                                       // value={ emptyData.networks.hasOwnProperty(check.network_id) ? emptyData?.networks[check.network_id]?.abi : '' }
                                       label="ABI"
                                       fullWidth
