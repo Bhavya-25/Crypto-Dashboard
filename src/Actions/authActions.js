@@ -1,5 +1,5 @@
 import * as api from '../API'
-import { LOGIN, USERLIST } from '../constants'
+import { LOGIN, USERLIST, TOKENSLIST } from '../constants'
 
 // /**
 //  * Admin Login
@@ -27,7 +27,8 @@ export const loginRequest = (formData) => async (dispatch) => {
 
 export const logOut=()=>async(dispatch)=>{
   sessionStorage.clear();
-  
-  await dispatch({ type: USERLIST, payload: [] });
-
+  await dispatch({ type: USERLIST, payload: {status : 200, data : []} });
+  await dispatch({ type: LOGIN, payload: {status : 200, data : {} } });
+  await dispatch({ type: TOKENSLIST, payload: {status : 200, data : [] } })
+  return {status : 404 , data: {}}
 }
