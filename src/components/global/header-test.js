@@ -1,27 +1,27 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
-import { styled, useTheme,alpha } from '@mui/material/styles';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { styled, useTheme, alpha } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
-import CssBaseline from '@mui/material/CssBaseline';
+import ListItemText from '@mui/material/ListItemText';
+import Collapse from '@mui/material/Collapse';
 import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import LogoutIcon from '@mui/icons-material/Logout';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
 import IconButton from '@mui/material/IconButton';
 import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
@@ -30,9 +30,24 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import MainListItems from '../../layouts/listItems';
 import Logo from '../../assets/images/Icon.svg'
 import Text from '../../assets/images/Text.png'
+import { useLocation } from "react-router-dom";
+
+const titles = {
+  "/dashboard": "Dashboard Analysis",
+  "/user": "Users Detail Overview",
+  "/kyc": "Kyc Documents",
+  "/deposit": "Deposit",
+  "/withdraw": "Withdraw Details",
+  "/order": "Order Details ",
+  "/report": "Reports",
+  "/token": "Token Details",
+  "/support": "Support",
+  "/*": 'Dashboard Analysis'
+};
 
 
 const drawerWidth = 240;
+
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -90,9 +105,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     [theme.breakpoints.up('md')]: {
       width: '20ch',
     },
-    backgroundColor:'transparent',
+    backgroundColor: 'transparent',
     border: '1px solid rgba(255, 255, 255, 0.23)',
-    borderRadius:'8px',
+    borderRadius: '8px',
     fontFamily: 'Public Sans',
     fontStyle: 'normal',
     fontWeight: '400',
@@ -146,9 +161,35 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-export default function MiniDrawer({pageContent}) {
+
+
+
+
+
+export default function MiniDrawer({ pageContent }) {
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [title, setTitle] = useState(titles["/dashboard"]);
+  const [open, setOpen] = React.useState(true);
+  const [show, setShow] = useState(false)
+  const createHeader = React.useCallback(() => {
+    setTitle(titles[location.pathname]);
+  }, [location.pathname])
+
+  useEffect(() => {
+    createHeader()
+  }, [createHeader]);
+
+
+  const handleClick = () => {
+    setShow(!show);
+  };
+
+  const handleClose = () => {
+    sessionStorage.clear();
+   navigate('/')
+  };
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -160,7 +201,7 @@ export default function MiniDrawer({pageContent}) {
 
   return (
     <Box sx={{ display: 'flex' }}>
-      <AppBar position="fixed" open={open} sx={{ backgroundImage:"unset",boxShadow:"unset",  padding:"30px 0px 20px" }}>
+      <AppBar position="fixed" open={open} sx={{ backgroundImage: "unset", boxShadow: "unset", padding: "30px 0px 20px" }}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -174,40 +215,40 @@ export default function MiniDrawer({pageContent}) {
           >
             <MenuIcon />
           </IconButton>
-          <Box sx={{  display:{xs: 'none',md: 'none', lg: 'flex'},flexDirection:'column'}}>
+          <Box sx={{ display: { xs: 'none', md: 'none', lg: 'flex' }, flexDirection: 'column' }}>
             <Typography
-                variant="h3"
-                noWrap
-                component="h3"
+              variant="h3"
+              noWrap
+              component="h3"
             >
-                Dashboard Analysis
+              {title}
             </Typography>
             <Typography
-                variant="subtitle1"
-                noWrap
-                color={(theme) => theme.palette.textG.light}
+              variant="subtitle1"
+              noWrap
+              color={(theme) => theme.palette.textG.light}
             >
-            With all of the styling tool options available in today's market
+              With all of the styling tool options available in today's market
             </Typography>
           </Box>
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display:"flex" , gap:{xs:'20px',md:'30px'} ,alignItems:'center'  }}>
-          <IconButton size="large" aria-label="search" color="inherit" sx={{ display:{ xs: 'block',md:'none'} }}>
-            <SearchIcon />
-          </IconButton>
+          <Box sx={{ display: "flex", gap: { xs: '20px', md: '30px' }, alignItems: 'center' }}>
+            <IconButton size="large" aria-label="search" color="inherit" sx={{ display: { xs: 'block', md: 'none' } }}>
+              <SearchIcon />
+            </IconButton>
             <Search sx={{
-              display:{xs: 'none',md:"block"},
-              '&:hover':{
-                background:"transparent",
+              display: { xs: 'none', md: "block" },
+              '&:hover': {
+                background: "transparent",
               }
-              }}>
-                <SearchIconWrapper>
-                    <SearchIcon />
-                </SearchIconWrapper>
-                <StyledInputBase
+            }}>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
                 placeholder="Search…"
                 inputProps={{ 'aria-label': 'search' }}
-                />
+              />
             </Search>
             <IconButton
               size="large"
@@ -216,37 +257,56 @@ export default function MiniDrawer({pageContent}) {
 
             >
               <Badge variant="dot" color='activeColor' >
-                
+
                 <NotificationsIcon />
               </Badge>
             </IconButton>
-            <ListItemAvatar sx={{ display: {xs: 'flex', md: 'flex',lg:'none' } ,justifyContent: 'end' }}>
+            <ListItemAvatar sx={{ display: { xs: 'flex', md: 'flex', lg: 'none' }, justifyContent: 'end' }}>
               <Avatar alt="Profile Picture" src={require('../../assets/images/Avatar.jpg')} />
             </ListItemAvatar>
-            <Button sx={{ display: { xs: 'none', md: 'none',lg:'block' } }} color="textLight" variant="text">
-                <ListItem sx={{ cursor:'pointer' }}  >
-                    <ListItemAvatar>
-                        <Avatar alt="Profile Picture" src={require('../../assets/images/Avatar.jpg')} />
-                    </ListItemAvatar>
-                    <Box>
-                      <Box>
-                        <Typography variant="subtitle1" color={(theme) => theme.palette.secondry.light}>Allie Grater</Typography>
-                      </Box>
-                      <Box>
-                        <Typography variant="subtitle2" color={(theme) => theme.palette.textG.light}>Admin</Typography>
-                      </Box>
-                    </Box>
-                    <KeyboardArrowDownIcon color="#000" sx={{ marginLeft:"30px" }} />
-                </ListItem>
+            <Button sx={{ display: { xs: 'none', md: 'none', lg: 'flex' } }} color="textLight" variant="text" onClick={handleClick}>
+              <ListItem sx={{ cursor: 'pointer' }}  >
+                <ListItemAvatar>
+                  <Avatar alt="Profile Picture" src={require('../../assets/images/Avatar.jpg')} />
+                </ListItemAvatar>
+                <Box>
+                  <Box>
+                    <Typography variant="subtitle1" color={(theme) => theme.palette.secondry.light}>Allie Grater</Typography>
+                  </Box>
+                  <Box>
+                    <Typography variant="subtitle2" color={(theme) => theme.palette.textG.light}>Admin</Typography>
+                  </Box>
+                </Box>
+                <Box>
+
+                  <IconButton onClick={handleClick}>
+                    {show ? <ExpandLess color="#000" /> : <ExpandMore color="#000" />}
+                    </IconButton>
+                  
+                  <Collapse in={show} timeout="auto" unmountOnExit className='tmb_profile_menu'>
+                    <List component="div" disablePadding>
+                        <ListItemButton sx={{ pl: 4 }} onClick={handleClose}>
+                          <ListItemIcon>
+                            <LogoutIcon />
+                          </ListItemIcon>
+                          <ListItemText  variant="subtitle1" primary="Log Out" color={(theme) => theme.palette.secondry.light} />
+                        </ListItemButton>
+                      
+                    </List>
+                  </Collapse>
+                 
+                </Box>
+              </ListItem>
+
             </Button>
           </Box>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
-        <DrawerHeader sx={{ display:"flex", alignItems:"center", justifyContent:"space-between",marginTop:"35px" }}>
+        <DrawerHeader sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "35px" }}>
           <Box>
             <ListItemButton component={Link} to='/dashboard'>
-              <ListItemIcon  sx={{ color: "#fff", display:"flex",alignItems:"center",gap:"10px" }}>
+              <ListItemIcon sx={{ color: "#fff", display: "flex", alignItems: "center", gap: "10px" }}>
                 <img src={Logo} alt=''></img>
                 <img src={Text} alt=''></img>
               </ListItemIcon>
@@ -255,14 +315,14 @@ export default function MiniDrawer({pageContent}) {
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
-         
+
         </DrawerHeader>
-        <List sx={{ padding:"35px 0" }}>
+        <List sx={{ padding: "35px 0" }}>
           <MainListItems />
         </List>
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1 , padding:'121px 24px 60px'}}>
-          {pageContent}
+      <Box component="main" sx={{ flexGrow: 1, padding: '121px 24px 120px' }}>
+        {pageContent}
       </Box>
     </Box>
   );

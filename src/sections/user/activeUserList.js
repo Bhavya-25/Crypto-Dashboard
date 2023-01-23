@@ -1,12 +1,11 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import {
-  Typography, Grid, TableContainer, Table, TableBody, TablePagination, Tooltip, IconButton
+  Typography, Grid, TableContainer, Table, TableBody, TablePagination
 } from "@mui/material";
 
 import useTable, { emptyRows } from "../../hooks/useTable";
-import Iconify from "../../components/Iconify";
-import { TableHeadCustom, TableEmptyRows,TableSelectedActions } from "../../components/table";
+import { TableHeadCustom, TableEmptyRows } from "../../components/table";
 import UserTableRow from "./userTableRow";
 
 function createData(userid, name, btc, usdt, status) {
@@ -60,8 +59,8 @@ const ActiveUserList = () => {
   const [list, setList] = useState([]);
 
   const userList = useSelector((state) => state.userList);
-
-  useEffect(() => {
+  
+  const createTable=React.useCallback(()=>{
     let userData = [];
     let activeUser = userList.filter((item) => {
       return item.status === "Active"
@@ -70,12 +69,17 @@ const ActiveUserList = () => {
       userData.push(createData(user._id, user.name, 0, user.holding, user.status));
     }
     setList(userData);
-  }, [setList, userList])
+  },[userList])
+
+  useEffect(() => {
+   createTable()
+  }, [createTable])
+
 
   return (
     <Grid item xs={12} sm={6}>
 
-          <TableContainer sx={{ minWidth: 450, position: 'relative' }}>
+          <TableContainer sx={{ minWidth: 450, position: 'relative',background:(theme)=>theme.palette.bgGray.dark , borderRadius:"20px",padding:"20px", }}>
             <Typography
               sx={{ flex: '1 1 100%' }}
               variant="h6"

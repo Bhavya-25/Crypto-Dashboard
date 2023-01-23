@@ -65,3 +65,24 @@ body{
 {
   border-radius: 20px;
 }
+
+.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiCard-root.css-1dbdfna-MuiPaper-root-MuiCard-root {
+  background-image: unset;
+}
+
+div#container5 {
+  border-radius: 20px;
+  /* padding-bottom: 20px; */
+}
+
+.tmb_profile_menu {
+  position: fixed;
+  top: 118.98px;
+  background: #121212;
+  right: 55px;
+  color:#fff
+}
+
+.css-14lnjov-MuiButtonBase-root-MuiListItemButton-root:hover{
+  background-color: unset !important;
+}

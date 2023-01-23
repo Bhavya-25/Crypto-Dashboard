@@ -17,6 +17,7 @@ import ActiveUserList from "../sections/user/activeUserList";
 import AlertDialog from "../Modal/sessionModel";
 
 
+
 const Users = () => {
   const dispatch = useDispatch();
 
@@ -106,14 +107,14 @@ const Users = () => {
     <>
       <TopCard />
 
-      <Grid container spacing={2} sx={{ padding: '0px 24px' }}>
+      <Grid container spacing={2}>
         <ActiveUserList />
         <ActiveUserList />
       </Grid>
       <Grid container spacing={2} sx={{ padding: '0px 24px' }}>
         <AllUserList sessionExpire={sessionExpire()}/>
       </Grid>
-      <Grid container spacing={2} sx={{ padding: '0px 24px' }}>
+      <Grid container spacing={2}>
         <Grid item xs={12} sm={6} md={4}>
           <Card sx={{ minWidth: '30%', textAlign: 'center' }}>
             <CardContent>

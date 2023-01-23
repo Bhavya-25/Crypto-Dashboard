@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import {
   Typography, Grid, TableContainer, Table, TableBody, TablePagination
@@ -9,28 +9,28 @@ import { TableHeadCustom, TableEmptyRows } from "../../components/table";
 import MarketOverviewTableRow from "./marketOverviewTableRow";
 
 function createData(name, price, volume, change) {
-  return {  name, price, volume, change };
+  return { name, price, volume, change };
 }
 
 const headCells = [
-  { id: 'token', label: 'Token',  align: 'left', },
-    { id: 'price', label: 'Price',  align: 'left',},
-    {
-      id: 'volume',
-      label: 'Volume',
-      align: 'left',
-    },
-    {
-      id: 'twentyFourh',
-      label: '24h',
-      align: 'left',
-    },
-    {
-      id: 'graph',
-      label: 'Graph Active',
-      align: 'left',    
-     
-    }, 
+  { id: 'token', label: 'Token', align: 'left', },
+  { id: 'price', label: 'Price', align: 'left', },
+  {
+    id: 'volume',
+    label: 'Volume',
+    align: 'left',
+  },
+  {
+    id: 'twentyFourh',
+    label: '24h',
+    align: 'left',
+  },
+  {
+    id: 'graph',
+    label: 'Graph Active',
+    align: 'left',
+
+  },
 ];
 
 const MarketOverviewList = () => {
@@ -46,17 +46,23 @@ const MarketOverviewList = () => {
 
   const [list, setList] = useState([]);
 
-  const tokenList = useSelector((state) => state.tokenList);
+  const tokenList = useSelector((state) => state.marketCoinList);
 
-  useEffect(() => {
+  const createMarketTable =  React.useCallback(() => {
     let tokenData = [];
-    
-    for (const token of tokenList) {
-      tokenData.push(createData(token.FROMSYMBOL, token.PRICE,token.VOLUME24HOUR, token.CHANGE24HOUR));
+    if(tokenList.all!==undefined){
+   for (const token of tokenList.all) {
+      tokenData.push(createData(token.FROMSYMBOL, token.PRICE, token.VOLUME24HOUR, token.CHANGE24HOUR));
     }
     setList(tokenData);
+  }
+  },[tokenList])
 
-  }, [setList, tokenList])
+  useEffect(() => {
+
+    createMarketTable();
+  }, [createMarketTable])
+
 
   return (
     <Grid item xs={8} sm={8} sx={{
@@ -64,7 +70,10 @@ const MarketOverviewList = () => {
       borderRadius: '10px'
     }}>
 
-      <TableContainer sx={{ maxHeight: 350, overflowX:'overflow', justifyContent:'space-between', fontSize:'20px' }}>
+      <TableContainer sx={{
+        maxHeight: 350, overflowX: 'overflow', justifyContent: 'space-between', fontSize: '20px', backgroundColor: (theme) => theme.palette.bgGray.dark, borderRadius: '20px',
+        padding: '30px'
+      }}>
         <Typography
           sx={{ flex: '1 1 100%' }}
           variant="h6"

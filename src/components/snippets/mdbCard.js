@@ -79,7 +79,6 @@ const mdbCard = () => {
                                             padding: '4px 8px',
                                             display: 'flex',
                                             justifyContent: 'space-evenly',
-                                            display: 'flex',
                                             alignItems: 'center',
                                             gap: '2px',
                                             background: 'linear-gradient(0deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), #66BB6A',

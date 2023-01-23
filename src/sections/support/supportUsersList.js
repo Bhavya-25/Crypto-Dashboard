@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Typography, Grid, TableContainer, Table, TableBody, TablePagination, Tooltip, IconButton
 } from "@mui/material";
@@ -96,17 +96,24 @@ const SupportUsersList = (props) => {
   function createData(name, userid, createdAt,  email, subject, issue, status,priority) {
     return { name, userid, createdAt, email, subject, issue, status ,priority};
   }
+
+  const createTable=React.useCallback(()=>{
+    const rows = [
+      createData('Shane', '#12345','01-02-2022', 'abc@gmail.com',"abcjdsjhdjhfjdh", 'Doc', 'Pending','High'),
+    createData('Cameron', '#12445', '01-02-2022','xyz@gmail.com',"abcjdsjhdjhfjdh", 'Doc','Pending', 'Medium'),
+    createData('Kristin', '#12555','01-02-2022', 'aaa@gmail.com',"abcjdsjhdjhfjdh", 'Doc','Pending', 'Low'),
+    createData('Victoria', '#13345', '01-02-2022','ojc@gmail.com',"abcjdsjhdjhfjdh", 'Doc','Pending','High'),
+  ];
+
+  setList(rows);
+  },[])
+
   useEffect(() => {
-      const rows = [
-        createData('Shane', '#12345','01-02-2022', 'abc@gmail.com',"abcjdsjhdjhfjdh", 'Doc', 'Pending','High'),
-      createData('Cameron', '#12445', '01-02-2022','xyz@gmail.com',"abcjdsjhdjhfjdh", 'Doc','Pending', 'Medium'),
-      createData('Kristin', '#12555','01-02-2022', 'aaa@gmail.com',"abcjdsjhdjhfjdh", 'Doc','Pending', 'Low'),
-      createData('Victoria', '#13345', '01-02-2022','ojc@gmail.com',"abcjdsjhdjhfjdh", 'Doc','Pending','High'),
-    ];
-  
-    setList(rows);
-  }, [setList])
+      createTable()
+  }, [createTable])
  
+
+
 
 
   const handleDeleteRows = (selected) => {

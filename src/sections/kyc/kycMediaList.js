@@ -6,15 +6,17 @@ import { Card, CardHeader, CardContent, IconButton, CardMedia, TextField, Grid, 
 import { imageBaseUrl } from '../../API';
 import { pdfBaseUrl } from '../../API';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
-
+import CloseIcon from '@mui/icons-material/Close'
+import { useNavigate } from 'react-router-dom';
 
 export default function KycMediaList() {
 
   const params = useParams();
   const [list, setList] = useState([]);
   const kycList = useSelector((state) => state.kycList);
+  const navigate = useNavigate()
 
-  useEffect(() => {
+  const createKyc=React.useCallback(()=>{
     let alluser = [];
     for (const kyc of kycList) {
       if (params.userid === kyc.userid) {
@@ -24,7 +26,15 @@ export default function KycMediaList() {
 
     }
     setList(alluser);
-  }, [setList, kycList, params])
+  },[kycList, params.userid])
+
+  useEffect(() => {
+    createKyc()
+  }, [createKyc])
+
+  const handleClose = () => {
+      navigate('/kyc')
+  }
 
   return (
     <Card sx={{
@@ -41,6 +51,11 @@ export default function KycMediaList() {
           <Typography component="h1" variant='h4' color='textG.main'>
             Kyc Media Details
           </Typography>
+        }
+        action={
+          <IconButton aria-label="close" onClick={handleClose}>
+            <CloseIcon />
+          </IconButton>
         }
       />
       <CardContent>
@@ -101,39 +116,36 @@ export default function KycMediaList() {
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                <CardMedia
-                  component="img"
-                  fullWidth
-                  // width='200'
-                  height="140"
-                  image={imageBaseUrl+ media.media[0].file}
-                  alt="green iguana"
-                />
+                  <CardMedia
+                    component="img"
+                    fullWidth
+                    // width='200'
+                    height="140"
+                    image={imageBaseUrl + media.media[0].file}
+                    alt="green iguana"
+                  />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                <CardMedia
-                  component="img"
-                  fullWidth
-                  // width='200'
-                  height="140"
-                  image={imageBaseUrl+ media.media[1].file}
-                  alt="green iguana"
-                />
+                  <CardMedia
+                    component="img"
+                    fullWidth
+                    // width='200'
+                    height="140"
+                    image={imageBaseUrl + media.media[1].file}
+                    alt="green iguana"
+                  />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                Bank Statement
-                    <IconButton href={pdfBaseUrl+ media.media[2].file}target="_blank" rel="Bank Statement">
+                  Bank Statement
+                  <IconButton href={pdfBaseUrl + media.media[2].file} target="_blank" rel="Bank Statement">
                     <PictureAsPdfIcon sx={{
-                  width: 160,
-                  height: 160,
-                }}/> 
-                    </IconButton>
-                 
-             
-               
-               
+                      width: 160,
+                      height: 160,
+                    }} />
+                  </IconButton>
+
                 </Grid>
-                
+
               </Grid>
             </Box>
           )

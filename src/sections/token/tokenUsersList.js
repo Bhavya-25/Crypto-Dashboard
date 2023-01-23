@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import {
-  Typography, Grid, TableContainer, Table, TableBody, TablePagination, Tooltip, IconButton,Box
+  Typography, Grid, TableContainer, Table, TableBody, TablePagination, Tooltip, IconButton, Box
 
 } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
@@ -11,9 +11,11 @@ import { TableHeadCustom, TableEmptyRows, TableSelectedActions } from "../../com
 import TokenListTableRow from "./tokenListTablerow";
 import TokenForm from "./tokenForm";
 
+import { useNavigate, Link } from "react-router-dom";
 
-function createData(name, fullName, networks, tokenType, image, status,_id) {
-  return { name, fullName, networks,  tokenType, image, status,_id };
+
+function createData(name, fullName, networks, tokenType, image, status, _id) {
+  return { name, fullName, networks, tokenType, image, status, _id };
 }
 
 const headCells = [
@@ -50,6 +52,13 @@ const headCells = [
     label: 'Status',
   },
   {
+    id: 'isAction',
+    numeric: true,
+    disablePadding: false,
+    label: 'Action',
+    align: 'center'
+  },
+  {
     id: 'edit',
     disablePadding: false,
     label: '',
@@ -79,22 +88,29 @@ const TokenUsersList = () => {
 
   const [list, setList] = useState([]);
   const [open, setOpen] = useState(false)
-  const [tokenid, setTokenid]= useState();
+  const [tokenid, setTokenid] = useState();
 
   const tokensList = useSelector((state) => state.tokenList);
+ 
+  const redirect = useNavigate();
 
-
-  useEffect(() => {
+  const createTokenTable = React.useCallback(() => {
     let alluser = [];
     for (const token of tokensList) {
       alluser.push(createData(token.coinName, token.fullName, token.networks, token.tokenType, token.image, token.status, token._id));
     }
     setList(alluser);
-  }, [setList, tokensList])
-  const abc = (status, userid) => {
-    setOpen(status);
-    setTokenid(userid)
-   
+  }, [tokensList])
+
+  useEffect(() => {
+    createTokenTable()
+  }, [createTokenTable])
+
+
+
+  const abc = (status, tokenId) => {
+    redirect(`/token/edit/${tokenId}`)
+
   }
 
   const handleDeleteRows = (selected) => {
@@ -137,22 +153,29 @@ const TokenUsersList = () => {
               />
             )}
             <Box sx={{
-              display:'flex'
+              display: 'flex'
             }}>
-            <Typography
-              sx={{ flex: '1 1 100%', fontsize: '20px' }}
+              <Typography
+                sx={{ flex: '1 1 100%', fontsize: '20px' }}
 
-              id="tableTitle"
-              component="div"
-            >
-              All Users
-            </Typography>
-            <IconButton aria-label="edit" onClick={ abc} >
-              <AddIcon />
-
-            </IconButton>
+                id="tableTitle"
+                component="div"
+              >
+                All Tokens
+              </Typography>
+              <Link
+                component="button"
+                to="/token/add-new"
+                onClick={() => {
+                  console.info("I'm a button.");
+                }}
+              >
+                <IconButton aria-label="edit"  >
+                  <AddIcon />
+                </IconButton>
+              </Link>
             </Box>
-            
+
 
             <Table size={dense ? 'small' : 'medium'}>
               <TableHeadCustom

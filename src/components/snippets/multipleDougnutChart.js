@@ -18,23 +18,33 @@ const MultilpleDougnutChart=()=>{
         useHTML: true,
          x:50,
          y:-50,
+         itemHoverStyle: {
+          color: '#ccc',
+       },
         itemStyle: {
-            font: "14px Trebuchet MS, Verdana, sans-serif",
+            font: "14px 'Public Sans', sans-serif",
+            color:'#fff'
           }
         },
     title: {
         text: 'Fiat supported',
         align:'left',
         fontSize: '20px' ,
-       x:30,
-       y:40
+       x:20,
+       y:40,
+       style: {
+        fontSize: '18px'
+      }
       },
       subtitle: {
         text: 'Fiat currency used to trade in Crypto',
         align:'left',
-        x:30,
-        y:80,
-        color:'#fff'
+        x:20,
+        y:65,
+        color:'#fff',
+        style: {
+          fontSize: '15px'
+        }
       },
     plotOptions: {
     	series: {
@@ -44,6 +54,7 @@ const MultilpleDougnutChart=()=>{
                 connectorPadding: 10,
                 distance: 0,
                 enabled:false
+                
             },
       }
     },
@@ -132,7 +143,14 @@ const MultilpleDougnutChart=()=>{
 }],
 caption: {
     text: '<b>Users to use the fiat currency to trand in all over the crypto exchange</b>',
-    marginTop:'10px'
+    marginTop:'10px',
+    x:20,
+    y:0,
+    style: {
+      font: "14px 'Public Sans', sans-serif",
+      
+      color:'#fff'
+    }
 }
 },
 

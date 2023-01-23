@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React,{ useEffect, useState } from "react";
 import {
   Typography, Grid, TableContainer, Table, TableBody, TablePagination, Tooltip, IconButton
 } from "@mui/material";
@@ -86,7 +86,8 @@ const ReportTableList = (props) => {
   function createData(coin, userid, createdAt, txid, network, amount, walletAddress, status) {
     return { coin, userid, createdAt, txid, network, amount, walletAddress, status };
   }
-  useEffect(() => {
+
+  const createTable=React.useCallback(()=>{
     const rows = [
       createData('Bitcoin', '#12345', '01-02-2022', 'Txn19i89898989iee', "BTC/BitCoin", '1.1524 BTC', '3J98t1WpEZ73CNmQviecrny', 'Pending'),
       createData('Polygon', '#12445', '01-02-2022', 'Txn19i982394839iee', "MATIC/M5", '5.1524 ETH', '3J98t1WpEZ73CNmQviecrny', 'Failed'),
@@ -99,7 +100,14 @@ const ReportTableList = (props) => {
       createData('Bitcoin', '#12345', '01-02-2022', 'Txn19i89898989iee', "BTC/BitCoin", '1.1524 BTC', '3J98t1WpEZ73CNmQviecrny', 'Pending'),
     ];
     setList(rows);
-  }, [setList])
+  },[])
+
+  useEffect(() => {
+    createTable();
+  }, [createTable])
+
+
+
 
   const handleDeleteRows = (selected) => {
     const deleteRows = list.filter((row) => !selected.includes(row.userid));

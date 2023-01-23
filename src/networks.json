@@ -1,6 +1,7 @@
   [
     {
     "id":1,
+    "network_id" : "63218707d2e3551816b9b8af",
     "forControl" : "Tron",
     "Network": "Tron TRC(20)",
     "confirmations": "5",
@@ -13,6 +14,7 @@
 },
 {
     "id":2,
+    "network_id" : "63218947d2e3551816b9b8b0",
     "forControl" : "Binance",
     "Network": "Binance Smart Chain(BEP20)",
     "confirmations": "5",
@@ -25,6 +27,7 @@
 },
 {
     "id":3,
+    "network_id" : "6329776b201dd027dee16342",
     "forControl" : "Ethereum",
     "Network": "Ethereum(ERC20)",
     "confirmations": "5",

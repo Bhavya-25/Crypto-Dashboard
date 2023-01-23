@@ -8,7 +8,7 @@ import moment from "moment";
 
 // ----------------------------------------------------------------------
 
-DepositListTableRow.propTypes = {
+OrderListTableRow.propTypes = {
   row: PropTypes.object,
   selected: PropTypes.bool,
   onEditRow: PropTypes.func,
@@ -16,10 +16,10 @@ DepositListTableRow.propTypes = {
   onDeleteRow: PropTypes.func,
 };
 
-export default function DepositListTableRow({ row, selected, onEditRow, onSelectRow, onDeleteRow }) {
+export default function OrderListTableRow({ row, selected, onEditRow, onSelectRow, onDeleteRow, filterData }) {
   const theme = useTheme();
 
-  const { coinName, network, createdAt, tx_hash, amount, address, successful } = row;
+  const { postid, currency, createdAt, order_amount , quantity, price, token, isComplete, isCanceled, inProcess } = row;
 
   return (
     <TableRow hover selected={selected}>
@@ -28,8 +28,13 @@ export default function DepositListTableRow({ row, selected, onEditRow, onSelect
           <Checkbox checked={selected} onClick={onSelectRow} />
         </TableCell>
       }
-      <TableCell align="left" sx={{ fontSize: '14px' }}>{coinName}</TableCell>
-      <TableCell>{network}</TableCell>
+      <TableCell align="left" sx={{ fontSize: '14px',
+        maxWidth: '180px',
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis'
+      }}>{postid}</TableCell>
+      <TableCell align="left">{currency}</TableCell>
 
       <TableCell align="left" sx={{ fontSize: '12px' }}>{moment(createdAt).format('Y/MM/DD HH:mm:ss')}</TableCell>
       <TableCell align="left" sx={{
@@ -38,9 +43,9 @@ export default function DepositListTableRow({ row, selected, onEditRow, onSelect
         whiteSpace: 'nowrap',
         overflow: 'hidden',
         textOverflow: 'ellipsis'
-      }}>{tx_hash}</TableCell>
+      }}>{order_amount}</TableCell>
       <TableCell align="left" sx={{ textTransform: 'capitalize', fontSize: '14px' }}>
-        {amount}
+        {quantity}
       </TableCell>
       <TableCell align="left" sx={{
         fontSize: '12px',
@@ -49,15 +54,34 @@ export default function DepositListTableRow({ row, selected, onEditRow, onSelect
         overflow: 'hidden',
         textOverflow: 'ellipsis'
       }}>
-        {address}
+        {price}
+      </TableCell>
+     <TableCell>{token}</TableCell>
+      <TableCell align="left" sx={{ fontSize: '12px' }}>
+        <Typography
+          variant="outlined"
+          color={(isComplete === true) ? theme.palette.success.dark :  theme.palette.error.dark}
+          sx={{ textTransform: 'capitalize', fontSize: '14px' }}
+        >
+          {isComplete===true?'Success':'Failed'}
+        </Typography>
       </TableCell>
       <TableCell align="left" sx={{ fontSize: '12px' }}>
         <Typography
           variant="outlined"
-          color={(successful === 'true') ? theme.palette.success.dark :  theme.palette.error.dark}
+          color={(isCanceled === true) ? theme.palette.success.dark :  theme.palette.error.dark}
           sx={{ textTransform: 'capitalize', fontSize: '14px' }}
         >
-          {successful==='true'?'Success':'Failed'}
+          {isCanceled===true?'Canceled':'Failed'}
+        </Typography>
+      </TableCell>
+      <TableCell align="left" sx={{ fontSize: '12px' }}>
+        <Typography
+          variant="outlined"
+          color={(inProcess === true) ? theme.palette.success.dark :  theme.palette.error.dark}
+          sx={{ textTransform: 'capitalize', fontSize: '14px' }}
+        >
+          {inProcess===true?'Pending':'Failed'}
         </Typography>
       </TableCell>
 

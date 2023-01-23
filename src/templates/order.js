@@ -1,14 +1,15 @@
 import React, {useEffect} from "react";
-import { depositListRequest } from "../Actions/depositActions";
+import { orderListRequest } from "../Actions/orderActions";
 import { tokensListRequest } from '../Actions/tokenActions';
 import { Grid} from "@mui/material";
 import Layouts from "../layouts";
 import { useDispatch } from "react-redux";
-import DepositList from "../sections/deposit/depositTableList";
+import OrderList from "../sections/order/orderTableList";
 import { useNavigate } from "react-router-dom";
 
-const Deposit = () => {
+const Order = () => {
   const dispatch = useDispatch();
+
   const navigate= useNavigate();
 
   useEffect(() => {
@@ -16,26 +17,26 @@ const Deposit = () => {
     if (session === null) {
       navigate('/*') 
     }
-    const getDepositList = async () => {
-     await dispatch(depositListRequest());
+    const getOrderList = async () => {
+     await dispatch(orderListRequest());
     }
 
-    getDepositList();
-
-    const getTokensList = async () => {
+    getOrderList();
+    
+     const getTokensList = async () => {
       await dispatch(tokensListRequest());
      }
      getTokensList();
     
-  }, [dispatch,navigate]);
+  }, [dispatch, navigate]);
 
   return (
     <>
     <Grid container spacing={2} sx={{ padding: '48px 24px' }}>
-        <DepositList  />
+        <OrderList />
       </Grid>
     </>
   )
 }
 
-export default Layouts(Deposit);
+export default Layouts(Order);
