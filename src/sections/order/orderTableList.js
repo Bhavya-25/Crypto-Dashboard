@@ -130,7 +130,6 @@ const OrderTableList = (props) => {
         createOrderTable()
     }, [createOrderTable])
 
-
     const handleDeleteRows = (selected) => {
         const deleteRows = list.filter((row) => !selected.includes(row.txid));
         setSelected([]);
@@ -231,7 +230,7 @@ const OrderTableList = (props) => {
                         onSelectAllRows={(checked) =>
                             onSelectAllRows(
                                 checked,
-                                list.map((row) => row.id)
+                                list.map((row) => row.postid)
                             )
                         }
                         actions={
@@ -322,7 +321,7 @@ const OrderTableList = (props) => {
                         onSelectAllRows={(checked) =>
                             onSelectAllRows(
                                 checked,
-                                list.map((row) => row.txid)
+                                list.map((row) => row.postid)
                             )
                         }
                     />
@@ -330,11 +329,11 @@ const OrderTableList = (props) => {
                     <TableBody>
                         {list.length > 0 && list.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
                             <OrderTableListRow
-                                key={row.txid}
+                                key={row.postid}
                                 row={row}
-                                selected={selected.includes(row.txid)}
-                                onSelectRow={() => onSelectRow(row.txid)}
-                                onDeleteRow={() => handleDeleteRow(row.txid)}
+                                selected={selected.includes(row.postid)}
+                                onSelectRow={() => onSelectRow(row.postid)}
+                                onDeleteRow={() => handleDeleteRow(row.postid)}
                             />
                         ))}
                         {list.length === 0 && list.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (

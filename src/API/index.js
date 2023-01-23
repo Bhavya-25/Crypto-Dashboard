@@ -18,7 +18,7 @@ export const imageBaseUrl = ImageUrl;
 export const pdfBaseUrl = PdfUrl;
 /** user Auth */
 
-export const loginRequestApi = (formData) => API.post('/user/login', formData)
+export const loginRequestApi = (formData) => API.post('/user/admin-login', formData)
 
 /**
  * User Request

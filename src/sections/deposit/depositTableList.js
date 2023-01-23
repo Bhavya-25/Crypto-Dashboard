@@ -112,8 +112,6 @@ const DepositTableList = (props) => {
   }, [createDepositTable])
 
 
-
-
   const handleDeleteRows = (selected) => {
     const deleteRows = list.filter((row) => !selected.includes(row.txid));
     setSelected([]);
@@ -156,7 +154,7 @@ const DepositTableList = (props) => {
             onSelectAllRows={(checked) =>
               onSelectAllRows(
                 checked,
-                list.map((row) => row.id)
+                list.map((row) => row.tx_hash)
               )
             }
             actions={
@@ -230,7 +228,7 @@ const DepositTableList = (props) => {
             onSelectAllRows={(checked) =>
               onSelectAllRows(
                 checked,
-                list.map((row) => row.txid)
+                list.map((row) => row.tx_hash)
               )
             }
           />
@@ -238,11 +236,11 @@ const DepositTableList = (props) => {
           <TableBody>
             {list.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
               <DepositTableListRow
-                key={row.txid}
+                key={row.tx_hash}
                 row={row}
-                selected={selected.includes(row.txid)}
-                onSelectRow={() => onSelectRow(row.txid)}
-                onDeleteRow={() => handleDeleteRow(row.txid)}
+                selected={selected.includes(row.tx_hash)}
+                onSelectRow={() => onSelectRow(row.tx_hash)}
+                onDeleteRow={() => handleDeleteRow(row.tx_hash)}
               />
             ))}
             <TableEmptyRows height={72} emptyRows={emptyRows(page, rowsPerPage, list.length)} />

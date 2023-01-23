@@ -7,26 +7,45 @@ import LoginIcon from '@mui/icons-material/Login';
 import logo from '../assets/images/Logo.png'
 import svg from '../assets/images/Svg.png'
 import { loginRequest } from "../Actions/authActions";
+import { ToastContainer } from 'react-toastify';
+import TmbNotification from '../../src/error-notification'
+const notify = new TmbNotification();
 
 export default function Login() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const handleSubmit = async(event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    let formData = {
-      username: data.get('email'),
-      password: data.get('password'),
-      requestType : 'email'
-    }
-    let result = await dispatch(loginRequest(formData))
-    if(result.status === 200){
-      navigate('/dashboard');
-    }
+   
+      let formData = {
+        username: data.get('email'),
+        password: data.get('password'),
+        role:'admin'
+      }
+      let result = await dispatch(loginRequest(formData))
+      if (result.status === 200) {
+        navigate('/dashboard');
+      }
+      else{
+        notify.error("Please Enter Valid Email Id")
+      }
   };
   return (
     <>
+      <ToastContainer
+        position="top-left"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <Stack direction="row" mt={2} sx={{ justifyContent: 'space-between', padding: '20px 135px', marginTop: '0px', height: '9vh' }}>
         <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center', }}>
           <IconButton
@@ -38,8 +57,8 @@ export default function Login() {
         </Box>
         <Stack direction="row" spacing={2}>
           <Box display={{ xs: "none", sm: "block" }}>
-            <Button variant="outlined" startIcon={<LoginIcon />} sx={{margin :'0px 10px'}}>Login</Button>
-            <Button variant="contained" startIcon={<PersonOutlineIcon />} sx={{margin :'0px 10px'}}>Sign Up</Button>
+            <Button variant="outlined" startIcon={<LoginIcon />} sx={{ margin: '0px 10px' }}>Login</Button>
+            <Button variant="contained" startIcon={<PersonOutlineIcon />} sx={{ margin: '0px 10px' }}>Sign Up</Button>
           </Box>
 
         </Stack>
