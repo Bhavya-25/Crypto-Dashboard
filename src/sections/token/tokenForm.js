@@ -79,15 +79,15 @@ const TokenForm = ({ abc, tokenid }) => {
 
         if (data[0].networks.length > 0) {
           data[0].networks.forEach((ele, index) => {
-            open[ele.id] = true
+            open[ele._id] = true
 
-            setValue(ele.id, true);
-            setValue(`networks.${ele.id}.abi`, ele?.abi)
-            setValue(`networks.${ele.id}.contract`, ele?.contract)
-            setValue(`networks.${ele.id}.decimalNum`, ele?.decimalNum)
-            setValue(`networks.${ele.id}.fee`, ele?.fee)
+            setValue(ele._id, true);
+            setValue(`networks.${ele._id}.abi`, ele?.abi)
+            setValue(`networks.${ele._id}.contract`, ele?.contract)
+            setValue(`networks.${ele._id}.decimalNum`, ele?.decimalNum)
+            setValue(`networks.${ele._id}.fee`, ele?.fee)
 
-            group[ele.id] = {
+            group[ele._id] = {
               abi: ele?.abi,
               contract: ele?.contract,
               decimalNum: ele?.decimalNum,
@@ -206,7 +206,7 @@ const TokenForm = ({ abc, tokenid }) => {
       Object.entries(data['networks']).forEach(entry => {
         const [key, value] = entry;
         if (key === "Binance" || key === "Tron" || key === "Ethereum") return
-        networks.push({ ...value, id: key })
+        networks.push({ ...value, _id: key })
       })
     }
 
@@ -215,9 +215,9 @@ const TokenForm = ({ abc, tokenid }) => {
 
       /** create new record record */
       let formData = new FormData(e.target);
-      let uploadFile = formData.get('image');
+      let uploadFiles = formData.get('image');
       var reader = new FileReader();
-      reader.readAsDataURL(uploadFile);
+      reader.readAsDataURL(uploadFiles);
       reader.onload = function () {
         data.image = reader.result;
         dispatch(tokenListCreate(data)).then((response) => {
