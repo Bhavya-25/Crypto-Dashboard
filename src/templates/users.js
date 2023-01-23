@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect,useState } from "react";
 import { useDispatch } from "react-redux";
 import { userListRequest } from "../Actions/userActions";
+
 import {
   Box, Stack, Typography, Card, CardContent, Slider, Grid, Divider,
   ListItem, ListItemText
@@ -14,24 +14,24 @@ import MapChart from "../components/mapChart";
 import AllUserList from "../sections/user/allUserList";
 import TopCard from "../sections/user/topCard";
 import ActiveUserList from "../sections/user/activeUserList";
+import AlertDialog from "../Modal/sessionModel";
 
 
 const Users = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
+  const [alertOpen, setAlertOpen] = useState(false);
   useEffect(() => {
-    // let session = sessionStorage.getItem('token')
-    // if (session === null) {
-    //   navigate('/')
-    // }
-    const getUserList = async () => {
-       await dispatch(userListRequest());
-    }
-
     getUserList();
+  },[]);
 
-  }, [dispatch, navigate]);
+  const getUserList = async () => {
+    let response = await dispatch(userListRequest());
+    if(response.status === 404){
+      console.log(response);
+      setAlertOpen(true);
+    }
+  }
 
   let doughnutProp = {
     chart: {
@@ -97,6 +97,10 @@ const Users = () => {
     }]
   }
 
+  const sessionExpire=()=>{
+    console.log('here from list page');
+  }
+
 
   return (
     <>
@@ -107,7 +111,7 @@ const Users = () => {
         <ActiveUserList />
       </Grid>
       <Grid container spacing={2} sx={{ padding: '0px 24px' }}>
-        <AllUserList />
+        <AllUserList sessionExpire={sessionExpire()}/>
       </Grid>
       <Grid container spacing={2} sx={{ padding: '0px 24px' }}>
         <Grid item xs={12} sm={6} md={4}>
@@ -187,6 +191,10 @@ const Users = () => {
           </Card>
         </Grid>
       </Grid>
+      {alertOpen === true && 
+        <AlertDialog open={alertOpen} />
+      }
+      
     </>
   )
 }
