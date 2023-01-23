@@ -28,6 +28,7 @@ export default function KycMediaList() {
     setList(alluser);
   },[kycList, params.userid])
 
+  console.log("=====list", list);
   useEffect(() => {
     createKyc()
   }, [createKyc])
@@ -121,7 +122,7 @@ export default function KycMediaList() {
                     fullWidth
                     // width='200'
                     height="140"
-                    image={imageBaseUrl + media.media[0].file}
+                    image={imageBaseUrl + media.idfront}
                     alt="green iguana"
                   />
                 </Grid>
@@ -131,13 +132,13 @@ export default function KycMediaList() {
                     fullWidth
                     // width='200'
                     height="140"
-                    image={imageBaseUrl + media.media[1].file}
+                    image={imageBaseUrl + media.idback}
                     alt="green iguana"
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   Bank Statement
-                  <IconButton href={pdfBaseUrl + media.media[2].file} target="_blank" rel="Bank Statement">
+                  <IconButton href={pdfBaseUrl + media.media[0].file} target="_blank" rel="Bank Statement">
                     <PictureAsPdfIcon sx={{
                       width: 160,
                       height: 160,
