@@ -52,7 +52,7 @@ export default function Login() {
             size="small"
             sx={{ ml: 2 }}
           >
-            <img src={logo} alt="Kitty Katty!" />
+            <img src={logo} alt="Kitty Katty!" width={70} />
           </IconButton>
         </Box>
         <Stack direction="row" spacing={2}>

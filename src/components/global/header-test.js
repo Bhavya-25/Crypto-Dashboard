@@ -28,7 +28,7 @@ import Badge from '@mui/material/Badge';
 import SearchIcon from '@mui/icons-material/Search';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MainListItems from '../../layouts/listItems';
-import Logo from '../../assets/images/Icon.svg'
+import Logo from '../../assets/images/Logo.png'
 import Text from '../../assets/images/Text.png'
 import { useLocation } from "react-router-dom";
 
@@ -271,7 +271,7 @@ export default function MiniDrawer({ pageContent }) {
                 </ListItemAvatar>
                 <Box>
                   <Box>
-                    <Typography variant="subtitle1" color={(theme) => theme.palette.secondry.light}>Allie Grater</Typography>
+                    <Typography variant="subtitle1" color={(theme) => theme.palette.secondry.light}>Admin</Typography>
                   </Box>
                   <Box>
                     <Typography variant="subtitle2" color={(theme) => theme.palette.textG.light}>Admin</Typography>
@@ -307,8 +307,8 @@ export default function MiniDrawer({ pageContent }) {
           <Box>
             <ListItemButton component={Link} to='/dashboard'>
               <ListItemIcon sx={{ color: "#fff", display: "flex", alignItems: "center", gap: "10px" }}>
-                <img src={Logo} alt=''></img>
-                <img src={Text} alt=''></img>
+                <img src={Logo} alt='Prime Experia' width={75}></img>
+                {/* <img src={Text} alt=''></img> */}
               </ListItemIcon>
             </ListItemButton>
           </Box>
