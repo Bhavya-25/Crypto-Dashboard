@@ -1,16 +1,16 @@
 import React, { useEffect } from 'react'
 import { Grid } from '@mui/material'
-import TokenForm from '../sections/token/tokenForm'
+import AddPayment from '../sections/Payment/addPayment'
 import Layouts from "../layouts";
 import { useNavigate } from 'react-router-dom';
 
 
-const TokenAdd = () => {
+const PaymentAdd = () => {
 
   const navigate = useNavigate()
 
   const abc = () => {
-    navigate('/token')
+    navigate('/payment')
   }
 
 
@@ -23,11 +23,11 @@ const TokenAdd = () => {
   return (
     <>
       <Grid container spacing={2} sx={{ padding: '48px 24px' }}>
-        <TokenForm abc={abc} tokenid="" />
+        <AddPayment abc={abc} />
       </Grid>
     </>
   )
 }
 
 
-export default Layouts(TokenAdd)
+export default Layouts(PaymentAdd)

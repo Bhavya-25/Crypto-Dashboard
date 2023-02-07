@@ -14,7 +14,7 @@ const Deposit = () => {
   useEffect(() => {
     let session = sessionStorage.getItem('token')
     if (session === null) {
-      navigate('/*') 
+      navigate('/') 
     }
     const getDepositList = async () => {
      await dispatch(depositListRequest());

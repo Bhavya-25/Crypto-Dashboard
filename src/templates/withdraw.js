@@ -15,10 +15,10 @@ const Withdraw = () => {
   useEffect(() => {
     let session = sessionStorage.getItem('token')
     if (session === null) {
-      navigate('/*') 
+      navigate('/') 
     }
     const getWithdrawList = async () => {
-     await dispatch(withdrawListRequest());
+      await dispatch(withdrawListRequest());
     }
 
     getWithdrawList();

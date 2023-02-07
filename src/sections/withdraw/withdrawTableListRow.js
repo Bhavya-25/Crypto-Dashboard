@@ -19,7 +19,7 @@ WithdrawListTableRow.propTypes = {
 export default function WithdrawListTableRow({ row, selected, onEditRow, onSelectRow, onDeleteRow }) {
   const theme = useTheme();
 
-  const { coinName, network, createdAt, tx_hash, amount, address, successful } = row;
+  const { Symbol, networkName, createdAt, tx_hash, requestedAmount, withdraw_wallet, successful } = row;
 
   return (
     <TableRow hover selected={selected}>
@@ -28,8 +28,8 @@ export default function WithdrawListTableRow({ row, selected, onEditRow, onSelec
           <Checkbox checked={selected} onClick={onSelectRow} />
         </TableCell>
       }
-      <TableCell align="left" sx={{ fontSize: '14px' }}>{coinName}</TableCell>
-      <TableCell>{network}</TableCell>
+      <TableCell align="left" sx={{ fontSize: '14px' }}>{Symbol}</TableCell>
+      <TableCell>{networkName}</TableCell>
 
       <TableCell align="left" sx={{ fontSize: '12px' }}>{moment(createdAt).format('Y/MM/DD HH:mm:ss')}</TableCell>
       <TableCell align="left" sx={{
@@ -40,7 +40,7 @@ export default function WithdrawListTableRow({ row, selected, onEditRow, onSelec
         textOverflow: 'ellipsis'
       }}>{tx_hash}</TableCell>
       <TableCell align="left" sx={{ textTransform: 'capitalize', fontSize: '14px' }}>
-        {amount}
+        {requestedAmount}
       </TableCell>
       <TableCell align="left" sx={{
         fontSize: '12px',
@@ -49,7 +49,7 @@ export default function WithdrawListTableRow({ row, selected, onEditRow, onSelec
         overflow: 'hidden',
         textOverflow: 'ellipsis'
       }}>
-        {address}
+        {withdraw_wallet !== undefined && withdraw_wallet}
       </TableCell>
       <TableCell align="left" sx={{ fontSize: '12px' }}>
         <Typography
