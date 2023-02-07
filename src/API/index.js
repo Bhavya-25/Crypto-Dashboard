@@ -63,3 +63,9 @@ export const tokenStatusUpdate =(data) => API.post('/admin/token/tokenupdate', d
  */
 export const orderListRequestApi = () => API.get('/admin/order/all')
 
+/**
+ * Payment Requests
+ */
+export const paymentListCreateApi = (data) => API.post('/payment/save',data)
+export const paymentListRequestApi = () => API.get('/payment/pm_methods')
+

@@ -4,6 +4,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import GroupIcon from '@mui/icons-material/Group';
 import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
+import AddCardIcon from '@mui/icons-material/AddCard';
 // import Inventory2Icon from '@mui/icons-material/Inventory2';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import WithdrawalIcon from '@mui/icons-material/IosShare';
@@ -70,6 +71,12 @@ export  default function MainListItems(){
         <StorefrontIcon />
       </ListItemIcon>
       <ListItemText primary="Orders" />
+    </ListItemButton>
+    <ListItemButton component={Link} to='/payment'>
+      <ListItemIcon sx={{ color: "white" }}>
+        <AddCardIcon />
+      </ListItemIcon>
+      <ListItemText primary="Payment" />
     </ListItemButton>
     <ListItemButton component={Link} to='/report'>
       <ListItemIcon sx={{ color: "white" }}>

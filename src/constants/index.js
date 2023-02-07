@@ -22,5 +22,8 @@ export const KYCUPDATE = 'KYCUPDATE'
 
 export const ORDERLIST ='ORDERLIST'
 
+export const PAYMENTLISTCREATE ='PAYMENTLISTCREATE'
+export const PAYMENTLIST ='PAYMENTLIST'
+
 
 

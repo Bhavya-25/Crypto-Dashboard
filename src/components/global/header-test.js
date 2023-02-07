@@ -39,8 +39,12 @@ const titles = {
   "/deposit": "Deposit",
   "/withdraw": "Withdraw Details",
   "/order": "Order Details ",
+  '/payment':'Payment Methods List',
+  '/payment/add-new':'Add New Payment Method',
   "/report": "Reports",
   "/token": "Token Details",
+  "/token/add-new": "Add New Token",
+  "/token/edit/": "Edit Token Details",
   "/support": "Support",
   "/*": 'Dashboard Analysis'
 };

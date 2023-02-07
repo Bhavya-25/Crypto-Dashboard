@@ -18,7 +18,7 @@ const Withdraw = () => {
       navigate('/*') 
     }
     const getWithdrawList = async () => {
-     await dispatch(withdrawListRequest());
+      await dispatch(withdrawListRequest());
     }
 
     getWithdrawList();
