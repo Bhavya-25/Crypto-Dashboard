@@ -12,7 +12,7 @@ const KycMedia = () => {
   useEffect(() => {
     let session = sessionStorage.getItem('token')
     if (session === null) {
-      navigate('/*') 
+      navigate('/') 
     }
     const getKycList = async () => {
      await dispatch(kycListRequest());

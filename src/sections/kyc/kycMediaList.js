@@ -11,27 +11,25 @@ import { useNavigate } from 'react-router-dom';
 
 export default function KycMediaList() {
 
-  const params = useParams();
+
+  const {userid} = useParams();
   const [list, setList] = useState([]);
-  const kycList = useSelector((state) => state.kycList);
+  const kycList  = useSelector((state) => state.kycList);
   const navigate = useNavigate()
 
-  const createKyc=React.useCallback(()=>{
+  useEffect (
+    ()=>{
+     
     let alluser = [];
     for (const kyc of kycList) {
-      if (params.userid === kyc.userid) {
-
+      if (userid === kyc.userid) {
         alluser.push(kyc);
       }
-
     }
     setList(alluser);
-  },[kycList, params.userid])
+    
+  },[])
 
-  console.log("=====list", list);
-  useEffect(() => {
-    createKyc()
-  }, [createKyc])
 
   const handleClose = () => {
       navigate('/kyc')
@@ -60,9 +58,10 @@ export default function KycMediaList() {
         }
       />
       <CardContent>
+        {console.log("=====media",list)}
         {list.map((media, index) => {
           return (
-            <Box>
+            <Box key={index}>
               <Grid container spacing={1}>
                 <Grid item xs={12} sm={6}>
                   <TextField

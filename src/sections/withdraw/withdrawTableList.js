@@ -11,19 +11,19 @@ import { TableHeadCustom, TableEmptyRows, TableSelectedActions } from "../../com
 import WithdrawTableListRow from "./withdrawTableListRow";
 import FilterListIcon from '@mui/icons-material/FilterList';
 
-function createData(coinName, network, createdAt, tx_hash, amount, address, successful) {
-  return { coinName, network, createdAt, tx_hash, amount, address, successful };
+function createData(Symbol, networkName, createdAt, tx_hash, requestedAmount, withdraw_wallet, successful) {
+  return { Symbol, networkName, createdAt, tx_hash, requestedAmount, withdraw_wallet, successful };
 }
 
 const headCells = [
   {
-    id: 'coinName',
+    id: 'Symbol',
     numeric: true,
     disablePadding: false,
     label: 'Coin',
   },
   {
-    id: 'network',
+    id: 'networkName',
     numeric: false,
     disablePadding: true,
     label: 'Network',
@@ -41,13 +41,13 @@ const headCells = [
     label: 'Tx Id',
   },
   {
-    id: 'amount',
+    id: 'requestedAmount',
     numeric: true,
     disablePadding: false,
     label: 'Amount',
   },
   {
-    id: 'address',
+    id: 'withdraw_wallet',
     numeric: true,
     disablePadding: false,
     label: 'Wallet Address',
@@ -101,10 +101,12 @@ const WithdrawTableList = (props) => {
    }
    setCoinList(coins)
    for (const withdraw of withdrawList) {
-     alluser.push(createData(withdraw.coinName, withdraw.network, withdraw.createdAt, withdraw.tx_hash, withdraw.amount, withdraw.address, withdraw.successful));
+     alluser.push(createData(withdraw.Symbol, withdraw.networkName, withdraw.createdAt, withdraw.tx_hash, withdraw.requestedAmount, withdraw.withdraw_wallet, withdraw.successful));
    }
    setList(alluser);
   },[tokenList,withdrawList])
+
+
   useEffect(() => {
     createWithdrawTable()
   }, [createWithdrawTable])

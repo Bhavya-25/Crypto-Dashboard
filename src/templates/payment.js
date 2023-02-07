@@ -13,7 +13,7 @@ const dispatch = useDispatch();
   useEffect(() => {
     let session = sessionStorage.getItem('token')
     if (session === null) {
-      navigate('/*') 
+      navigate('/') 
     }
     const getPaymentList = async () => {
     await dispatch(paymentListRequest());

@@ -15,7 +15,7 @@ const Order = () => {
   useEffect(() => {
     let session = sessionStorage.getItem('token')
     if (session === null) {
-      navigate('/*') 
+      navigate('/') 
     }
     const getOrderList = async () => {
      await dispatch(orderListRequest());

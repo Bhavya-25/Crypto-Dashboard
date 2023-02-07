@@ -15,7 +15,7 @@ const Dashboard = () => {
     useEffect(()=>{
       let session = sessionStorage.getItem('token')
       if (session === null) {
-        navigate('/*')
+        navigate('/')
       }
         const getTokenList=async()=>{
              await dispatch(marketCoinListRequest());

@@ -17,7 +17,7 @@ const PaymentAdd = () => {
   useEffect(() => {
     let session = sessionStorage.getItem('token')
     if (session === null) {
-      navigate('/*')
+      navigate('/')
     }
   }, [navigate])
   return (

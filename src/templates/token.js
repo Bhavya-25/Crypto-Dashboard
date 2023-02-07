@@ -16,7 +16,7 @@ const Token = () => {
   useEffect(() => {
     let session = sessionStorage.getItem('token')
     if (session === null) {
-      navigate('/*') 
+      navigate('/') 
     }
     const getTokensList = async () => {
      await dispatch(tokensListRequest());
