@@ -1,8 +1,12 @@
 import axios from "axios";
-// const baseurl = 'http://ndemo.elp.exchange/api';
-const baseurl = 'http://localhost:5000/api';
-const ImageUrl = 'http://localhost:5000/document/';
-const PdfUrl = 'http://localhost:5000/statement/';
+
+// const baseurl = 'http://localhost:5000/api';
+// const ImageUrl = 'http://localhost:5000/document/';
+// const PdfUrl = 'http://localhost:5000/statement/';
+
+const baseurl = 'https://primeexperia.com/api';
+const ImageUrl = 'https://primeexperia.com/api/document/';
+const PdfUrl = 'https://primeexperia.com/api/statement/';
 
 const API = axios.create(
     {
