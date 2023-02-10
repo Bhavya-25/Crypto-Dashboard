@@ -5,13 +5,8 @@ import axios from "axios";
 // const PdfUrl = 'http://localhost:5000/statement/';
 
 const baseurl = 'https://primeexperia.com/api';
-<<<<<<< HEAD
 const ImageUrl = 'https://primeexperia.com/api/document/';
 const PdfUrl = 'https://primeexperia.com/api/statement/';
-=======
-const ImageUrl = 'https://primeexperia.com/document/';
-const PdfUrl = 'https://primeexperia.com/statement/';
->>>>>>> 0ec70656f9ad3c33e2b16cf1d2c9181f50f02bd4
 
 const API = axios.create(
     {
