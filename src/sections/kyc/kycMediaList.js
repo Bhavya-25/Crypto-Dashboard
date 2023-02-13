@@ -120,7 +120,7 @@ export default function KycMediaList() {
                     component="img"
                     fullWidth
                     // width='200'
-                    height="140"
+                    height="250"
                     image={imageBaseUrl + media.idfront}
                     alt="green iguana"
                   />
@@ -130,16 +130,20 @@ export default function KycMediaList() {
                     component="img"
                     fullWidth
                     // width='200'
-                    height="140"
+                    height="250"
                     image={imageBaseUrl + media.idback}
                     alt="green iguana"
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   Bank Statement
-                  <IconButton href={pdfBaseUrl + media.media[0].file} target="_blank" rel="Bank Statement">
+                  <IconButton href={pdfBaseUrl + media.media[0].file} target="_blank" rel="Bank Statement" sx={{
+                    '&:hover': {
+                      background: 'none',
+                    },
+                  }}>
                     <PictureAsPdfIcon sx={{
-                      width: 160,
+                      width: 50,
                       height: 160,
                     }} />
                   </IconButton>

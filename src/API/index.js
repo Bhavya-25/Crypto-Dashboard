@@ -4,9 +4,15 @@ const baseurl = 'http://localhost:5000/api';
 const ImageUrl = 'http://localhost:5000/document/';
 const PdfUrl = 'http://localhost:5000/statement/';
 
+<<<<<<< HEAD
 // const baseurl = 'https://primeexperia.com/api';
 // const ImageUrl = 'https://primeexperia.com/api/document/';
 // const PdfUrl = 'https://primeexperia.com/api/statement/';
+=======
+const baseurl = 'https://primeexperia.com/api';
+const ImageUrl = 'https://primeexperia.com/api/document/';
+const PdfUrl = 'https://primeexperia.com/api/statement/';
+>>>>>>> a2c4164148514c451b42d2eb8b438f1943e6893f
 
 const API = axios.create(
     {

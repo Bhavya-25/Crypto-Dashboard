@@ -21,7 +21,7 @@ export default function Routing() {
   
   return (
       <Routes>
-        <Route exact path="/" element={ session === null ?<Login /> : <Navigate to="/" />}/>
+        <Route exact path="/" element={ session === null ?<Login /> : <Navigate to="/dashboard" />}/>
         <Route exact path="/dashboard" element={ <Dashboard/> }/>
         <Route exact path="/user" element={ <Users /> }></Route>
         <Route exact path="/kyc" element={ <Kyc /> }></Route>

@@ -321,8 +321,8 @@ export default function MiniDrawer({ pageContent }) {
           </IconButton>
 
         </DrawerHeader>
-        <List sx={{ padding: "35px 0" }}>
-          <MainListItems />
+        <List sx={{ padding: "35px 0" }} >
+          <MainListItems location={location.pathname} />
         </List>
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, padding: '121px 24px 120px' }}>
