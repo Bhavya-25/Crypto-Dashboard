@@ -4,6 +4,7 @@ import worldMap from "@highcharts/map-collection/custom/world.geo.json";
 import HighchartsReact from "highcharts-react-official";
 
 const MapChart = () => {
+  
 
   const [options] = useState({
     chart: {

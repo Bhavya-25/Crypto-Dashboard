@@ -1,6 +1,7 @@
 import React, { useEffect,useState } from "react";
 import { useDispatch } from "react-redux";
 import { userListRequest } from "../Actions/userActions";
+import { apiBaseUrl } from "../API";
 
 import {
   Box, Stack, Typography, Card, CardContent, Slider, Grid, Divider,
@@ -22,19 +23,7 @@ const Users = () => {
   const dispatch = useDispatch();
 
   const [alertOpen, setAlertOpen] = useState(false);
-  useEffect(() => {
-    getUserList();
-  },[]);
-
-  const getUserList = async () => {
-    let response = await dispatch(userListRequest());
-    if(response.status === 404){
-      console.log(response);
-      setAlertOpen(true);
-    }
-  }
-
-  let doughnutProp = {
+  const [doughnutProp, setDoughnutProp] = useState({
     chart: {
       type: 'variablepie',
 
@@ -69,7 +58,7 @@ const Users = () => {
       minPointSize: 1,
       innerSize: '60%',
       zMin: 0,
-      name: 'countries',
+      name: 'state',
       data: [{
         name: 'Spain',
         y: 10,
@@ -96,6 +85,74 @@ const Users = () => {
         z: 30
       }]
     }]
+  })
+
+  useEffect(() => {
+    getUserList();
+    getUsersRevenue()
+  },[]);
+
+  const getUserList = async () => {
+    let response = await dispatch(userListRequest());
+    if(response.status === 404){
+      console.log(response);
+      setAlertOpen(true);
+    }
+  }
+
+  const getUsersRevenue=async()=>{
+    await fetch(apiBaseUrl +'/transfer/revenueuser').then(response => response.json())
+        .then(data => {
+          let recordSeries = [];
+          for (const item of data.data) {
+            let e = { name: item._id.region, y: item.count, z : 30 }
+            recordSeries.push(e);
+          }
+          let doughnutChart = {
+            chart: {
+              type: 'variablepie',
+        
+            },
+            title: {
+              text: 'Vistor Distribution'
+            },
+            legend: {
+              align: "top",
+              verticalAlign: "right",
+              layout: "vertical",
+              x: 5,
+              y: 100,
+              itemMarginTop: 5,
+              itemMarginBottom: 5,
+              itemStyle: {
+                font: "14px Trebuchet MS, Verdana, sans-serif",
+                color: "#333333"
+              }
+            },
+            plotOptions: {
+              series: {
+                stacking: "normal",
+                dataLabels: {
+                  enabled: false
+                },
+                showInLegend: true,
+                size: 185
+              }
+            },
+            series: [{
+              minPointSize: 1,
+              innerSize: '60%',
+              zMin: 0,
+              name: 'state',
+              data: recordSeries
+            }]
+          }
+
+          setDoughnutProp(doughnutChart);
+        })
+        .catch(error => {
+          console.log(error);
+        });
   }
 
   const sessionExpire=()=>{
